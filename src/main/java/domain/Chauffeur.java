@@ -3,6 +3,7 @@ package domain;
 public class Chauffeur {
     private String name;
     private double amountOfKm;
+    private Car car;
 
     private double totalAmountOfKm;
     private double totalAmountMoneySpend;
@@ -54,6 +55,14 @@ public class Chauffeur {
 
     public void setTotalAmountMoneySpend(double totalAmountMoneySpend) {
         this.totalAmountMoneySpend = totalAmountMoneySpend;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public String getChauffeurData() {
