@@ -24,18 +24,21 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            String msg = update.getMessage().getText();
+            String message = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
 
-            msg = msg.toLowerCase();
-            sendTextMessage(chatId, msg + " test");
+            message = message.toLowerCase();
+
+
+            
+            sendTextMessage(chatId, message);
 
         } catch (TelegramApiException e) {
             LOG.error(e.getMessage(), e);
         }
     }
 
-    private void sendTextMessage(String chatId, String message) throws TelegramApiException {
+    public void sendTextMessage(String chatId, String message) throws TelegramApiException {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(message);
         sendMessage.setChatId(chatId);
