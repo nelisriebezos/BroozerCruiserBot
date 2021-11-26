@@ -1,6 +1,5 @@
-import domain.Car;
-import domain.Chauffeur;
-import domain.TankSession;
+package com.nelisriebezos.broozercruiserbot;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -9,9 +8,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class BroozerCruiserBot extends TelegramLongPollingBot {
@@ -55,8 +51,6 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
     public void startBot() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(this);
-
-        BotFunctions.setDummyData();
 
         LOG.info("Bot started");
     }

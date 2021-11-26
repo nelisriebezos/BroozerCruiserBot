@@ -1,3 +1,5 @@
+package com.nelisriebezos.broozercruiserbot;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -10,7 +12,7 @@ public class Safe {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(secretsFile, Secrets.class);
         } catch (Exception e) {
-            throw new RuntimeException("Secrets file " + sfile + " not found");
+            throw new RuntimeException("com.nelisriebezos.broozercruiserbot.Secrets file " + sfile + " not found");
         }
     }
 }

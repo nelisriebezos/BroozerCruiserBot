@@ -1,4 +1,4 @@
-package domain;
+package com.nelisriebezos.broozercruiserbot.domain;
 
 public class Car {
     private int mileage;

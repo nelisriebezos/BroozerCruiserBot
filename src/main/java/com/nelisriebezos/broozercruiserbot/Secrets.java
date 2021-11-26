@@ -1,3 +1,5 @@
+package com.nelisriebezos.broozercruiserbot;
+
 public class Secrets {
         private String TelegramBotToken;
 

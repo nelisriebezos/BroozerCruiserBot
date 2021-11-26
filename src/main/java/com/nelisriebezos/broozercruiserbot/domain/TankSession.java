@@ -1,4 +1,4 @@
-package domain;
+package com.nelisriebezos.broozercruiserbot.domain;
 
 public class TankSession {
     private long id;

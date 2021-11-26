@@ -1,6 +1,7 @@
-import domain.Car;
-import domain.Chauffeur;
-import domain.TankSession;
+package com.nelisriebezos.broozercruiserbot;
+
+import com.nelisriebezos.broozercruiserbot.domain.Car;
+import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,29 +10,6 @@ import java.util.List;
 
 public final class BotFunctions{
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
-
-    static List<Chauffeur> chauffeurList = new ArrayList<>();
-
-    public static void setDummyData() {
-        Chauffeur niels = new Chauffeur("niels");
-        Chauffeur bruus = new Chauffeur("bruus");
-        Chauffeur britte = new Chauffeur("britte");
-        Chauffeur floriaan = new Chauffeur("floriaan");
-        TankSession tankSession = new TankSession();
-        Car car = new Car();
-
-        tankSession.setId(1);
-        car.setTankSession(tankSession);
-
-        chauffeurList.add(niels);
-        chauffeurList.add(britte);
-        chauffeurList.add(bruus);
-        chauffeurList.add(floriaan);
-    }
-
-    public static List<Chauffeur> getChauffeurList() {
-        return chauffeurList;
-    }
 
 
     //input: personen en kmstand
@@ -54,7 +32,7 @@ public final class BotFunctions{
 
         //haal iedereen op uit database en zet in lijst:
 
-//        List<Chauffeur> chauffeurList = new ArrayList<>();
+        List<Chauffeur> chauffeurList = new ArrayList<>();
 
         List<String> priceList = new ArrayList<>();
 
