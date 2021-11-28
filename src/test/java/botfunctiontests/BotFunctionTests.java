@@ -96,15 +96,13 @@ public class BotFunctionTests {
             chauffeurList.add(floriaan);
             car.setMileage(0);
             BotFunctions.addKmPerPerson(chauffeurList, 50);
-            assertEquals(BotFunctions.calculateCosts(chauffeurList, 80).toString(), "[niels: 20.0, piep: 20.0, bruus: 20.0, floriaan: 20.0]");
+            assertEquals(BotFunctions.calculateCosts(80).toString(), "[niels: 20.0, piep: 20.0, bruus: 20.0, floriaan: 20.0]");
         }
 
     @Test
     public void calculateCostNegativeAmount() {
         NegativeNumberException thrown = Assertions.assertThrows(NegativeNumberException.class, () -> {
-            List<Chauffeur> chauffeurList = new ArrayList<>();
-            chauffeurList.add(niels);
-            BotFunctions.calculateCosts(chauffeurList, -1);
+            BotFunctions.calculateCosts(-1);
         });
         assertEquals(-1 + ", must be positive", thrown.getMessage());
     }

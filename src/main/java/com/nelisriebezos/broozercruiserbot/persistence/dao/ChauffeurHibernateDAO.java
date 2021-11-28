@@ -1,11 +1,14 @@
 package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
+import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
 import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class ChauffeurHibernateDAO implements ChauffeurDAO{
     private final Session session;
@@ -74,5 +77,15 @@ public class ChauffeurHibernateDAO implements ChauffeurDAO{
         Chauffeur chauffeur = session.load(Chauffeur.class, id);
         session.getTransaction().commit();
         return chauffeur;
+    }
+
+    @Override
+    public List<Chauffeur> findAll() {
+        session.beginTransaction();
+        List chauffeurs = this.session.createQuery(
+          "select c from Chauffeur c").getResultList();
+        session.getTransaction().commit();
+        if (chauffeurs.size() == 0) throw new NoChauffeurException(chauffeurs + " is empty");
+        return chauffeurs;
     }
 }

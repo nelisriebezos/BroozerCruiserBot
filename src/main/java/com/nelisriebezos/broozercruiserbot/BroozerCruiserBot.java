@@ -1,5 +1,8 @@
 package com.nelisriebezos.broozercruiserbot;
 
+import com.nelisriebezos.broozercruiserbot.persistence.dao.CarHibernateDAO;
+import com.nelisriebezos.broozercruiserbot.persistence.dao.ChauffeurHibernateDAO;
+import com.nelisriebezos.broozercruiserbot.persistence.dao.TankSessionHibernateDAO;
 import org.checkerframework.checker.units.qual.C;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -17,6 +20,9 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class BroozerCruiserBot extends TelegramLongPollingBot {
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
+    private static CarHibernateDAO carHibernateDAO;
+    private static ChauffeurHibernateDAO chauffeurHibernateDAO;
+    private static TankSessionHibernateDAO tankSessionHibernateDAO;
 
     @Override
     public String getBotUsername() {
@@ -64,8 +70,30 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         return sessionFactory.getCurrentSession();
     }
 
+    public static void createHibernateDAOs() {
+        carHibernateDAO = new CarHibernateDAO(createSession());
+        chauffeurHibernateDAO = new ChauffeurHibernateDAO(createSession());
+        tankSessionHibernateDAO = new TankSessionHibernateDAO(createSession());
+
+    }
+
+    public static CarHibernateDAO getCarHibernateDAO() {
+        return carHibernateDAO;
+    }
+
+    public static ChauffeurHibernateDAO getChauffeurHibernateDAO() {
+        return chauffeurHibernateDAO;
+    }
+
+    public static TankSessionHibernateDAO getTankSessionHibernateDAO() {
+        return tankSessionHibernateDAO;
+    }
+
+    
+
     public static void main(String[] args) throws Exception {
         BroozerCruiserBot bot = new BroozerCruiserBot();
         bot.startBot();
+        createHibernateDAOs();
     }
 }
