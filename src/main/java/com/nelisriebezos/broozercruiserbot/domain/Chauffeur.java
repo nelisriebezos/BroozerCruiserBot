@@ -87,7 +87,13 @@ public class Chauffeur {
 
     @Override
     public String toString() {
-        return name + "\n" +
-                "amountOfKm: " + amountOfKm;
+        return "Chauffeur{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", amountOfKm=" + amountOfKm +
+                ", car=" + car.getId() +
+                ", totalAmountOfKm=" + totalAmountOfKm +
+                ", totalAmountMoneySpend=" + totalAmountMoneySpend +
+                '}';
     }
 }

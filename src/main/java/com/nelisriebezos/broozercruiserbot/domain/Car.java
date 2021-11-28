@@ -51,4 +51,13 @@ public class Car {
     public int caluclateAmountOfKm(int mileage) {
         return mileage - this.mileage;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", mileage=" + mileage +
+                ", tankSession=" + tankSession.getId() +
+                '}';
+    }
 }

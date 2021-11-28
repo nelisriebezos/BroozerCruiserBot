@@ -94,4 +94,3 @@ nb-configuration.xml
 secrets/*
 hibernate.cfg.xml
 src/main/resources/databaseconnection.properties.properties
-src/main/.DS_Store

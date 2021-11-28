@@ -42,7 +42,9 @@ public class TankSession {
 
     @Override
     public String toString() {
-        return "Tank: " + id + "\n" +
-                "amountOfKm: " + amountOfKm;
+        return "TankSession{" +
+                "id=" + id +
+                ", amountOfKm=" + amountOfKm +
+                '}';
     }
 }

@@ -17,7 +17,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class BroozerCruiserBot extends TelegramLongPollingBot {
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
-//    private static final SessionFactory factory;
 
     @Override
     public String getBotUsername() {
