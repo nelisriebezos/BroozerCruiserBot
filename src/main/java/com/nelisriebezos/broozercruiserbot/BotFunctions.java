@@ -11,12 +11,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class BotFunctions{
+public class BotFunctions{
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
 
-
-    //input: personen en kmstand
-    //output: opgetelde gereden km en opgetelde kmstand
     public static void addKmPerPerson(List<Chauffeur> chauffeurList, int mileage) {
         if (mileage < 0) throw new NegativeNumberException(mileage + ", must be positive");
         if (chauffeurList.size() < 1) throw new NoChauffeurException("ChauffeurList is empty");
@@ -26,12 +23,17 @@ public final class BotFunctions{
 
         double amountPerPerson = (double) car.caluclateAmountOfKm(mileage) / chauffeurList.size();
 
-        for (Chauffeur chauffeur : chauffeurList) {
-            chauffeur.addAmountOfKm(amountPerPerson);
-            LOG.info(chauffeur.getName() + ", " + amountPerPerson + " km added");
-        }
+        for (Chauffeur chauffeur : chauffeurList) chauffeur.addAmountOfKm(amountPerPerson);
+
         car.addSessionKmAmount(mileage);
         car.setMileage(mileage);
+        if (BroozerCruiserBot.getCarHibernateDAO().update(car))
+            LOG.info("Car " +car.getId() + ", mileage updated");;
+
+        for (Chauffeur chauffeur : chauffeurList) {
+            if (BroozerCruiserBot.getChauffeurHibernateDAO().update(chauffeur))
+                LOG.info(chauffeur.getName() + ", " + amountPerPerson + " km added");;
+        }
     }
 
 
@@ -44,7 +46,8 @@ public final class BotFunctions{
         for (Chauffeur chauffeur : chauffeurList) {
             double moneyOwed = totalCost * (chauffeur.getAmountOfKm() / chauffeur.getCar().getSessionKmAmount());
             chauffeur.addTotalAMountMoneySpend(moneyOwed);
-            LOG.info(chauffeur.getName() + ", " + moneyOwed + " added to total amount spend");
+            if (BroozerCruiserBot.getChauffeurHibernateDAO().update(chauffeur))
+                LOG.info(chauffeur.getName() + ", " + moneyOwed + " added to total amount spend");
             priceList.add(chauffeur.getName() + ": " + moneyOwed);
         }
         return priceList;

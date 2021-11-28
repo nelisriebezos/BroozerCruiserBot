@@ -89,8 +89,6 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         return tankSessionHibernateDAO;
     }
 
-    
-
     public static void main(String[] args) throws Exception {
         BroozerCruiserBot bot = new BroozerCruiserBot();
         bot.startBot();
