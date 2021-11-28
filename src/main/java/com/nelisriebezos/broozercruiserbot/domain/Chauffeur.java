@@ -1,16 +1,30 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "chauffeur")
 public class Chauffeur {
+    @Id
+    @Column(name = "chauffeur_id", nullable = false)
+    private Long id;
     private String name;
     private double amountOfKm;
+    @OneToOne(mappedBy = "id")
     private Car car;
 
     private double totalAmountOfKm;
     private double totalAmountMoneySpend;
 
-    public Chauffeur(String name) {
-        this.name = name;
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Chauffeur() {}
 
     public void addAmountOfKm(double amountOfKm) {
         this.amountOfKm += amountOfKm;

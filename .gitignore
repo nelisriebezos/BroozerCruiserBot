@@ -66,7 +66,7 @@ local.properties
 ## NetBeans
 ##############################
 nbproject/private/
-build/
+#build/
 nbbuild/
 dist/
 nbdist/
@@ -92,3 +92,6 @@ nb-configuration.xml
 
 #This
 secrets/*
+hibernate.cfg.xml
+src/main/resources/databaseconnection.properties.properties
+src/main/.DS_Store

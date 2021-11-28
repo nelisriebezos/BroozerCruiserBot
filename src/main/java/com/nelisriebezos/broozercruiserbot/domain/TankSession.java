@@ -1,7 +1,16 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tanksession")
 public class TankSession {
-    private long id;
+    @Id
+    @Column(name = "tanksession_id", nullable = false)
+    private Long id;
     private int amountOfKm;
 
     public TankSession() {
@@ -15,7 +24,7 @@ public class TankSession {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
