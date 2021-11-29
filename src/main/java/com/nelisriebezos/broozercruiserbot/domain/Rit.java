@@ -11,7 +11,7 @@ public class Rit {
     @Id
     @Column(name = "id")
     private Long id;
-    @OneToMany()
+    @OneToMany
     private List<Chauffeur> chauffeurList;
     @ManyToOne
     private Car car;

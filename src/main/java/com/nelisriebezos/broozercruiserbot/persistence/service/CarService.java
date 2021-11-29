@@ -36,4 +36,6 @@ public class CarService {
         CarHibernateDAO carHibernateDAO = new CarHibernateDAO(sessionManager.createSession());
         return carHibernateDAO.findAll();
     }
+
+
 }

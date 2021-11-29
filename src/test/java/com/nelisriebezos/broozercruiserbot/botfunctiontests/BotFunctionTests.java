@@ -1,4 +1,4 @@
-//package java.botfunctiontests;
+//package com.nelisriebezos.broozercruiserbot.botfunctiontests;
 //
 //import com.nelisriebezos.broozercruiserbot.BotFunctions;
 //import com.nelisriebezos.broozercruiserbot.Exceptions.NegativeNumberException;
