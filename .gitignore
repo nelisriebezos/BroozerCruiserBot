@@ -92,5 +92,3 @@ nb-configuration.xml
 
 #This
 secrets/*
-hibernate.cfg.xml
-src/main/resources/databaseconnection.properties.properties

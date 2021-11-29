@@ -1,17 +1,20 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "car")
 public class Car {
     @Id
-    @Column(name = "car_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     private int mileage;
     @OneToOne
     @JoinColumn(name = "tanksession_id")
     private TankSession tankSession;
+    @OneToMany
+    private List<Rit> ritList;
 
     public Long getId() {
         return id;
@@ -48,7 +51,7 @@ public class Car {
         tankSession.addAmountOfKm(amountOfKm);
     }
 
-    public int caluclateAmountOfKm(int mileage) {
+    public int calculateAmountOfKm(int mileage) {
         return mileage - this.mileage;
     }
 

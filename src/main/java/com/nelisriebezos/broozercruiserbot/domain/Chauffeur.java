@@ -6,12 +6,12 @@ import javax.persistence.*;
 @Table(name = "chauffeur")
 public class Chauffeur {
     @Id
-    @Column(name = "chauffeur_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    private double amountOfKm;
-    @OneToOne(mappedBy = "id")
-    private Car car;
+
+    @ManyToOne
+    private Rit rit;
 
     private double totalAmountOfKm;
     private double totalAmountMoneySpend;
@@ -26,14 +26,10 @@ public class Chauffeur {
 
     public Chauffeur() {}
 
-    public void addAmountOfKm(double amountOfKm) {
-        this.amountOfKm += amountOfKm;
-        this.totalAmountOfKm += amountOfKm;
-    }
-
-    public void resetMileage() {
-        this.amountOfKm = 0.0;
-    }
+//    public void addAmountOfKm(double amountOfKm) {
+//        this.amountOfKm += amountOfKm;
+//        this.totalAmountOfKm += amountOfKm;
+//    }
 
     public String getName() {
         return name;
@@ -43,13 +39,13 @@ public class Chauffeur {
         this.name = name;
     }
 
-    public double getAmountOfKm() {
-        return amountOfKm;
-    }
-
-    public void setAmountOfKm(double amountOfKm) {
-        this.amountOfKm = amountOfKm;
-    }
+//    public double getAmountOfKm() {
+//        return amountOfKm;
+//    }
+//
+//    public void setAmountOfKm(double amountOfKm) {
+//        this.amountOfKm = amountOfKm;
+//    }
 
     public double getTotalAmountOfKm() {
         return totalAmountOfKm;
@@ -71,14 +67,6 @@ public class Chauffeur {
         this.totalAmountMoneySpend = totalAmountMoneySpend;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     public String getChauffeurData() {
         return name + ": \n" +
                 "Totaal km: " + totalAmountOfKm + "\n" +
@@ -90,8 +78,7 @@ public class Chauffeur {
         return "Chauffeur{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", amountOfKm=" + amountOfKm +
-                ", car=" + car.getId() +
+//                ", amountOfKm=" + amountOfKm +
                 ", totalAmountOfKm=" + totalAmountOfKm +
                 ", totalAmountMoneySpend=" + totalAmountMoneySpend +
                 '}';

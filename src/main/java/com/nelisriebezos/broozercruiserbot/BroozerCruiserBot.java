@@ -63,35 +63,9 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         LOG.info("Bot started");
     }
 
-    public static Session createSession() throws HibernateException {
-        Configuration configuration = new Configuration();
-        configuration.configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        return sessionFactory.getCurrentSession();
-    }
-
-    public static void createHibernateDAOs() {
-        carHibernateDAO = new CarHibernateDAO(createSession());
-        chauffeurHibernateDAO = new ChauffeurHibernateDAO(createSession());
-        tankSessionHibernateDAO = new TankSessionHibernateDAO(createSession());
-
-    }
-
-    public static CarHibernateDAO getCarHibernateDAO() {
-        return carHibernateDAO;
-    }
-
-    public static ChauffeurHibernateDAO getChauffeurHibernateDAO() {
-        return chauffeurHibernateDAO;
-    }
-
-    public static TankSessionHibernateDAO getTankSessionHibernateDAO() {
-        return tankSessionHibernateDAO;
-    }
 
     public static void main(String[] args) throws Exception {
         BroozerCruiserBot bot = new BroozerCruiserBot();
         bot.startBot();
-        createHibernateDAOs();
     }
 }

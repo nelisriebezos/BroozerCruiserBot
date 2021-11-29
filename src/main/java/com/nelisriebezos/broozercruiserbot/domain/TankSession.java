@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "tanksession")
 public class TankSession {
     @Id
-    @Column(name = "tanksession_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
     private int amountOfKm;
 

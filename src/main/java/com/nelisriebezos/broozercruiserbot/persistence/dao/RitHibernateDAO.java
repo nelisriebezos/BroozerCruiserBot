@@ -2,9 +2,9 @@ package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
 import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoTankSessionException;
+import com.nelisriebezos.broozercruiserbot.Exceptions.NoRitException;
 import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
-import com.nelisriebezos.broozercruiserbot.domain.TankSession;
+import com.nelisriebezos.broozercruiserbot.domain.Rit;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -12,23 +12,22 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class TankSessionHibernateDAO implements TankSessionDAO{
+public class RitHibernateDAO implements RitDAO{
     private final Session session;
     private Transaction transaction = null;
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
 
-
-    public TankSessionHibernateDAO(Session session) {
+    public RitHibernateDAO(Session session) {
         this.session = session;
     }
 
     @Override
-    public boolean save(TankSession tankSession) {
+    public boolean save(Rit rit) {
         try {
             transaction = session.beginTransaction();
-            session.save(tankSession);
+            session.save(rit);
             session.getTransaction().commit();
-            LOG.info(tankSession + " is saved");
+            LOG.info(rit + " is saved");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -40,12 +39,12 @@ public class TankSessionHibernateDAO implements TankSessionDAO{
     }
 
     @Override
-    public boolean update(TankSession tankSession) {
+    public boolean update(Rit rit) {
         try {
             transaction = session.beginTransaction();
-            session.update(tankSession);
+            session.update(rit);
             session.getTransaction().commit();
-            LOG.info(tankSession + " is updated");
+            LOG.info(rit + " is updated");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -57,12 +56,12 @@ public class TankSessionHibernateDAO implements TankSessionDAO{
     }
 
     @Override
-    public boolean delete(TankSession tankSession) {
+    public boolean delete(Rit rit) {
         try {
             transaction = session.beginTransaction();
-            session.delete(tankSession);
+            session.delete(rit);
             session.getTransaction().commit();
-            LOG.info(tankSession + " is deleted");
+            LOG.info(rit + " is deleted");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -74,20 +73,20 @@ public class TankSessionHibernateDAO implements TankSessionDAO{
     }
 
     @Override
-    public TankSession findById(int id) {
+    public Rit findById(int id) {
         session.beginTransaction();
-        TankSession tankSession = session.load(TankSession.class, id);
+        Rit rit = session.load(Rit.class, id);
         session.getTransaction().commit();
-        return tankSession;
+        return rit;
     }
 
     @Override
-    public List<TankSession> findAll() {
+    public List<Rit> findAll() {
         session.beginTransaction();
-        List tanksessions = this.session.createQuery(
-                "select t from TankSession t").getResultList();
+        List rit = this.session.createQuery(
+                "select r from Rit r").getResultList();
         session.getTransaction().commit();
-        if (tanksessions.size() == 0) throw new NoTankSessionException(tanksessions + " is empty");
-        return tanksessions;
+        if (rit.size() == 0) throw new NoRitException(rit + " is empty");
+        return rit;
     }
 }
