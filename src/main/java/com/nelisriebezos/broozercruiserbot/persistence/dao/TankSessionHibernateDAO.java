@@ -1,9 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
 import com.nelisriebezos.broozercruiserbot.Exceptions.NoTankSessionException;
-import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
 import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,7 +13,7 @@ import java.util.List;
 public class TankSessionHibernateDAO implements TankSessionDAO{
     private final Session session;
     private Transaction transaction = null;
-    private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TankSessionHibernateDAO.class);
 
 
     public TankSessionHibernateDAO(Session session) {
@@ -87,7 +85,7 @@ public class TankSessionHibernateDAO implements TankSessionDAO{
         List tanksessions = this.session.createQuery(
                 "select t from TankSession t").getResultList();
         session.getTransaction().commit();
-        if (tanksessions.size() == 0) throw new NoTankSessionException(tanksessions + " is empty");
+//        if (tanksessions.isEmpty()) throw new NoTankSessionException(tanksessions + " is empty");
         return tanksessions;
     }
 }

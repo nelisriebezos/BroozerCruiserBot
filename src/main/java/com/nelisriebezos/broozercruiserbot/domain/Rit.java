@@ -1,7 +1,5 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
-import org.checkerframework.checker.units.qual.C;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,7 +7,7 @@ import java.util.List;
 @Table(name = "rit")
 public class Rit {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
     @OneToMany
     private List<Chauffeur> chauffeurList;
@@ -23,6 +21,14 @@ public class Rit {
     }
 
     public Rit() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<Chauffeur> getChauffeurList() {

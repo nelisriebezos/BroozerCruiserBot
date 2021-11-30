@@ -2,9 +2,7 @@ package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
 import com.nelisriebezos.broozercruiserbot.Exceptions.NoCarException;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
 import com.nelisriebezos.broozercruiserbot.domain.Car;
-import org.checkerframework.checker.units.qual.C;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -15,7 +13,7 @@ import java.util.List;
 public class CarHibernateDAO implements CarDAO{
     private final Session session;
     private Transaction transaction = null;
-    private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CarHibernateDAO.class);
 
 
     public CarHibernateDAO(Session session) {
@@ -87,7 +85,7 @@ public class CarHibernateDAO implements CarDAO{
         List cars = this.session.createQuery(
                 "select c from Car c").getResultList();
         session.getTransaction().commit();
-        if (cars.size() == 0) throw new NoCarException(cars + " is empty");
+//        if (cars.isEmpty()) throw new NoCarException(cars + " is empty");
         return cars;
     }
 }

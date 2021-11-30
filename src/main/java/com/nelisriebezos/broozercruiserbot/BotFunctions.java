@@ -1,23 +1,12 @@
 package com.nelisriebezos.broozercruiserbot;
 
-import com.nelisriebezos.broozercruiserbot.Exceptions.NegativeMileageException;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NegativeNumberException;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
-import com.nelisriebezos.broozercruiserbot.domain.Car;
-import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class BotFunctions{
-    private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
-
+//    private static final Logger LOG = LoggerFactory.getLogger(BotFunctions.class);
+//
 //    public static void addKmPerPerson(List<Chauffeur> chauffeurList, int mileage, Car car) {
 //        if (mileage < 0) throw new NegativeNumberException(mileage + ", must be positive");
-//        if (chauffeurList.size() < 1) throw new NoChauffeurException("ChauffeurList is empty");
-//        if (mileage < car.getMileage()) throw new NegativeMileageException("Mileage input lower than last recorded mileage");
+//        if (chauffeurList.isEmpty()) throw new NoChauffeurException("ChauffeurList is empty");
+//        if (mileage < car.getMileage()) throw new NegativeDistanceException("Mileage input lower than last recorded mileage");
 //
 //        double amountPerPerson = (double) car.calculateAmountOfKm(mileage) / chauffeurList.size();
 //        for (Chauffeur chauffeur : chauffeurList) chauffeur.addAmountOfKm(amountPerPerson);

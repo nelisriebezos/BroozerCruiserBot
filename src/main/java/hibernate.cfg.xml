@@ -10,5 +10,6 @@
         <mapping class="com.nelisriebezos.broozercruiserbot.domain.Car"/>
         <mapping class="com.nelisriebezos.broozercruiserbot.domain.TankSession"/>
         <mapping class="com.nelisriebezos.broozercruiserbot.domain.Chauffeur"/>
+        <mapping class="com.nelisriebezos.broozercruiserbot.domain.Rit"/>
     </session-factory>
 </hibernate-configuration>

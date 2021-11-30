@@ -1,10 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence;
 
 import com.nelisriebezos.broozercruiserbot.Safe;
-import com.nelisriebezos.broozercruiserbot.Secrets;
-import com.nelisriebezos.broozercruiserbot.persistence.dao.CarHibernateDAO;
-import com.nelisriebezos.broozercruiserbot.persistence.dao.ChauffeurHibernateDAO;
-import com.nelisriebezos.broozercruiserbot.persistence.dao.TankSessionHibernateDAO;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +24,7 @@ public class SessionManager {
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.setProperty("hibernate.connection.user", "postgres");
-        configuration.setProperty("hibernate.connection.password", Safe.getDbPassword().getPassword());
+        configuration.setProperty("hibernate.connection.password", Safe.getSecrets().getDatabasePassword());
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         return sessionFactory.getCurrentSession();
     }

@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.Exceptions;
 
-public class NoTankSessionException extends RuntimeException{
+public class NoTankSessionException extends Exception{
     public NoTankSessionException(String message) {
         super(message);
     }

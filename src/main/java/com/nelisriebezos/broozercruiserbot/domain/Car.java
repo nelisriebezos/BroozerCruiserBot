@@ -9,11 +9,11 @@ public class Car {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    private int mileage;
+    private int distance;
     @OneToOne
     @JoinColumn(name = "tanksession_id")
     private TankSession tankSession;
-    @OneToMany
+    @OneToMany(mappedBy = "car")
     private List<Rit> ritList;
 
     public Long getId() {
@@ -27,12 +27,12 @@ public class Car {
     public Car() {
     }
 
-    public int getMileage() {
-        return mileage;
+    public int getDistance() {
+        return distance;
     }
 
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
+    public void setDistance(int mileage) {
+        this.distance = mileage;
     }
 
     public TankSession getTankSession() {
@@ -52,14 +52,14 @@ public class Car {
     }
 
     public int calculateAmountOfKm(int mileage) {
-        return mileage - this.mileage;
+        return mileage - this.distance;
     }
 
     @Override
     public String toString() {
         return "Car{" +
                 "id=" + id +
-                ", mileage=" + mileage +
+                ", mileage=" + distance +
                 ", tankSession=" + tankSession.getId() +
                 '}';
     }

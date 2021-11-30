@@ -13,7 +13,7 @@ import java.util.List;
 public class ChauffeurHibernateDAO implements ChauffeurDAO{
     private final Session session;
     private Transaction transaction = null;
-    private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ChauffeurHibernateDAO.class);
 
 
     public ChauffeurHibernateDAO(Session session) {
@@ -85,7 +85,7 @@ public class ChauffeurHibernateDAO implements ChauffeurDAO{
         List chauffeurs = this.session.createQuery(
           "select c from Chauffeur c").getResultList();
         session.getTransaction().commit();
-        if (chauffeurs.size() == 0) throw new NoChauffeurException(chauffeurs + " is empty");
+//        if (chauffeurs.isEmpty()) throw new NoChauffeurException(chauffeurs + " is empty");
         return chauffeurs;
     }
 }

@@ -1,9 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
 import com.nelisriebezos.broozercruiserbot.Exceptions.NoRitException;
-import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
 import com.nelisriebezos.broozercruiserbot.domain.Rit;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,7 +13,7 @@ import java.util.List;
 public class RitHibernateDAO implements RitDAO{
     private final Session session;
     private Transaction transaction = null;
-    private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RitHibernateDAO.class);
 
     public RitHibernateDAO(Session session) {
         this.session = session;
@@ -86,7 +84,7 @@ public class RitHibernateDAO implements RitDAO{
         List rit = this.session.createQuery(
                 "select r from Rit r").getResultList();
         session.getTransaction().commit();
-        if (rit.size() == 0) throw new NoRitException(rit + " is empty");
+//        if (rit.isEmpty()) throw new NoRitException(rit + " is empty");
         return rit;
     }
 }

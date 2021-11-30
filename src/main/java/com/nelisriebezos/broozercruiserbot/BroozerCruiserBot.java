@@ -3,11 +3,6 @@ package com.nelisriebezos.broozercruiserbot;
 import com.nelisriebezos.broozercruiserbot.persistence.dao.CarHibernateDAO;
 import com.nelisriebezos.broozercruiserbot.persistence.dao.ChauffeurHibernateDAO;
 import com.nelisriebezos.broozercruiserbot.persistence.dao.TankSessionHibernateDAO;
-import org.checkerframework.checker.units.qual.C;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -31,7 +26,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return Safe.getApiKeys().getTelegramBotToken();
+        return Safe.getSecrets().getTelegramBotToken();
     }
 
     @Override

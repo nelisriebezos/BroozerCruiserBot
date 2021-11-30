@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.Exceptions;
 
-public class NoCarException extends RuntimeException{
+public class NoCarException extends Exception{
     public NoCarException(String message) {
         super(message);
     }
