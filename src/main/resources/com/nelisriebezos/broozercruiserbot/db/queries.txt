@@ -6,3 +6,16 @@ get_schema_version =
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+all_cars =
+    select id, kmcounter
+    from car
+;
+
+find_car =
+    select id, kmcounter
+    from car
+;
+
+create_car =
+    insert into car(id, kmcounter) values (:id, :kmcounter)
+;

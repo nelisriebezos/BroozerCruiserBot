@@ -26,7 +26,7 @@ import java.sql.SQLException;
 
 public class CruiserEnvironment {
   private static final Logger LOG = LoggerFactory.getLogger(CruiserEnvironment.class);
-  public static final String CONFIGKEY = "trader_configuration";
+  public static final String CONFIGKEY = "cruiser_configuration";
 
   private static FinalWrapper<CruiserEnvironment> environmentWrapper = null;
   private FinalWrapper<CruiserDB> cruiserDBWrapper = null;
@@ -84,10 +84,10 @@ public class CruiserEnvironment {
           throw new IllegalArgumentException(msg);
         } else {
           LOG.info("Using " + propertyPath + " for configuration");
-          Configuration propertyBasedConfiguration = new Configuration();
-          propertyBasedConfiguration.setPropertyFileName(propertyPath);
-          propertyBasedConfiguration.reload();
-          setConfiguration(propertyBasedConfiguration);
+          Configuration config = new Configuration();
+          config.setPropertyFileName(propertyPath);
+          config.reload();
+          setConfiguration(config);
         }
       }
       return configuration;
