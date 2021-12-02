@@ -11,6 +11,10 @@ public class Person {
     public Person() {
     }
 
+    public Person(Long id) {
+        this.id = id;
+    }
+
     public Person(String name) {
         this.name = name;
     }
@@ -45,5 +49,9 @@ public class Person {
             return true;
         }
         return false;
+    }
+
+    public void removeTrip(Trip trip) {
+        tripList.remove(trip);
     }
 }

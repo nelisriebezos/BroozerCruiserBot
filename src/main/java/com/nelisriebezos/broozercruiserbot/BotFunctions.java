@@ -1,8 +1,11 @@
 package com.nelisriebezos.broozercruiserbot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BotFunctions{
-//    private static final Logger LOG = LoggerFactory.getLogger(BotFunctions.class);
-//
+    private static final Logger LOG = LoggerFactory.getLogger(BotFunctions.class);
+
 //    public static void addKmPerPerson(List<Chauffeur> chauffeurList, int mileage, Car car) {
 //        if (mileage < 0) throw new NegativeNumberException(mileage + ", must be positive");
 //        if (chauffeurList.isEmpty()) throw new NoChauffeurException("ChauffeurList is empty");

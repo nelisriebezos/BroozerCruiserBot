@@ -12,6 +12,10 @@ public class Car {
     public Car() {
     }
 
+    public Car(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
@@ -28,19 +32,23 @@ public class Car {
         this.kmCounter = kmCounter;
     }
 
-    public List<TankSession> getTankSessionList() {
+    public List<TankSession> getTanksessionList() {
         return tankSessionList;
     }
 
-    public void setTankSessionList(List<TankSession> tankSessionList) {
+    public void setTanksessionList(List<TankSession> tankSessionList) {
         this.tankSessionList = tankSessionList;
     }
 
-    public boolean addTankSession(TankSession tankSession) {
+    public boolean addTanksession(TankSession tankSession) {
         if (!tankSessionList.contains(tankSession)) {
             tankSessionList.add(tankSession);
             return true;
         }
         return false;
+    }
+
+    public void removeTanksession(TankSession tankSession) {
+        tankSessionList.remove(tankSession);
     }
 }

@@ -15,6 +15,10 @@ public class Trip {
     public Trip() {
     }
 
+    public Trip(Long id) {
+        this.id = id;
+    }
+
     public Trip(int distance, Timestamp timestamp, TankSession tankSession, List<Person> personList) {
         this.distance = distance;
         this.timestamp = timestamp;
@@ -68,5 +72,9 @@ public class Trip {
             return true;
         }
         return false;
+    }
+
+    public void removePerson(Person person) {
+        personList.remove(person);
     }
 }

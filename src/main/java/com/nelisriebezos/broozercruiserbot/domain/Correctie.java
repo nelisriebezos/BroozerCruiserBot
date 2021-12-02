@@ -12,6 +12,10 @@ public class Correctie {
     public Correctie() {
     }
 
+    public Correctie(Long id) {
+        this.id = id;
+    }
+
     public Correctie(Timestamp timestamp, int distance, TankSession tankSession, Person person) {
         this.timestamp = timestamp;
         this.distance = distance;

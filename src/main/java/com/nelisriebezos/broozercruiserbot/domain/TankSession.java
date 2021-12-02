@@ -14,6 +14,10 @@ public class TankSession {
     public TankSession() {
     }
 
+    public TankSession(Long id) {
+        this.id = id;
+    }
+
     public TankSession(Timestamp timestamp, Car car) {
         this.timestamp = timestamp;
         this.car = car;
@@ -59,6 +63,10 @@ public class TankSession {
         return false;
     }
 
+    public void removeCorrectie(Correctie correctie) {
+        correctieList.remove(correctie);
+    }
+
     public List<Trip> getTripList() {
         return tripList;
     }
@@ -73,5 +81,9 @@ public class TankSession {
             return true;
         }
         return false;
+    }
+
+    public void removeTrip(Trip trip) {
+        tripList.remove(trip);
     }
 }
