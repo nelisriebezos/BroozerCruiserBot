@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence.service;
 
-import com.nelisriebezos.broozercruiserbot.domain.Rit;
+import com.nelisriebezos.broozercruiserbot.domain.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.SessionManager;
 import com.nelisriebezos.broozercruiserbot.persistence.dao.RitHibernateDAO;
 
@@ -12,27 +12,27 @@ public class RitService {
     public RitService() {
     }
 
-    public boolean save(Rit rit) {
+    public boolean save(Trip trip) {
         RitHibernateDAO ritHibernateDAO = new RitHibernateDAO(sessionManager.createSession());
-        return ritHibernateDAO.save(rit);
+        return ritHibernateDAO.save(trip);
     }
 
-    public boolean update(Rit rit) {
+    public boolean update(Trip trip) {
         RitHibernateDAO ritHibernateDAO = new RitHibernateDAO(sessionManager.createSession());
-        return ritHibernateDAO.update(rit);
+        return ritHibernateDAO.update(trip);
     }
 
-    public boolean delete(Rit rit) {
+    public boolean delete(Trip trip) {
         RitHibernateDAO ritHibernateDAO = new RitHibernateDAO(sessionManager.createSession());
-        return ritHibernateDAO.delete(rit);
+        return ritHibernateDAO.delete(trip);
     }
 
-    public Rit findById(int id) {
+    public Trip findById(int id) {
         RitHibernateDAO ritHibernateDAO = new RitHibernateDAO(sessionManager.createSession());
         return ritHibernateDAO.findById(id);
     }
 
-    public List<Rit> findAll() {
+    public List<Trip> findAll() {
         RitHibernateDAO ritHibernateDAO = new RitHibernateDAO(sessionManager.createSession());
         return ritHibernateDAO.findAll();
     }

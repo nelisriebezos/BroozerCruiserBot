@@ -19,12 +19,12 @@ public class SessionManager {
 //        cfg.getProperties().setProperty("hibernate.connection.username",newUserName);
 //        sessionFactory = cfg.buildSessionFactory();
 
-//        potentieel .configre verplaatsen
+//        potentieel .configure verplaatsen
 
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.setProperty("hibernate.connection.user", "postgres");
-        configuration.setProperty("hibernate.connection.password", Safe.getSecrets().getDatabasePassword());
+        configuration.setProperty("hibernate.connection.password", Safe.getSecrets().getPassword());
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         return sessionFactory.getCurrentSession();
     }

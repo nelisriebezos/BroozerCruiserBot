@@ -9,7 +9,8 @@
 
         <mapping class="com.nelisriebezos.broozercruiserbot.domain.Car"/>
         <mapping class="com.nelisriebezos.broozercruiserbot.domain.TankSession"/>
-        <mapping class="com.nelisriebezos.broozercruiserbot.domain.Chauffeur"/>
-        <mapping class="com.nelisriebezos.broozercruiserbot.domain.Rit"/>
+        <mapping class="com.nelisriebezos.broozercruiserbot.domain.Person"/>
+        <mapping class="com.nelisriebezos.broozercruiserbot.domain.Trip"/>
+        <mapping class="com.nelisriebezos.broozercruiserbot.domain.Correctie"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,26 +1,25 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "tanksession")
 public class TankSession {
-    @Id
-    @Column(name = "id", nullable = false)
     private Long id;
-    private int amountOfKm;
+    private Timestamp timestamp;
+    private Car car;
+    List<Correctie> correctieList = new ArrayList<>();
+    List<Trip> tripList = new ArrayList<>();
 
     public TankSession() {
     }
 
-    public void addAmountOfKm(double amountOfKm) {
-        this.amountOfKm += amountOfKm;
+    public TankSession(Timestamp timestamp, Car car) {
+        this.timestamp = timestamp;
+        this.car = car;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -28,23 +27,51 @@ public class TankSession {
         this.id = id;
     }
 
-    public int getAmountOfKm() {
-        return amountOfKm;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setAmountOfKm(int amountOfKm) {
-        this.amountOfKm = amountOfKm;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public void addAmountOfKm(int amountOfKm) {
-        this.amountOfKm += amountOfKm;
+    public Car getCar() {
+        return car;
     }
 
-    @Override
-    public String toString() {
-        return "TankSession{" +
-                "id=" + id +
-                ", amountOfKm=" + amountOfKm +
-                '}';
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public List<Correctie> getCorrectieList() {
+        return correctieList;
+    }
+
+    public void setCorrectieList(List<Correctie> correctieList) {
+        this.correctieList = correctieList;
+    }
+
+    public boolean addCorrectie(Correctie correctie) {
+        if (!correctieList.contains(correctie)) {
+            correctieList.add(correctie);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Trip> getTripList() {
+        return tripList;
+    }
+
+    public void setTripList(List<Trip> tripList) {
+        this.tripList = tripList;
+    }
+
+    public boolean addTrip(Trip trip) {
+        if (!tripList.contains(trip)) {
+            tripList.add(trip);
+            return true;
+        }
+        return false;
     }
 }

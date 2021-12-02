@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence.service;
 
-import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
+import com.nelisriebezos.broozercruiserbot.domain.Person;
 import com.nelisriebezos.broozercruiserbot.persistence.SessionManager;
 import com.nelisriebezos.broozercruiserbot.persistence.dao.ChauffeurHibernateDAO;
 
@@ -12,27 +12,27 @@ public class ChauffeurService {
     public ChauffeurService() {
     }
 
-    public boolean save(Chauffeur chauffeur) {
+    public boolean save(Person person) {
         ChauffeurHibernateDAO chauffeurHibernateDAO = new ChauffeurHibernateDAO(sessionManager.createSession());
-        return chauffeurHibernateDAO.save(chauffeur);
+        return chauffeurHibernateDAO.save(person);
     }
 
-    public boolean update(Chauffeur chauffeur) {
+    public boolean update(Person person) {
         ChauffeurHibernateDAO chauffeurHibernateDAO = new ChauffeurHibernateDAO(sessionManager.createSession());
-        return chauffeurHibernateDAO.update(chauffeur);
+        return chauffeurHibernateDAO.update(person);
     }
 
-    public boolean delete(Chauffeur chauffeur) {
+    public boolean delete(Person person) {
         ChauffeurHibernateDAO chauffeurHibernateDAO = new ChauffeurHibernateDAO(sessionManager.createSession());
-        return chauffeurHibernateDAO.delete(chauffeur);
+        return chauffeurHibernateDAO.delete(person);
     }
 
-    public Chauffeur findById(int id) {
+    public Person findById(int id) {
         ChauffeurHibernateDAO chauffeurHibernateDAO = new ChauffeurHibernateDAO(sessionManager.createSession());
         return chauffeurHibernateDAO.findById(id);
     }
 
-    public List<Chauffeur> findAll() {
+    public List<Person> findAll() {
         ChauffeurHibernateDAO chauffeurHibernateDAO = new ChauffeurHibernateDAO(sessionManager.createSession());
         return chauffeurHibernateDAO.findAll();
     }

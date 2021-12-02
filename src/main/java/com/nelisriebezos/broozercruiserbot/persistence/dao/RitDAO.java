@@ -1,15 +1,15 @@
 package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
 
-import com.nelisriebezos.broozercruiserbot.domain.Rit;
+import com.nelisriebezos.broozercruiserbot.domain.Trip;
 
 import java.util.List;
 
 public interface RitDAO {
-    public boolean save(Rit rit);
-    public boolean update(Rit rit);
-    public boolean delete(Rit rit);
-    public Rit findById(int id);
-    public List<Rit> findAll();
+    public boolean save(Trip trip);
+    public boolean update(Trip trip);
+    public boolean delete(Trip trip);
+    public Trip findById(int id);
+    public List<Trip> findAll();
 }
 

@@ -1,8 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
-import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoChauffeurException;
-import com.nelisriebezos.broozercruiserbot.domain.Chauffeur;
+import com.nelisriebezos.broozercruiserbot.domain.Person;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -21,12 +19,12 @@ public class ChauffeurHibernateDAO implements ChauffeurDAO{
     }
 
     @Override
-    public boolean save(Chauffeur chauffeur) {
+    public boolean save(Person person) {
         try {
             transaction = session.beginTransaction();
-            session.save(chauffeur);
+            session.save(person);
             session.getTransaction().commit();
-            LOG.info(chauffeur + " is saved");
+            LOG.info(person + " is saved");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -38,12 +36,12 @@ public class ChauffeurHibernateDAO implements ChauffeurDAO{
     }
 
     @Override
-    public boolean update(Chauffeur chauffeur) {
+    public boolean update(Person person) {
         try {
             transaction = session.beginTransaction();
-            session.update(chauffeur);
+            session.update(person);
             session.getTransaction().commit();
-            LOG.info(chauffeur + " is updated");
+            LOG.info(person + " is updated");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -55,12 +53,12 @@ public class ChauffeurHibernateDAO implements ChauffeurDAO{
     }
 
     @Override
-    public boolean delete(Chauffeur chauffeur) {
+    public boolean delete(Person person) {
         try {
             transaction = session.beginTransaction();
-            session.delete(chauffeur);
+            session.delete(person);
             session.getTransaction().commit();
-            LOG.info(chauffeur + " is deleted");
+            LOG.info(person + " is deleted");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -72,15 +70,15 @@ public class ChauffeurHibernateDAO implements ChauffeurDAO{
     }
 
     @Override
-    public Chauffeur findById(int id) {
+    public Person findById(int id) {
         session.beginTransaction();
-        Chauffeur chauffeur = session.load(Chauffeur.class, id);
+        Person person = session.load(Person.class, id);
         session.getTransaction().commit();
-        return chauffeur;
+        return person;
     }
 
     @Override
-    public List<Chauffeur> findAll() {
+    public List<Person> findAll() {
         session.beginTransaction();
         List chauffeurs = this.session.createQuery(
           "select c from Chauffeur c").getResultList();

@@ -1,8 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence.dao;
 
-import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.Exceptions.NoRitException;
-import com.nelisriebezos.broozercruiserbot.domain.Rit;
+import com.nelisriebezos.broozercruiserbot.domain.Trip;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -20,12 +18,12 @@ public class RitHibernateDAO implements RitDAO{
     }
 
     @Override
-    public boolean save(Rit rit) {
+    public boolean save(Trip trip) {
         try {
             transaction = session.beginTransaction();
-            session.save(rit);
+            session.save(trip);
             session.getTransaction().commit();
-            LOG.info(rit + " is saved");
+            LOG.info(trip + " is saved");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -37,12 +35,12 @@ public class RitHibernateDAO implements RitDAO{
     }
 
     @Override
-    public boolean update(Rit rit) {
+    public boolean update(Trip trip) {
         try {
             transaction = session.beginTransaction();
-            session.update(rit);
+            session.update(trip);
             session.getTransaction().commit();
-            LOG.info(rit + " is updated");
+            LOG.info(trip + " is updated");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -54,12 +52,12 @@ public class RitHibernateDAO implements RitDAO{
     }
 
     @Override
-    public boolean delete(Rit rit) {
+    public boolean delete(Trip trip) {
         try {
             transaction = session.beginTransaction();
-            session.delete(rit);
+            session.delete(trip);
             session.getTransaction().commit();
-            LOG.info(rit + " is deleted");
+            LOG.info(trip + " is deleted");
             return true;
         } catch (Exception e) {
             if (transaction != null) {
@@ -71,15 +69,15 @@ public class RitHibernateDAO implements RitDAO{
     }
 
     @Override
-    public Rit findById(int id) {
+    public Trip findById(int id) {
         session.beginTransaction();
-        Rit rit = session.load(Rit.class, id);
+        Trip trip = session.load(Trip.class, id);
         session.getTransaction().commit();
-        return rit;
+        return trip;
     }
 
     @Override
-    public List<Rit> findAll() {
+    public List<Trip> findAll() {
         session.beginTransaction();
         List rit = this.session.createQuery(
                 "select r from Rit r").getResultList();

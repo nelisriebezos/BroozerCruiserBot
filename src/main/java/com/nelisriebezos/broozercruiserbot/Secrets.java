@@ -12,11 +12,11 @@ public class Secrets {
         TelegramBotToken = telegramBotToken;
     }
 
-    public String getDatabasePassword() {
+    public String getPassword() {
         return Password;
     }
 
-    public void setDatabasePassword(String password) {
+    public void setPassword(String password) {
         Password = password;
     }
 
