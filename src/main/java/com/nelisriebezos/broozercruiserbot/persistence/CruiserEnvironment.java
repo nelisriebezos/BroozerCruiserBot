@@ -29,7 +29,7 @@ public class CruiserEnvironment {
   public static final String CONFIGKEY = "trader_configuration";
 
   private static FinalWrapper<CruiserEnvironment> environmentWrapper = null;
-  private FinalWrapper<CruiserDB> traderDbWrapper = null;
+  private FinalWrapper<CruiserDB> cruiserDBWrapper = null;
   private Configuration configuration;
 
   public static CruiserEnvironment getEnvironment() {
@@ -52,21 +52,21 @@ public class CruiserEnvironment {
    * @return
    * @throws SQLException
    */
-  public CruiserDB getTraderDB() throws DatabaseException {
-    FinalWrapper<CruiserDB> wrapper = traderDbWrapper;
+  public CruiserDB getCruiserDB() throws DatabaseException {
+    FinalWrapper<CruiserDB> wrapper = cruiserDBWrapper;
     if (wrapper == null) {
       synchronized (this) {
-        wrapper = traderDbWrapper;
+        wrapper = cruiserDBWrapper;
         if (wrapper == null) {
-          wrapper = new FinalWrapper<CruiserDB>(createTraderDB());
+          wrapper = new FinalWrapper<CruiserDB>(createCruiserDB());
         }
-        traderDbWrapper = wrapper;
+        cruiserDBWrapper = wrapper;
       }
     }
     return wrapper.value;
   }
 
-  protected CruiserDB createTraderDB() throws DatabaseException {
+  protected CruiserDB createCruiserDB() throws DatabaseException {
     CruiserDB thothDB = new CruiserDB(this);
     thothDB.init();
     LOG.info("Database initialized");

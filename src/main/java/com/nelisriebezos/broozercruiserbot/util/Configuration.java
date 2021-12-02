@@ -35,7 +35,7 @@ public class Configuration {
     properties = new Properties();
   }
 
-  protected void load(InputStream inStream) {
+  public void load(InputStream inStream) {
     loadDefaults();
     readInputStream(inStream);
   }

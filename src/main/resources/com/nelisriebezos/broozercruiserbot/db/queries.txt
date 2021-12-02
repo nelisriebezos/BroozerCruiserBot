@@ -1,45 +1,8 @@
 get_schema_version = 
     select version 
-    from   trader_version
-    where  name = 'trader' 
+    from   cruiser_version
+    where  name = 'cruiser'
 ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-wipe_pair_range =
-	delete from pair_info
-	where  symbol = :symbol and unix >= :unix_min and unix <= :unix_max
-;	 
-
-insert_pair = 
-    insert into pair_info (unix,  ts, symbol,  open,  high_open,  low_open,  close_open,  quote_asset_volume,  taker_buy_base_asset_volume,  trade_count)
-    values                (:unix, :ts, :symbol, :open, :high_open, :low_open, :close_open, :quote_asset_volume, :taker_buy_base_asset_volume, :trade_count)
-;
-
-symbol_latest_update =
-    select max(unix) latest
-    from   pair_info
-    where  symbol = :symbol
-;    
-
-all_pairs = 
-    select unix,  open, high_open,  low_open,  close_open,  quote_asset_volume,  taker_buy_base_asset_volume,  trade_count
-    from   pair_info
-    where  symbol = :symbol
-    and    unix > :since
-    order by unix
-;
-
-wipe_alerts =
-	delete from alert_blobs
-;	 
-
-store_alerts =
-	insert into alert_blobs(data) values(:data)
-;	 
-
-read_alerts =
-	select data from alert_blobs
-;	
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

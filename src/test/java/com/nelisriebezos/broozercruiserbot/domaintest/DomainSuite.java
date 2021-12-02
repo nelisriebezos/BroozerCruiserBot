@@ -7,5 +7,5 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SelectPackages("com.nelisriebezos.broozercruiserbot.domaintest.classtest")
 @Suite
 @SuiteDisplayName("Domain tests")
-public class DomainSuit {
+public class DomainSuite {
 }

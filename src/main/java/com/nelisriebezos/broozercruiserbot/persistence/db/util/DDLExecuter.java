@@ -55,6 +55,7 @@ public class DDLExecuter {
     try {
       println("Executing script " + resourceLocation);
       String script = readResource(resourceLocation);
+      if(script == null) throw new RuntimeException("Script "+resourceLocation+" not found");
       StringBuffer commandBuffer = stripMultiLineComment(new StringBuffer(script));
 
       List<String> cmds = parseCommands(commandBuffer);

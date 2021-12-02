@@ -36,8 +36,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CruiserDB {
-  private static final String CREATE_SCRIPT = "net/riezebos/crypto/trader/db/create_db.ddl";
-  private static final String UPGRADE_SCRIPT_PREFIX = "net/riezebos/crypto/trader/db/upgrade_to_";
+  private static final String CREATE_SCRIPT = "com/nelisriebezos/broozercruiserbot/db/create_db.ddl";
+  private static final String UPGRADE_SCRIPT_PREFIX = "com/nelisriebezos/broozercruiserbot/db/upgrade_to_";
+  public static final String QUERIES = "com/nelisriebezos/broozercruiserbot/db/queries.txt";
 
   private static final Logger LOG = LoggerFactory.getLogger(CruiserDB.class);
 
@@ -108,7 +109,7 @@ public class CruiserDB {
   protected void initializeSchema(Connection connection) throws SQLException, DDLException, IOException {
     DatabaseIdiom idiom = DatabaseIdiomFactory.getDatabaseIdiom(connection);
     DDLExecuter executer = new DDLExecuter(connection, idiom);
-    boolean tableExists = executer.tableExists("trader_version", getConfiguration().getDatabaseUser());
+    boolean tableExists = executer.tableExists("cruiser_version", getConfiguration().getDatabaseUser());
     if (!tableExists) {
       executer.execute(CREATE_SCRIPT);
       connection.commit();
@@ -170,7 +171,8 @@ public class CruiserDB {
   protected Map<String, String> loadQueries() {
     try {
       Map<String, String> map = new HashMap<>();
-      String body = CruiserUtil.readInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("net/riezebos/crypto/trader/db/queries.txt"));
+      String body = CruiserUtil.readInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream(QUERIES));
+      if(body == null) throw new RuntimeException("Cannot find "+QUERIES);
       for (String line : body.split(";")) {
         if (!StringUtils.isBlank(line)) {
           int idx = line.indexOf('=');

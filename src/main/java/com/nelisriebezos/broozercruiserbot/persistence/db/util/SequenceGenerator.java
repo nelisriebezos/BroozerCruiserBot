@@ -45,7 +45,7 @@ public class SequenceGenerator {
    */
   public void resetSequence() throws DatabaseException {
     try {
-      PreparedStatement qry = connection.prepareStatement("update thoth_sequences set next_val = ? where sequence_name = ?");
+      PreparedStatement qry = connection.prepareStatement("update cruiser_sequences set next_val = ? where sequence_name = ?");
       qry.setLong(1, initialValue);
       qry.setString(2, sequenceName);
       qry.executeUpdate();
@@ -84,7 +84,7 @@ public class SequenceGenerator {
 
     long result;
     try {
-      PreparedStatement lockQry = connection.prepareStatement("select next_val from thoth_sequences where sequence_name = ? for update");
+      PreparedStatement lockQry = connection.prepareStatement("select next_val from cruiser_sequences where sequence_name = ? for update");
       lockQry.setString(1, sequenceName);
       ResultSet executeQuery = lockQry.executeQuery();
       boolean locked = executeQuery.next();
@@ -92,20 +92,20 @@ public class SequenceGenerator {
       lockQry.close();
 
       if (!locked) {
-        PreparedStatement qry2 = connection.prepareStatement("insert into thoth_sequences(sequence_name, next_val) values(?, ?)");
+        PreparedStatement qry2 = connection.prepareStatement("insert into cruiser_sequences(sequence_name, next_val) values(?, ?)");
         qry2.setString(1, sequenceName);
         qry2.setLong(2, initialValue + increment);
         qry2.executeUpdate();
         qry2.close();
       } else {
-        PreparedStatement qry2 = connection.prepareStatement("update thoth_sequences set next_val = next_val + ? where sequence_name = ?");
+        PreparedStatement qry2 = connection.prepareStatement("update cruiser_sequences set next_val = next_val + ? where sequence_name = ?");
         qry2.setLong(1, increment);
         qry2.setString(2, sequenceName);
         qry2.executeUpdate();
         qry2.close();
       }
 
-      PreparedStatement qry = connection.prepareStatement("select next_val from thoth_sequences where sequence_name = ?");
+      PreparedStatement qry = connection.prepareStatement("select next_val from cruiser_sequences where sequence_name = ?");
       qry.setString(1, sequenceName);
 
       ResultSet rs = qry.executeQuery();
@@ -124,7 +124,7 @@ public class SequenceGenerator {
 
   public boolean sequenceExists(String name) throws DatabaseException {
     try {
-      PreparedStatement qry = connection.prepareStatement("select 1 from thoth_sequences where sequence_name = ?");
+      PreparedStatement qry = connection.prepareStatement("select 1 from cruiser_sequences where sequence_name = ?");
       qry.setString(1, name);
       ResultSet rs = qry.executeQuery();
       boolean result = rs.next();
