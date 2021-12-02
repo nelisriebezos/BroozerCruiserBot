@@ -61,7 +61,7 @@ public class CruiserDB {
       // Embedded driver on the classpath
       // even when using a Web Context classloader provided by (for instance) Tomcat
       for (Entry<String, String> entry : drivers.entrySet())
-        if (databaseType.toLowerCase().indexOf(entry.getKey()) != -1)
+        if (databaseType.toLowerCase().contains(entry.getKey()))
           registerDriver(entry.getValue());
 
       setupServer();
@@ -146,6 +146,7 @@ public class CruiserDB {
     InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(CREATE_SCRIPT);
     String script = CruiserUtil.readInputStream(is);
     Pattern versionPattern = Pattern.compile("cruiser_version.*values.*\\'cruiser\\'\\,\\s*(\\d+)\\s*\\)", Pattern.MULTILINE);
+    assert script != null;
     Matcher matcher = versionPattern.matcher(script);
     if (matcher.find()) {
       String group = matcher.group(1);
@@ -212,7 +213,7 @@ public class CruiserDB {
         // java.sql.SQLException stating "Derby system shutdown."
         // So here comes the dirty code to suppress logging this as an error (because
         // it's not an error)
-        if (e.getMessage() == null || e.getMessage().toLowerCase().indexOf("derby system shutdown") == -1)
+        if (e.getMessage() == null || !e.getMessage().toLowerCase().contains("derby system shutdown"))
           LOG.error(e.getMessage(), e);
       }
     }

@@ -33,11 +33,11 @@ public class SqlStatement implements AutoCloseable {
   private String originalStmt;
   private String sql;
   private String parsedSql;
-  private List<String> parameters = new ArrayList<String>();
-  private List<String> singleParams = new ArrayList<String>();
+  private List<String> parameters = new ArrayList<>();
+  private List<String> singleParams = new ArrayList<>();
   private ResultSetMetaData metaData = null;
   private ResultSet resultSet = null;
-  private HashMap<String, Object> parameterValues = new HashMap<String, Object>();
+  private HashMap<String, Object> parameterValues = new HashMap<>();
 
   public SqlStatement(Connection connection, String stmt) throws SQLException {
     setConnection(connection);
@@ -147,8 +147,8 @@ public class SqlStatement implements AutoCloseable {
       }
       setStatement(getConnection().prepareStatement(getParsedSql()));
     } catch (SQLException s1qle) {
-      // DjLogger.warn(Messages.getString("SqlStatement.errorInStatement",
-      // _parsedSql));
+//       DjLogger.warn(Messages.getString("SqlStatement.errorInStatement",
+//       _parsedSql));
       throw s1qle;
     }
 
@@ -233,9 +233,8 @@ public class SqlStatement implements AutoCloseable {
     storeParameterValue(paramName, ips);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setAsciiStream(i, ips, len);
         doneOne = true;
       }
@@ -250,9 +249,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "=" + b);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setBigDecimal(i, b);
         doneOne = true;
       }
@@ -266,9 +264,8 @@ public class SqlStatement implements AutoCloseable {
     storeParameterValue(paramName, ips);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String value : getParameters()) {
+      if (value.equalsIgnoreCase(paramName)) {
         getStatement().setBinaryStream(i, ips, s);
         doneOne = true;
       }
@@ -283,9 +280,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "=" + String.valueOf(b));
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setBytes(i, b);
         doneOne = true;
       }
@@ -308,9 +304,8 @@ public class SqlStatement implements AutoCloseable {
 
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setDate(i, d);
         doneOne = true;
       }
@@ -325,9 +320,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "=" + n);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setInt(i, n);
         doneOne = true;
       }
@@ -338,13 +332,12 @@ public class SqlStatement implements AutoCloseable {
   }
 
   public void setLong(String paramName, long l) throws SQLException {
-    storeParameterValue(paramName, new Long(l));
+    storeParameterValue(paramName, l);
     LOG.debug(paramName + "=" + l);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setLong(i, l);
         doneOne = true;
       }
@@ -359,9 +352,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "= NULL");
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setNull(i, sqlType);
         doneOne = true;
       }
@@ -377,9 +369,9 @@ public class SqlStatement implements AutoCloseable {
     else if (v instanceof String)
       setString(paramName, (String) v);
     else if (v instanceof Integer)
-      setInt(paramName, ((Integer) v).intValue());
+      setInt(paramName, (Integer) v);
     else if (v instanceof Long)
-      setLong(paramName, ((Long) v).longValue());
+      setLong(paramName, (Long) v);
     else if (v instanceof BigDecimal)
       setBigDecimal(paramName, (BigDecimal) v);
     else if (v instanceof Date)
@@ -400,9 +392,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "=" + s);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String value : getParameters()) {
+      if (value.equalsIgnoreCase(paramName)) {
         if (s == null)
           getStatement().setNull(i, Types.VARCHAR);
         else
@@ -429,9 +420,8 @@ public class SqlStatement implements AutoCloseable {
     storeParameterValue(paramName, bytes);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         if (bytes == null)
           getStatement().setNull(i, Types.BLOB);
         else {
@@ -451,9 +441,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "=" + t);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setTime(i, t);
         doneOne = true;
       }
@@ -475,9 +464,8 @@ public class SqlStatement implements AutoCloseable {
     LOG.debug(paramName + "=" + t);
     int i = 1;
     boolean doneOne = false;
-    Iterator<String> it = getParameters().iterator();
-    while (it.hasNext()) {
-      if (it.next().equalsIgnoreCase(paramName)) {
+    for (String s : getParameters()) {
+      if (s.equalsIgnoreCase(paramName)) {
         getStatement().setTimestamp(i, t);
         doneOne = true;
       }

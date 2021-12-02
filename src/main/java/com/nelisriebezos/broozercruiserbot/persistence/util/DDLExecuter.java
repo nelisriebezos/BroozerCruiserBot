@@ -61,7 +61,7 @@ public class DDLExecuter {
       List<String> cmds = parseCommands(commandBuffer);
       try (Statement stmt = conn.createStatement()) {
         for (String command : cmds) {
-          executeSingleStmt(conn, stmt, command);
+          executeSingleStmt(stmt, command);
         }
         conn.commit();
       }
@@ -70,7 +70,7 @@ public class DDLExecuter {
     }
   }
 
-  protected void executeSingleStmt(Connection conn, Statement stmt, String command) throws DDLException {
+  protected void executeSingleStmt(Statement stmt, String command) throws DDLException {
     String actual = command;
     try {
       String dialect = applyDialect(command);

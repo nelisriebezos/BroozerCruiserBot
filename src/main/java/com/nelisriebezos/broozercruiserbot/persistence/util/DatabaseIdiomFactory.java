@@ -39,19 +39,19 @@ public class DatabaseIdiomFactory {
 
   public static DatabaseIdiom getDatabaseIdiom(String name) {
     DatabaseIdiom result;
-    if (name.toLowerCase().indexOf(DERBY) != -1)
+    if (name.toLowerCase().contains(DERBY))
       result = new DerbyDatabaseIdiom();
-    else if (name.toLowerCase().indexOf(MYSQL) != -1)
+    else if (name.toLowerCase().contains(MYSQL))
       result = new MySQLDatabaseIdiom();
-    else if (name.toLowerCase().indexOf(POSTGRESQL) != -1)
+    else if (name.toLowerCase().contains(POSTGRESQL))
       result = new PostgreSqlDatabaseIdiom();
-    else if (name.toLowerCase().indexOf(POSTGRESQL2) != -1)
+    else if (name.toLowerCase().contains(POSTGRESQL2))
       result = new PostgreSqlDatabaseIdiom();
-    else if (name.toLowerCase().indexOf(ORACLE) != -1)
+    else if (name.toLowerCase().contains(ORACLE))
       result = new OracleDatabaseIdiom();
-    else if (name.toLowerCase().indexOf(HSQLDB) != -1)
+    else if (name.toLowerCase().contains(HSQLDB))
       result = new HSQLDatabaseIdiom();
-    else if (name.toLowerCase().indexOf(H2) != -1)
+    else if (name.toLowerCase().contains(H2))
       result = new H2DatabaseIdiom();
     else
       result = new GenericDatabaseIdiom();
