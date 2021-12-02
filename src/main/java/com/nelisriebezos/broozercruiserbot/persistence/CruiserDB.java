@@ -12,13 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nelisriebezos.broozercruiserbot.persistence.db;
+package com.nelisriebezos.broozercruiserbot.persistence;
 
-import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.*;
+import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.persistence.util.*;
 
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.impl.ConnectionWrapper;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.impl.DDLException;
+import com.nelisriebezos.broozercruiserbot.persistence.util.impl.ConnectionWrapper;
+import com.nelisriebezos.broozercruiserbot.persistence.util.impl.DDLException;
 import com.nelisriebezos.broozercruiserbot.util.Configuration;
 import com.nelisriebezos.broozercruiserbot.util.CruiserUtil;
 import org.apache.commons.lang3.StringUtils;

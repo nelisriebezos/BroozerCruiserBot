@@ -12,12 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nelisriebezos.broozercruiserbot.persistence.db.util;
+package com.nelisriebezos.broozercruiserbot.persistence.util;
 
 import com.nelisriebezos.broozercruiserbot.util.CruiserUtil;
 import com.nelisriebezos.broozercruiserbot.util.OutputListener;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.impl.DDLException;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.impl.TranslationPair;
+import com.nelisriebezos.broozercruiserbot.persistence.util.impl.DDLException;
+import com.nelisriebezos.broozercruiserbot.persistence.util.impl.TranslationPair;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

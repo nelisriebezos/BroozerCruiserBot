@@ -15,9 +15,8 @@
 package com.nelisriebezos.broozercruiserbot.persistence;
 
 import com.nelisriebezos.broozercruiserbot.util.Configuration;
-import com.nelisriebezos.broozercruiserbot.persistence.db.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.util.FinalWrapper;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

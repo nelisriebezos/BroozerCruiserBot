@@ -6,16 +6,56 @@ get_schema_version =
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-all_cars =
-    select id, kmcounter
-    from car
-;
+car_create =;
 
-find_car =
-    select id, kmcounter
-    from car
-;
+car_update =;
 
-create_car =
-    insert into car(id, kmcounter) values (:id, :kmcounter)
-;
+car_delete =;
+
+car_findbyid =;
+
+tanksession_create = ;
+
+tanksession_update = ;
+
+tanksession_delete = ;
+
+tanksession_findbyid = ;
+
+tanksession_findall = ;
+
+tanksession_findby_carid = ;
+
+trip_create = ;
+
+trip_update = ;
+
+trip_delete = ;
+
+trip_findbyid = ;
+
+trip_findby_tanksessionid = ;
+
+person_create = ;
+
+person_update = ;
+
+person_delete = ;
+
+person_findbyid = ;
+
+trip_person_findby_tripid = ;
+
+trip_person_findby_Personid = ;
+
+correction_create = ;
+
+correction_update = ;
+
+correction_delete = ;
+
+correction_findbyid = ;
+
+correction_findby_tanksessionid = ;
+
+correction_findby_personid = ;

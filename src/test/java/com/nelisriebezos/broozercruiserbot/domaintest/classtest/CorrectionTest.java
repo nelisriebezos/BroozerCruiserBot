@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.domaintest.classtest;
 
-import com.nelisriebezos.broozercruiserbot.domain.Correctie;
+import com.nelisriebezos.broozercruiserbot.domain.Correction;
 import com.nelisriebezos.broozercruiserbot.domain.Person;
 import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import org.junit.jupiter.api.Test;
@@ -9,39 +9,39 @@ import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CorrectieTest {
-    Correctie correctie = new Correctie();
+public class CorrectionTest {
+    Correction correction = new Correction();
 
     @Test
     public void testGetSetId() {
-        correctie.setId(1L);
-        assertEquals(1L, correctie.getId());
+        correction.setId(1L);
+        assertEquals(1L, correction.getId());
     }
 
     @Test
     public void testGetSetTimestamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        correctie.setTimestamp(timestamp);
-        assertEquals(timestamp, correctie.getTimestamp());
+        correction.setTimestamp(timestamp);
+        assertEquals(timestamp, correction.getTimestamp());
     }
 
     @Test
     public void testGetSetDistance() {
-        correctie.setDistance(100);
-        assertEquals(100, correctie.getDistance());
+        correction.setDistance(100);
+        assertEquals(100, correction.getDistance());
     }
 
     @Test
     public void testGetSetTankSession() {
         TankSession tankSession = new TankSession(1L);
-        correctie.setTankSession(tankSession);
-        assertEquals(tankSession, correctie.getTankSession());
+        correction.setTankSession(tankSession);
+        assertEquals(tankSession, correction.getTankSession());
     }
 
     @Test
     public void testGetSetPerson() {
         Person person = new Person(1L);
-        correctie.setPerson(person);
-        assertEquals(person, correctie.getPerson());
+        correction.setPerson(person);
+        assertEquals(person, correction.getPerson());
     }
 }

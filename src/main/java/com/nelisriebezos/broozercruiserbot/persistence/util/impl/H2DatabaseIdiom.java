@@ -12,43 +12,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nelisriebezos.broozercruiserbot.persistence.db.util.impl;
+package com.nelisriebezos.broozercruiserbot.persistence.util.impl;
 
 import java.sql.Types;
+import java.util.List;
 
-public class HSQLDatabaseIdiom extends GenericDatabaseIdiom {
+public class H2DatabaseIdiom extends GenericDatabaseIdiom {
 
-  public HSQLDatabaseIdiom() {
-    registerType(Types.BIGINT, "bigint");
-    registerType(Types.BINARY, "binary($l)");
-    registerType(Types.BIT, "bit");
+  public H2DatabaseIdiom() {
     registerType(Types.BOOLEAN, "boolean");
+    registerType(Types.BIGINT, "bigint");
+    registerType(Types.BINARY, "binary");
+    registerType(Types.BIT, "boolean");
     registerType(Types.CHAR, "char($l)");
     registerType(Types.DATE, "date");
     registerType(Types.DECIMAL, "decimal($p,$s)");
+    registerType(Types.NUMERIC, "decimal($p,$s)");
     registerType(Types.DOUBLE, "double");
     registerType(Types.FLOAT, "float");
     registerType(Types.INTEGER, "integer");
     registerType(Types.LONGVARBINARY, "longvarbinary");
     registerType(Types.LONGVARCHAR, "longvarchar");
+    registerType(Types.REAL, "real");
     registerType(Types.SMALLINT, "smallint");
     registerType(Types.TINYINT, "tinyint");
     registerType(Types.TIME, "time");
     registerType(Types.TIMESTAMP, "timestamp");
     registerType(Types.VARCHAR, "varchar($l)");
-    registerType(Types.VARBINARY, "varbinary($l)");
-    registerType(Types.NUMERIC, "numeric($p,$s)");
-    registerType(Types.BLOB, "blob($l)");
-    registerType(Types.CLOB, "clob($l)");
+    registerType(Types.VARBINARY, "binary($l)");
+    registerType(Types.BLOB, "blob");
+    registerType(Types.CLOB, "clob");
+  }
+
+  @Override
+  public void initDialect(List<TranslationPair> translations, List<TranslationPair> workarounds) {
+    super.initDialect(translations, workarounds);
+
+    workarounds.add(new TranslationPair("create\\s*sequence\\s*(\\w+)\\s*start\\s*\\s*with\\s*(\\d+)\\s*minvalue\\s*(\\d+)\\s*maxvalue\\s*(\\d+)",
+        "create sequence if not exists $1 start with $2 minvalue $3 maxvalue $4"));
+
   }
 
   @Override
   public DatabaseFlavour getFlavour() {
-    return DatabaseFlavour.HSQLDB;
+    return DatabaseFlavour.H2;
   }
 
   @Override
   public String getTableName(String tableName) {
     return tableName.toUpperCase();
   }
+
 }

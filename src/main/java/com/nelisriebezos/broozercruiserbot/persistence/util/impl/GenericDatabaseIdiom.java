@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nelisriebezos.broozercruiserbot.persistence.db.util.impl;
+package com.nelisriebezos.broozercruiserbot.persistence.util.impl;
 
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.DatabaseIdiom;
+import com.nelisriebezos.broozercruiserbot.persistence.util.DatabaseIdiom;
 
 import java.sql.Types;
 import java.util.HashMap;

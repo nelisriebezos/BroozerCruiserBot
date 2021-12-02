@@ -1,8 +1,8 @@
 package com.nelisriebezos.broozercruiserbot.persistence.util;
 
+import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
-import com.nelisriebezos.broozercruiserbot.persistence.db.CruiserDB;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.util.Configuration;
 import com.nelisriebezos.broozercruiserbot.util.CruiserUtil;
 

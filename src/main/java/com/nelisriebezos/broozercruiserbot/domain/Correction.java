@@ -2,21 +2,21 @@ package com.nelisriebezos.broozercruiserbot.domain;
 
 import java.sql.Timestamp;
 
-public class Correctie {
+public class Correction {
     private Long id;
     private Timestamp timestamp;
     private int distance;
     private TankSession tankSession;
     private Person person;
 
-    public Correctie() {
+    public Correction() {
     }
 
-    public Correctie(Long id) {
+    public Correction(Long id) {
         this.id = id;
     }
 
-    public Correctie(Timestamp timestamp, int distance, TankSession tankSession, Person person) {
+    public Correction(Timestamp timestamp, int distance, TankSession tankSession, Person person) {
         this.timestamp = timestamp;
         this.distance = distance;
         this.tankSession = tankSession;

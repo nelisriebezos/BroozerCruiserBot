@@ -8,7 +8,7 @@ public class TankSession {
     private Long id;
     private Timestamp timestamp;
     private Car car;
-    List<Correctie> correctieList = new ArrayList<>();
+    List<Correction> correctionList = new ArrayList<>();
     List<Trip> tripList = new ArrayList<>();
 
     public TankSession() {
@@ -47,24 +47,24 @@ public class TankSession {
         this.car = car;
     }
 
-    public List<Correctie> getCorrectieList() {
-        return correctieList;
+    public List<Correction> getCorrectieList() {
+        return correctionList;
     }
 
-    public void setCorrectieList(List<Correctie> correctieList) {
-        this.correctieList = correctieList;
+    public void setCorrectieList(List<Correction> correctionList) {
+        this.correctionList = correctionList;
     }
 
-    public boolean addCorrectie(Correctie correctie) {
-        if (!correctieList.contains(correctie)) {
-            correctieList.add(correctie);
+    public boolean addCorrectie(Correction correction) {
+        if (!correctionList.contains(correction)) {
+            correctionList.add(correction);
             return true;
         }
         return false;
     }
 
-    public void removeCorrectie(Correctie correctie) {
-        correctieList.remove(correctie);
+    public void removeCorrectie(Correction correction) {
+        correctionList.remove(correction);
     }
 
     public List<Trip> getTripList() {

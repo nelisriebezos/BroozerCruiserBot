@@ -1,8 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.persistence;
 
-import com.nelisriebezos.broozercruiserbot.persistence.db.CruiserDB;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.DatabaseException;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.SqlStatement;
+import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import com.nelisriebezos.broozercruiserbot.persistence.util.DatabaseTest;
 import org.junit.jupiter.api.Test;
 

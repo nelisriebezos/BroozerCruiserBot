@@ -1,9 +1,9 @@
 package com.nelisriebezos.broozercruiserbot;
 
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
-import com.nelisriebezos.broozercruiserbot.persistence.db.CruiserDB;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.SequenceGenerator;
-import com.nelisriebezos.broozercruiserbot.persistence.db.util.SqlStatement;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
+import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
+import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -62,39 +62,30 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 
     public static void main(String[] args) throws Exception {
 
-        CruiserDB db = CruiserEnvironment.getEnvironment().getCruiserDB();
+//        CruiserDB db = CruiserEnvironment.getEnvironment().getCruiserDB();
+//
+//        try (Connection conn = db.getConnection();
+//             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("create_car"))) {
+//            SequenceGenerator gen = new SequenceGenerator(conn, "seq_car");
+//            stmt.set("id", gen.getNextValue());
+//            stmt.set("kmcounter", 100000);
+//            stmt.executeUpdate();
+//            conn.commit();
+//        } catch (Exception e) {
+//        }
+//
+//        try (Connection conn = db.getConnection();
+//             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("all_cars"))) {
+//            ResultSet rs = stmt.executeQuery();
+//            while(rs.next()) {
+//                System.out.println("id="+rs.getLong(1));
+//                System.out.println("km="+rs.getLong(2));
+//                System.out.println();
+//            }
+//        } catch (Exception e) {
+//        }
 
-
-        try (Connection conn = db.getConnection();
-             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("create_car"))) {
-
-            SequenceGenerator gen = new SequenceGenerator(conn, "seq_car");
-
-            stmt.set("id", gen.getNextValue());
-            stmt.set("kmcounter", 100000);
-
-            stmt.executeUpdate();
-
-            conn.commit();
-        } catch (Exception e) {
-        }
-
-        try (Connection conn = db.getConnection();
-             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("all_cars"))) {
-
-            ResultSet rs = stmt.executeQuery();
-
-            while(rs.next()) {
-                System.out.println("id="+rs.getLong(1));
-                System.out.println("km="+rs.getLong(2));
-                System.out.println();
-            }
-
-        } catch (Exception e) {
-        }
-
-
-//        BroozerCruiserBot bot = new BroozerCruiserBot();
-//        bot.startBot();
+        BroozerCruiserBot bot = new BroozerCruiserBot();
+        bot.startBot();
     }
 }

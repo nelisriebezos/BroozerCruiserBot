@@ -12,17 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nelisriebezos.broozercruiserbot.persistence.db.util.impl;
+package com.nelisriebezos.broozercruiserbot.Exceptions;
 
-public class DDLException extends Exception {
+import com.nelisriebezos.broozercruiserbot.Exceptions.CruiserException;
+
+public class DatabaseException extends CruiserException {
   private static final long serialVersionUID = 1L;
 
-  public DDLException(String message) {
+  public DatabaseException(Exception e) {
+    super(e);
+  }
+
+  public DatabaseException(String message) {
     super(message);
   }
 
-  public DDLException(Throwable chainThis) {
-    super(chainThis);
+  public DatabaseException(String message, Throwable e) {
+    super(message, e);
   }
 
 }
