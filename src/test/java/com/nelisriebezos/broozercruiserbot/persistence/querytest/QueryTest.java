@@ -1,6 +1,7 @@
-package com.nelisriebezos.broozercruiserbot.persistence;
+package com.nelisriebezos.broozercruiserbot.persistence.querytest;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import com.nelisriebezos.broozercruiserbot.persistence.util.DatabaseTest;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QueryTest extends DatabaseTest {
 

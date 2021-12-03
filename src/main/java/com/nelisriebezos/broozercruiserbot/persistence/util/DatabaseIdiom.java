@@ -22,9 +22,9 @@ import java.util.Map;
 
 public interface DatabaseIdiom {
 
-  public enum DatabaseFlavour {
+  enum DatabaseFlavour {
     OTHER, DERBY, POSTGRES, ORACLE, MYSQL, H2, HSQLDB
-  };
+  }
 
   String getTableName(String tableName);
 

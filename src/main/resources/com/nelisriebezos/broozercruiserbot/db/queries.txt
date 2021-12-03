@@ -1,61 +1,184 @@
-get_schema_version = 
-    select version 
+get_schema_version =
+    select version
     from   cruiser_version
     where  name = 'cruiser'
 ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-car_create =;
+get_schema_version =
+    select version
+    from   cruiser_version
+    where  name = 'cruiser'
+;
 
-car_update =;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-car_delete =;
+car_create =
+    insert into car (id, kmcounter)
+    values (:id, :kmcounter)
+;
 
-car_findbyid =;
+car_update =
+    update car
+    set id = :id, kmcounter = :kmcounter
+    where id = :id
+;
 
-tanksession_create = ;
+car_delete =
+   delete from car
+   where id = :id
+;
 
-tanksession_update = ;
+car_findbyid =
+    select *
+    from car
+    where id = :id
+;
 
-tanksession_delete = ;
+tanksession_create =
+    insert into tanksession (id, timestamp, carid)
+    values (:id, :timestamp, :carid)
+;
 
-tanksession_findbyid = ;
+tanksession_update =
+    update tanksession
+    set id = :id, timestamp = :timestamp, carid = :carid
+    where id = :id
+;
 
-tanksession_findall = ;
+tanksession_delete =
+    delete from tanksession
+    where id = :id
+;
 
-tanksession_findby_carid = ;
+tanksession_findbyid =
+    select *
+    from tanksession
+    where id = :id
+;
 
-trip_create = ;
+tanksession_findall =
+    select *
+    from tanksession
+;
 
-trip_update = ;
+tanksession_findby_carid =
+    select *
+    from tanksession
+    where carid = :carid
+;
 
-trip_delete = ;
+trip_create =
+    insert into trip (id, distance, timestamp, tanksessionid)
+    values (:id, :distance, :timestamp, :tanksessionid)
+;
 
-trip_findbyid = ;
+trip_update =
+    update trip
+    set id = :id, distance = :distance, timestamp = :timestamp, tanksessionid = :tanksessionid
+    where id = :id
+;
 
-trip_findby_tanksessionid = ;
+trip_delete =
+    delete from trip
+    where id = :id
+;
 
-person_create = ;
+trip_findbyid =
+    select *
+    from trip
+    where id = :id
+;
 
-person_update = ;
+trip_findby_tanksessionid =
+    select *
+    from trip
+    where tanksessionid = :tanksessionid
+;
 
-person_delete = ;
+person_create =
+    insert into person(id, name)
+    values (:id, :name)
+;
 
-person_findbyid = ;
+person_update =
+    update table person
+    set id = :id, name = :name
+    where id = :id
+;
 
-trip_person_findby_tripid = ;
+person_delete =
+    delete from person
+    where id = :id
+;
 
-trip_person_findby_Personid = ;
+person_findbyid =
+    select *
+    from person
+    where id = :id
+;
 
-correction_create = ;
+person_findbyname =
+    select *
+    from person
+    where name = :name
+;
+trip_person_findby_tripid =
+    select *
+    from trip_person
+    where tripid = ;tripid
+;
 
-correction_update = ;
+trip_person_findby_personid =
+    select *
+    from trip_person
+    where personid = ;personid
+;
 
-correction_delete = ;
+correction_create =
+    insert into correction
+    (id,
+    timesamp,
+    distance,
+    personid,
+    tanksessionid
+    values (:id,
+    :timesamp,
+    :distance,
+    :personid,
+    :tanksessionid)
+;
 
-correction_findbyid = ;
+correction_update =
+    update correction
+    set id = :id,
+        timestamp = :timestamp,
+        distance = :distance,
+        personid = :personid,
+        tanksessionid = :tanksessionid
+    where id = :id
+;
 
-correction_findby_tanksessionid = ;
+correction_delete =
+    delete from correction
+    where id = :id
+;
 
-correction_findby_personid = ;
+correction_findbyid =
+    select *
+    from correction
+    where id = :id
+;
+
+correction_findby_tanksessionid =
+    select *
+    from correction
+    where tanksessionid = :tanksessionid
+;
+
+correction_findby_personid =
+    select *
+    from correction
+    where personid = :personid
+;
