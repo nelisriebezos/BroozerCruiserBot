@@ -21,7 +21,9 @@ public class CarCrudTest extends DatabaseTest {
                 SqlStatement statement =
                 new SqlStatement(connection,
                         cruiserDB.getQueryString("car_create"))) {
-            statement.set("id", gen.)
+            SequenceGenerator gen = new SequenceGenerator(connection, "car_sequence");
+            statement.set("id", gen.getNextValue());
+            statement.set("kmcounter", 10000);
         }
     }
 
