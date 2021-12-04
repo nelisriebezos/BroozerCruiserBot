@@ -6,14 +6,6 @@ get_schema_version =
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-get_schema_version =
-    select version
-    from   cruiser_version
-    where  name = 'cruiser'
-;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 car_create =
     insert into car (id, kmcounter)
     values (:id, :kmcounter)
@@ -127,13 +119,13 @@ person_findbyname =
 trip_person_findby_tripid =
     select *
     from trip_person
-    where tripid = ;tripid
+    where tripid = :tripid
 ;
 
 trip_person_findby_personid =
     select *
     from trip_person
-    where personid = ;personid
+    where personid = :personid
 ;
 
 correction_create =
