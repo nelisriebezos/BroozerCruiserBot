@@ -8,7 +8,6 @@ import java.sql.Connection;
 
 public class CarService {
     private CruiserDB cruiserDB;
-    private Connection connection;
 
     public CarService(CruiserDB cruiserDB) {
         this.cruiserDB = cruiserDB;

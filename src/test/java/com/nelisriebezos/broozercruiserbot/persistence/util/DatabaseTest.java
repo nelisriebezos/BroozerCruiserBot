@@ -20,7 +20,7 @@ public class DatabaseTest {
 
     public CruiserDB getCruiserDB() throws DatabaseException, IOException {
 
-        dbDir = File.createTempFile("thoth", "db");
+        dbDir = File.createTempFile("cruiser", "db");
         dbDir.delete();
         String databaseFolder = CruiserUtil.normalSlashes(dbDir.getAbsolutePath());
 

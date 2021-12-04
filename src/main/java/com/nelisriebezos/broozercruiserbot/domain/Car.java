@@ -16,6 +16,11 @@ public class Car {
         this.id = id;
     }
 
+    public Car(Long id, int kmcounter) {
+        this.id = id;
+        this.kmCounter = kmcounter;
+    }
+
     public Long getId() {
         return id;
     }
