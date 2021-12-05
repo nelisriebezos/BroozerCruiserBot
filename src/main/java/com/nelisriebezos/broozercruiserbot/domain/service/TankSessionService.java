@@ -1,6 +1,7 @@
-package com.nelisriebezos.broozercruiserbot.persistence.service;
+package com.nelisriebezos.broozercruiserbot.domain.service;
 
-import com.nelisriebezos.broozercruiserbot.domain.TankSession;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 
 import java.util.List;
@@ -12,16 +13,16 @@ public class TankSessionService {
         this.cruiserDB = cruiserDB;
     }
 
-    public void create(TankSession tankSession) {
-
+    public Correction create(TankSession tankSession) {
+        return null;
     }
 
-    public void update(TankSession tankSession) {
-
+    public Correction update(TankSession tankSession) {
+        return null;
     }
 
-    public void delete(TankSession tankSession) {
-
+    public Correction delete(Long id) {
+        return null;
     }
 
     public TankSession findnById(Long id) {

@@ -1,6 +1,6 @@
-package com.nelisriebezos.broozercruiserbot.persistence.service;
+package com.nelisriebezos.broozercruiserbot.domain.service;
 
-import com.nelisriebezos.broozercruiserbot.domain.Correction;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 
 public class CorrectionService {
@@ -10,16 +10,16 @@ public class CorrectionService {
         this.cruiserDB = cruiserDB;
     }
 
-    public void create(Correction correction) {
-
+    public Correction create(Correction correction) {
+        return null;
     }
 
-    public void update(Correction correction) {
-
+    public Correction update(Correction correction) {
+        return null;
     }
 
-    public void delete(Correction correction) {
-
+    public Correction delete(Long id) {
+        return null;
     }
 
     public Correction findById(Long id) {

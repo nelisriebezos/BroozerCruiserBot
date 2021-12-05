@@ -1,7 +1,8 @@
-package com.nelisriebezos.broozercruiserbot.persistence.service;
+package com.nelisriebezos.broozercruiserbot.domain.service;
 
-import com.nelisriebezos.broozercruiserbot.domain.Person;
-import com.nelisriebezos.broozercruiserbot.domain.Trip;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 
 import java.util.List;
@@ -13,16 +14,16 @@ public class TripService {
         this.cruiserDB = cruiserDB;
     }
 
-    public void create(Trip trip) {
-
+    public Correction create(Trip trip) {
+        return null;
     }
 
-    public void update(Trip trip) {
-
+    public Correction update(Trip trip) {
+        return null;
     }
 
-    public void delete(Trip trip) {
-
+    public Correction delete(Long id) {
+        return null;
     }
 
     public Trip findById(Long id) {

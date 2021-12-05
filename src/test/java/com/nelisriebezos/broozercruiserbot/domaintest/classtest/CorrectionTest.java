@@ -1,8 +1,8 @@
 package com.nelisriebezos.broozercruiserbot.domaintest.classtest;
 
-import com.nelisriebezos.broozercruiserbot.domain.Correction;
-import com.nelisriebezos.broozercruiserbot.domain.Person;
-import com.nelisriebezos.broozercruiserbot.domain.TankSession;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;

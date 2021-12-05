@@ -14,8 +14,6 @@
  */
 package com.nelisriebezos.broozercruiserbot.Exceptions;
 
-import com.nelisriebezos.broozercruiserbot.Exceptions.CruiserException;
-
 public class DatabaseException extends CruiserException {
   private static final long serialVersionUID = 1L;
 

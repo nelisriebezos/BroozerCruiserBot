@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot.domain;
+package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 
 import java.util.ArrayList;
