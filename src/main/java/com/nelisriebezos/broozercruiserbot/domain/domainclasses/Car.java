@@ -3,6 +3,7 @@ package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Car {
     private Long id;
@@ -55,5 +56,22 @@ public class Car {
 
     public void removeTanksession(TankSession tankSession) {
         tankSessionList.remove(tankSession);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+        Car car = (Car) o;
+        return getKmCounter() == car.getKmCounter() && Objects.equals(getId(), car.getId()) && Objects.equals(tankSessionList, car.tankSessionList);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", kmCounter=" + kmCounter +
+                ", tankSessionList=" + tankSessionList +
+                '}';
     }
 }

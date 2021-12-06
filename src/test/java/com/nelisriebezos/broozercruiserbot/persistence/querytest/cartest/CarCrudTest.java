@@ -26,40 +26,46 @@ public class CarCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void createPositive() {
+    public void createPositive() throws IOException {
         car.setKmCounter(100);
         Car createdCar = carService.create(car);
         assertEquals(createdCar, carService.findById(createdCar.getId()));
+        cleanupTempFolder();
     }
 
     @Test
-    public void createNegative() {
+    public void createNegative() throws IOException {
         DatabaseException thrown = Assertions.assertThrows(DatabaseException.class, () -> {
-            carService.create(car);
+            car.setKmCounter(-3);
+            Car createdCar = carService.create(car);
+            System.out.println(carService.findById(createdCar.getId()));
         });
         assertEquals("-error-", thrown.getMessage());
+        cleanupTempFolder();
     }
 
     @Test
-    public void updatePositive() {
+    public void updatePositive() throws IOException {
         car.setKmCounter(100);
         Car createdcar = carService.create(car);
 
         createdcar.setKmCounter(150);
         carService.update(createdcar);
         assertEquals(150, carService.findById(createdcar.getId()).getKmCounter());
+        cleanupTempFolder();
     }
 
     @Test
-    public void updateNegative() {
+    public void updateNegative() throws IOException {
         DatabaseException thrown = Assertions.assertThrows(DatabaseException.class, () -> {
            carService.update(car);
         });
         assertEquals("-error-", thrown.getMessage());
+        cleanupTempFolder();
     }
 
     @Test
-    public void deletePositive() {
+    public void deletePositive() throws IOException {
         car.setKmCounter(100);
         Car createdcar = carService.create(car);
         carService.delete(createdcar.getId());
@@ -68,13 +74,15 @@ public class CarCrudTest extends DatabaseTest {
            carService.findById(createdcar.getId());
         });
         assertEquals("-error-", thrown.getMessage());
+        cleanupTempFolder();
     }
 
     @Test
-    public void deleteNegative() {
+    public void deleteNegative() throws IOException {
         DatabaseException thrown = Assertions.assertThrows(DatabaseException.class, () -> {
             carService.delete(1L);
         });
         assertEquals("-error-", thrown.getMessage());
+        cleanupTempFolder();
     }
 }

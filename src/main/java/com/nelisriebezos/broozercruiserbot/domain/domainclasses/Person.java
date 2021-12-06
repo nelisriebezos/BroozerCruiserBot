@@ -54,4 +54,13 @@ public class Person {
     public void removeTrip(Trip trip) {
         tripList.remove(trip);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tripList=" + tripList +
+                '}';
+    }
 }

@@ -77,4 +77,15 @@ public class Trip {
     public void removePerson(Person person) {
         personList.remove(person);
     }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", distance=" + distance +
+                ", timestamp=" + timestamp +
+                ", tankSession=" + tankSession +
+                ", personList=" + personList +
+                '}';
+    }
 }

@@ -86,4 +86,15 @@ public class TankSession {
     public void removeTrip(Trip trip) {
         tripList.remove(trip);
     }
+
+    @Override
+    public String toString() {
+        return "TankSession{" +
+                "id=" + id +
+                ", timestamp=" + timestamp +
+                ", car=" + car +
+                ", correctionList=" + correctionList +
+                ", tripList=" + tripList +
+                '}';
+    }
 }

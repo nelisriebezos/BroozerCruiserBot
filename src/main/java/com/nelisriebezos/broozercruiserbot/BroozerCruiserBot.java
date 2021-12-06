@@ -1,5 +1,7 @@
 package com.nelisriebezos.broozercruiserbot;
 
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import org.slf4j.Logger;
@@ -58,9 +60,9 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 
 
     public static void main(String[] args) throws Exception {
-//        CruiserDB cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
-//        Connection connection = cruiserDB.getConnection();
-
+        CruiserDB cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
+        Connection connection = cruiserDB.getConnection();
+//
 //        try (Connection conn = db.getConnection();
 //             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("create_car"))) {
 //            SequenceGenerator gen = new SequenceGenerator(conn, "seq_car");
@@ -70,7 +72,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 //            conn.commit();
 //        } catch (Exception e) {
 //        }
-//
+////
 //        try (Connection conn = db.getConnection();
 //             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("all_cars"))) {
 //            ResultSet rs = stmt.executeQuery();

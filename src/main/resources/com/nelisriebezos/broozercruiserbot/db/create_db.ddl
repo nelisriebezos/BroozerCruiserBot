@@ -13,14 +13,14 @@ create table cruiser_sequences
 
 create table car
 (
-    id        bigint not null unique,
+    id        bigint not null,
     kmcounter int    not null,
     primary key (id)
 );
 
 create table correction
 (
-    id            bigint    not null unique,
+    id            bigint    not null,
     timestamp     timestamp not null,
     distance      int       not null,
     personid      bigint    not null,
@@ -31,14 +31,14 @@ create table correction
 
 create table person
 (
-    id   bigint       not null unique,
+    id   bigint       not null,
     name varchar(255) not null,
     primary key (id)
 );
 
 create table tanksession
 (
-    id        bigint    not null unique,
+    id        bigint    not null,
     timestamp timestamp not null,
     carid     bigint    not null,
     primary key (id)
@@ -46,7 +46,7 @@ create table tanksession
 
 create table trip
 (
-    id            bigint    not null unique,
+    id            bigint    not null,
     distance      int       not null,
     timestamp     timestamp not null,
     tanksessionid bigint    not null,

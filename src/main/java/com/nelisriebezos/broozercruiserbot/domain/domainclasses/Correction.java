@@ -62,4 +62,15 @@ public class Correction {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+    public String toString() {
+        return "Correction{" +
+                "id=" + id +
+                ", timestamp=" + timestamp +
+                ", distance=" + distance +
+                ", tankSession=" + tankSession +
+                ", person=" + person +
+                '}';
+    }
 }
