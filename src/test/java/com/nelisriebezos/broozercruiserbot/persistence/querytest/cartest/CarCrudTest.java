@@ -1,5 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence.querytest.cartest;
 
+import com.nelisriebezos.broozercruiserbot.Exceptions.CarException;
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +28,7 @@ public class CarCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void createPositive() throws IOException {
+    public void createPositive() throws Exception {
         car.setKmCounter(100);
         Car createdCar = carService.create(car);
         assertEquals(createdCar, carService.findById(createdCar.getId()));
@@ -45,7 +47,7 @@ public class CarCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void updatePositive() throws IOException {
+    public void updatePositive() throws Exception {
         car.setKmCounter(100);
         Car createdcar = carService.create(car);
 
@@ -65,15 +67,15 @@ public class CarCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void deletePositive() throws IOException {
+    public void deletePositive() throws IOException, SQLException, DatabaseException, CarException {
         car.setKmCounter(100);
         Car createdcar = carService.create(car);
         carService.delete(createdcar.getId());
 
-        DatabaseException thrown = Assertions.assertThrows(DatabaseException.class, () -> {
-           carService.findById(createdcar.getId());
+        Exception thrown = Assertions.assertThrows(Exception.class, () -> {
+            System.out.println(carService.findById(createdcar.getId()));
         });
-        assertEquals("-error-", thrown.getMessage());
+        assertEquals("FindById error: nothing was found, " + createdcar.getId(), thrown.getMessage());
         cleanupTempFolder();
     }
 
