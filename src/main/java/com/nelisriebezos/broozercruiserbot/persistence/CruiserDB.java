@@ -38,13 +38,11 @@ import java.util.regex.Pattern;
 public class CruiserDB {
   private static final String CREATE_SCRIPT = "com/nelisriebezos/broozercruiserbot/db/create_db.ddl";
   private static final String UPGRADE_SCRIPT_PREFIX = "com/nelisriebezos/broozercruiserbot/db/upgrade_to_";
-  public static final String QUERIES = "com/nelisriebezos/broozercruiserbot/db/queries.txt";
 
   private static final Logger LOG = LoggerFactory.getLogger(CruiserDB.class);
 
   private CruiserEnvironment cruiserEnvironment;
 
-  private Map<String, String> queries = null;
   private Map<String, String> drivers = null;
 
   public CruiserDB(CruiserEnvironment cruiserEnvironment) {
@@ -123,7 +121,7 @@ public class CruiserDB {
     int latestVersion = determineCurrentVersion();
     int currentVersion = latestVersion;
 
-    try (SqlStatement commentStmt = new SqlStatement(connection, getQueryString("get_schema_version")); //
+    try (SqlStatement commentStmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("get_schema_version")); //
          ResultSet rs = commentStmt.executeQuery()) {
       if (rs.next()) {
         currentVersion = rs.getInt(1);
@@ -157,39 +155,6 @@ public class CruiserDB {
 
   public Configuration getConfiguration() {
     return cruiserEnvironment.getConfiguration();
-  }
-
-  public String getQueryString(String queryName) {
-    if (queries == null) {
-      queries = loadQueries();
-    }
-    String query = queries.get(queryName.toLowerCase());
-    if (query == null)
-      throw new IllegalArgumentException("Query " + queryName + " not defined");
-    return query;
-  }
-
-  protected Map<String, String> loadQueries() {
-    try {
-      Map<String, String> map = new HashMap<>();
-      String body = CruiserUtil.readInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream(QUERIES));
-      if(body == null) throw new RuntimeException("Cannot find "+QUERIES);
-      for (String line : body.split(";")) {
-        if (!StringUtils.isBlank(line)) {
-          int idx = line.indexOf('=');
-          if (idx == -1)
-            throw new IllegalArgumentException("Line " + line + " does not contain the '=' character");
-          String name = line.substring(0, idx).trim();
-          String query = line.substring(idx + 1).trim();
-          if (map.containsKey(name))
-            throw new IllegalArgumentException("Query named " + name + " not unique");
-          map.put(name.toLowerCase(), query);
-        }
-      }
-      return map;
-    } catch (IOException e) {
-      throw new IllegalArgumentException(e);
-    }
   }
 
   protected void setupDriverClass() {

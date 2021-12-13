@@ -6,6 +6,7 @@ import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import org.slf4j.Logger;
@@ -17,16 +18,14 @@ import java.sql.SQLException;
 
 
 public class CarService {
-    private static final Logger LOG = LoggerFactory.getLogger(CarService.class);
-    private final CruiserDB cruiserDB;
+    private final Connection connection;
 
-    public CarService(CruiserDB cruiserDB) {
-        this.cruiserDB = cruiserDB;
+    public CarService(Connection connection) {
+        this.connection = connection;
     }
 
-    public Car create(Car car) throws SQLException, DatabaseException, CarException {
-        try (Connection connection = cruiserDB.getConnection()) {
-            SqlStatement stmt = new SqlStatement(connection, cruiserDB.getQueryString("car_create"));
+    public Car create(Car car) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_create"))) {
             SequenceGenerator gen = new SequenceGenerator(connection, "seq_car");
 
             Long id = gen.getNextValue();
@@ -34,81 +33,61 @@ public class CarService {
             stmt.set("id", id);
             stmt.set("kmcounter", car.getKmCounter());
 
-            if (car.getId() == null || car.getId() < 1) throw new CarException("Create error: Id is fout, " + car.getId());
-            if (car.getKmCounter() < 1) throw new CarException("Create error: Kmcounter is fout, " + car.getKmCounter());
+            if (car.getId() == null || car.getId() < 1) throw new DatabaseException("Create error: Id is fout, " + car.getId());
+            if (car.getKmCounter() < 1) throw new DatabaseException("Create error: Kmcounter is fout, " + car.getKmCounter());
 
             stmt.executeUpdate();
-            connection.commit();
-
-
             return car;
-        } catch (SQLException e) {
-            LOG.error("car_create SQL error: " + e.getMessage());
-            throw new SQLException("Create error: " + e.getMessage());
-        } catch (DatabaseException e) {
-            LOG.error("car_create Database error: " + e.getMessage());
-            throw new DatabaseException("Create error: " + e.getMessage());
+        } catch (SQLException | DatabaseException e) {
+            throw new DatabaseException("Create error", e);
         }
     }
 
-    public Car update(Car car) throws SQLException {
-        try (Connection connection = cruiserDB.getConnection()) {
-            SqlStatement stmt = new SqlStatement(connection, cruiserDB.getQueryString("car_update"));
+    public Car update(Car car) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_update"))) {
             stmt.set("id", car.getId());
             stmt.set("kmcounter", car.getKmCounter());
             stmt.set("id", car.getId());
 
-            stmt.executeUpdate();
-            connection.commit();
-
-            stmt.close();
-            connection.close();
+            int recordCount = stmt.executeUpdate();
+            if (recordCount != 1) throw new DatabaseException("Number of cars updated: " + recordCount);
 
             return car;
-        } catch (SQLException e) {
-            LOG.error("car_update error: " + e.getMessage());
-            throw new SQLException("Update error: " + e.getMessage());
+        } catch (SQLException | DatabaseException e) {
+            throw new DatabaseException("Update error", e);
         }
     }
 
-    public void delete(Long id) throws SQLException {
-        try (Connection connection = cruiserDB.getConnection()) {
-            SqlStatement stmt = new SqlStatement(connection, cruiserDB.getQueryString("car_delete"));
+    public void delete(Long id) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_delete"));) {
             stmt.set("id", id);
-
             stmt.executeUpdate();
-            connection.commit();
+
         } catch (SQLException e) {
-            LOG.error("car_delete error: " + e.getMessage());
-            throw new SQLException("Delete error: " + e.getMessage());
+            throw new DatabaseException("Delete error", e);
         }
     }
 
-    public Car findById(Long id) throws Exception {
-        try (Connection connection = cruiserDB.getConnection()) {
-            SqlStatement stmt = new SqlStatement(connection, cruiserDB.getQueryString("car_findbyid"));
+    public Car findById(Long id) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_findbyid"))) {
+
             stmt.set("id", id);
             ResultSet rs = stmt.executeQuery();
 
             Car car = new Car();
 
-            if (!rs.isBeforeFirst()) {
-                throw new Exception("FindById error: nothing was found, " + id);
+            if (rs.next()) {
+                car.setId(rs.getLong(1));
+                car.setKmCounter(rs.getInt(2));
             } else {
-                while (rs.next()) {
-                    car.setId(rs.getLong(1));
-                    car.setKmCounter(rs.getInt(2));
-                }
+                throw new DatabaseException("FindById error: nothing was found, " + id);
             }
-
-            System.out.println(car);
 
             rs.close();
             stmt.close();
             return car;
         } catch (SQLException e) {
-            LOG.error(e.getMessage());
-            throw new SQLException("FindById error: " + e.getMessage());
+            throw new DatabaseException("FindById error", e);
         }
     }
 }

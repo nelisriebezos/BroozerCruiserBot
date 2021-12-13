@@ -31,8 +31,6 @@ public class SqlStatementTest extends DatabaseTest {
       String fancyStmt = stmt.fancyStmt();
       SqlStatement stmt2 = new SqlStatement(connection, fancyStmt);
       assertEquals(1, stmt2.getParamCount());
-    } finally {
-      cleanupTempFolder();
     }
   }
 }
