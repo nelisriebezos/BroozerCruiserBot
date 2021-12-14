@@ -23,7 +23,7 @@ car_delete =
 ;
 
 car_findbyid =
-    select *
+    select id, kmcounter
     from car
     where id = :id
 ;
@@ -45,18 +45,18 @@ tanksession_delete =
 ;
 
 tanksession_findbyid =
-    select *
+    select id, timestamp, carid
     from tanksession
     where id = :id
 ;
 
 tanksession_findall =
-    select *
+    select id, timestamp, carid
     from tanksession
 ;
 
 tanksession_findby_carid =
-    select *
+    select id, timestamp, carid
     from tanksession
     where carid = :carid
 ;
@@ -84,7 +84,7 @@ trip_findbyid =
 ;
 
 trip_findby_tanksessionid =
-    select *
+    select id, distance, timestamp, tanksessionid
     from trip
     where tanksessionid = :tanksessionid
 ;
@@ -106,24 +106,24 @@ person_delete =
 ;
 
 person_findbyid =
-    select *
+    select id, name
     from person
     where id = :id
 ;
 
 person_findbyname =
-    select *
+    select id, name
     from person
     where name = :name
 ;
 trip_person_findby_tripid =
-    select *
+    select tripid, personid
     from trip_person
     where tripid = :tripid
 ;
 
 trip_person_findby_personid =
-    select *
+    select tripid, personid
     from trip_person
     where personid = :personid
 ;
