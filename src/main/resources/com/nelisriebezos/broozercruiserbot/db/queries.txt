@@ -158,19 +158,19 @@ correction_delete =
 ;
 
 correction_findbyid =
-    select *
+    select id, timestamp, distance, personid, tanksessionid
     from correction
     where id = :id
 ;
 
 correction_findby_tanksessionid =
-    select *
+    select id, timestamp, distance, personid, tanksessionid
     from correction
     where tanksessionid = :tanksessionid
 ;
 
 correction_findby_personid =
-    select *
+    select id, timestamp, distance, personid, tanksessionid
     from correction
     where personid = :personid
 ;
