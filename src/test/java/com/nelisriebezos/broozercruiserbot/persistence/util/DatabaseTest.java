@@ -82,10 +82,6 @@ public class DatabaseTest {
         return cruiserDB;
     }
 
-    public CruiserEnvironment getCruiserEnvironment() {
-        return cruiserEnvironment;
-    }
-
     private static void cleanupTempFolder() throws IOException {
         if (dbDir != null)
             cleanupTempFolder(dbDir);

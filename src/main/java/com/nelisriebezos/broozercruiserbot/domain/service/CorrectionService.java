@@ -18,8 +18,7 @@ public class CorrectionService {
         return null;
     }
 
-    public Correction delete(Long id) {
-        return null;
+    public void delete(Long id) {
     }
 
     public Correction findById(Long id) {

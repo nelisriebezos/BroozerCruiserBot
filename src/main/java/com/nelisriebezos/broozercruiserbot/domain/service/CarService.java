@@ -1,16 +1,10 @@
 package com.nelisriebezos.broozercruiserbot.domain.service;
 
-import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.Exceptions.CarException;
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
-import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -59,7 +53,7 @@ public class CarService {
     }
 
     public void delete(Long id) throws DatabaseException {
-        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_delete"));) {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_delete"))) {
             stmt.set("id", id);
             stmt.executeUpdate();
 
