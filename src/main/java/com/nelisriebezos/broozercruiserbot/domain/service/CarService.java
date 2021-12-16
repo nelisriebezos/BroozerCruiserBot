@@ -20,7 +20,7 @@ public class CarService {
 
     public Car create(Car car) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_create"))) {
-            SequenceGenerator gen = new SequenceGenerator(connection, "seq_car");
+            SequenceGenerator gen = new SequenceGenerator(connection, "car_seq");
 
             Long id = gen.getNextValue();
             car.setId(id);

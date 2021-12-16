@@ -5,6 +5,7 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
 import com.nelisriebezos.broozercruiserbot.domain.service.CarService;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
+import com.nelisriebezos.broozercruiserbot.persistence.util.impl.DDLException;
 import com.nelisriebezos.broozercruiserbot.util.Configuration;
 import com.nelisriebezos.broozercruiserbot.util.CruiserUtil;
 import org.junit.jupiter.api.AfterAll;
@@ -24,15 +25,23 @@ import java.util.Properties;
 public class DatabaseTest {
     private static File dbDir;
     static CruiserEnvironment cruiserEnvironment;
+    private static final String TESTDATA_SCRIPT = "com/nelisriebezos/broozercruiserbot/db/test_fill_db.ddl";
 
     private static CruiserDB cruiserDB;
     protected CarService carService;
-    protected Car car;
     protected Connection connection;
+    protected Car car;
 
     @BeforeAll
-    public static void setupDatabase() throws IOException, DatabaseException {
+    public static void setupDatabase() throws IOException, DatabaseException, SQLException, DDLException {
         cruiserDB = getCruiserDB();
+
+        Connection connection = cruiserDB.getConnection();
+        DatabaseIdiom idiom = DatabaseIdiomFactory.getDatabaseIdiom(connection);
+        DDLExecuter executer = new DDLExecuter(connection, idiom);
+        executer.execute(TESTDATA_SCRIPT);
+        connection.commit();
+        connection.close();
     }
 
     @BeforeEach

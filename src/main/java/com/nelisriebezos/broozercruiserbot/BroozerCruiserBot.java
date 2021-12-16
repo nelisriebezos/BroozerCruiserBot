@@ -62,7 +62,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
     public static void main(String[] args) throws Exception {
         CruiserDB cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
         Connection connection = cruiserDB.getConnection();
-//
+
 //        try (Connection conn = db.getConnection();
 //             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("create_car"))) {
 //            SequenceGenerator gen = new SequenceGenerator(conn, "seq_car");
