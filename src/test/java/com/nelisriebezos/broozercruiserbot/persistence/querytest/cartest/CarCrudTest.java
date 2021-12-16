@@ -4,7 +4,6 @@ import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
 import com.nelisriebezos.broozercruiserbot.persistence.util.DatabaseTest;
 import org.junit.jupiter.api.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarCrudTest extends DatabaseTest {
@@ -16,11 +15,10 @@ public class CarCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void createNegative() {
+    public void createNegativeKmCounter() {
         Assertions.assertThrows(DatabaseException.class, () -> {
             car.setKmCounter(-3);
-            Car createdCar = carService.create(car);
-            System.out.println(carService.findById(createdCar.getId()));
+            carService.create(car);
         });
     }
 
@@ -31,7 +29,7 @@ public class CarCrudTest extends DatabaseTest {
 
         createdcar.setKmCounter(150);
         carService.update(createdcar);
-        assertEquals(150, carService.findById(createdcar.getId()).getKmCounter());
+        assertEquals(createdcar, carService.findById(createdcar.getId()));
     }
 
     @Test
@@ -47,6 +45,6 @@ public class CarCrudTest extends DatabaseTest {
         carService.delete(createdcar.getId());
 
         Assertions.assertThrows(Exception.class, () ->
-                System.out.println(carService.findById(createdcar.getId())));
+                carService.findById(createdcar.getId()));
     }
 }

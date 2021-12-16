@@ -2,7 +2,9 @@ package com.nelisriebezos.broozercruiserbot.persistence.util;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
 import com.nelisriebezos.broozercruiserbot.domain.service.CarService;
+import com.nelisriebezos.broozercruiserbot.domain.service.PersonService;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.util.impl.DDLException;
@@ -28,9 +30,11 @@ public class DatabaseTest {
     private static final String TESTDATA_SCRIPT = "com/nelisriebezos/broozercruiserbot/db/test_fill_db.ddl";
 
     private static CruiserDB cruiserDB;
-    protected CarService carService;
     protected Connection connection;
+    protected CarService carService;
+    protected PersonService personService;
     protected Car car;
+    protected Person person;
 
     @BeforeAll
     public static void setupDatabase() throws IOException, DatabaseException, SQLException, DDLException {
@@ -48,7 +52,9 @@ public class DatabaseTest {
     public void init() throws SQLException {
         connection = cruiserDB.getConnection();
         carService = new CarService(connection);
+        personService = new PersonService(connection);
         car = new Car();
+        person = new Person();
     }
 
     @AfterEach

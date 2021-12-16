@@ -5,25 +5,25 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class PersonService {
-    private CruiserDB cruiserDB;
+    private final Connection connection;
 
-    public PersonService(CruiserDB cruiserDB) {
-        this.cruiserDB = cruiserDB;
+    public PersonService(Connection connection) {
+        this.connection = connection;
     }
 
-    public Correction create(Person person) {
+    public Person create(Person person) {
         return null;
     }
 
-    public Correction update(Person person) {
+    public Person update(Person person) {
         return null;
     }
 
-    public Correction delete(Long id) {
-        return null;
+    public void delete(Long id) {
     }
 
     public Person findById(Long id) {
