@@ -1,6 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Correction {
     private Long id;
@@ -61,6 +62,19 @@ public class Correction {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Correction)) return false;
+        Correction that = (Correction) o;
+        return getDistance() == that.getDistance() && Objects.equals(getId(), that.getId()) && Objects.equals(getTimestamp(), that.getTimestamp()) && Objects.equals(getTankSession(), that.getTankSession()) && Objects.equals(getPerson(), that.getPerson());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTimestamp(), getDistance(), getTankSession(), getPerson());
     }
 
     @Override

@@ -67,6 +67,11 @@ public class Car {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getKmCounter(), tankSessionList);
+    }
+
+    @Override
     public String toString() {
         return "Car{" +
                 "id=" + id +

@@ -23,13 +23,12 @@ public class CarCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void updatePositive() throws Exception {
+    public void updatePositive() throws DatabaseException {
         car.setKmCounter(100);
         Car createdcar = carService.create(car);
-
         createdcar.setKmCounter(150);
-        carService.update(createdcar);
-        assertEquals(createdcar, carService.findById(createdcar.getId()));
+        Car updatedCar = carService.update(createdcar);
+        assertEquals(updatedCar, carService.findById(createdcar.getId()));
     }
 
     @Test
@@ -44,7 +43,20 @@ public class CarCrudTest extends DatabaseTest {
         Car createdcar = carService.create(car);
         carService.delete(createdcar.getId());
 
-        Assertions.assertThrows(Exception.class, () ->
+        Assertions.assertThrows(DatabaseException.class, () ->
                 carService.findById(createdcar.getId()));
+    }
+
+    @Test
+    public void findByIdPositive() throws DatabaseException {
+        car.setKmCounter(100);
+        Car createdcar = carService.create(car);
+        assertEquals(createdcar, carService.findById(createdcar.getId()));
+    }
+
+    @Test
+    public void findByIdNegative() {
+        Assertions.assertThrows(DatabaseException.class, () ->
+                carService.findById(29L));
     }
 }

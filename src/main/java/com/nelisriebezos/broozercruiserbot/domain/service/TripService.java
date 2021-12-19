@@ -4,7 +4,11 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
+import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripService {
@@ -34,8 +38,17 @@ public class TripService {
         return null;
     }
 
-    public List<Person> findAllPerson(Long id) {
-        return null;
-    }
+//    public List<Trip> findAllTripsByPersonId(Long id) {
+//        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_findby_personid"))) {
+//            stmt.set("personid", id);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            List<Trip> tripList = new ArrayList<>();
+//
+//            if (rs.next()) {
+//
+//            }
+//        }
+//    }
 }
 

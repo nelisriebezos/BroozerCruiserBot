@@ -95,7 +95,7 @@ person_create =
 ;
 
 person_update =
-    update table person
+    update person
     set id = :id, name = :name
     where id = :id
 ;

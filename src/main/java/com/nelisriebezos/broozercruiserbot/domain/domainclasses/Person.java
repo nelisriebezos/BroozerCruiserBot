@@ -2,6 +2,7 @@ package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Person {
     private Long id;
@@ -53,6 +54,19 @@ public class Person {
 
     public void removeTrip(Trip trip) {
         tripList.remove(trip);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getTripList(), person.getTripList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getTripList());
     }
 
     @Override

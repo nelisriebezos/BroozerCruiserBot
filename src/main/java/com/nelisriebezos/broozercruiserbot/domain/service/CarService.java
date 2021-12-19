@@ -27,8 +27,8 @@ public class CarService {
             stmt.set("id", id);
             stmt.set("kmcounter", car.getKmCounter());
 
-            if (car.getId() == null || car.getId() < 1) throw new DatabaseException("Create error: Id is fout, " + car.getId());
-            if (car.getKmCounter() < 1) throw new DatabaseException("Create error: Kmcounter is fout, " + car.getKmCounter());
+            if (car.getId() == null || car.getId() < 1) throw new DatabaseException("Create error: Id is wrong, " + car.getId());
+            if (car.getKmCounter() < 1) throw new DatabaseException("Create error: Kmcounter is wrong, " + car.getKmCounter());
 
             stmt.executeUpdate();
             return car;
@@ -64,7 +64,6 @@ public class CarService {
 
     public Car findById(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_findbyid"))) {
-
             stmt.set("id", id);
             ResultSet rs = stmt.executeQuery();
 

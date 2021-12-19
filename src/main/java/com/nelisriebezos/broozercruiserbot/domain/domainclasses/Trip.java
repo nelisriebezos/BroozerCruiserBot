@@ -4,6 +4,7 @@ package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Trip {
     private Long id;
@@ -76,6 +77,19 @@ public class Trip {
 
     public void removePerson(Person person) {
         personList.remove(person);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Trip)) return false;
+        Trip trip = (Trip) o;
+        return getDistance() == trip.getDistance() && Objects.equals(getId(), trip.getId()) && Objects.equals(getTimestamp(), trip.getTimestamp()) && Objects.equals(getTankSession(), trip.getTankSession()) && Objects.equals(getPersonList(), trip.getPersonList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getDistance(), getTimestamp(), getTankSession(), getPersonList());
     }
 
     @Override
