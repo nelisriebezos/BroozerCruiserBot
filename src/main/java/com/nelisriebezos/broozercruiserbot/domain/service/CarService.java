@@ -70,8 +70,8 @@ public class CarService {
             Car car = new Car();
 
             if (rs.next()) {
-                car.setId(rs.getLong(1));
-                car.setKmCounter(rs.getInt(2));
+                car.setId(rs.getLong("id"));
+                car.setKmCounter(rs.getInt("kmcounter"));
             } else {
                 throw new DatabaseException("FindById error: nothing was found, " + id);
             }

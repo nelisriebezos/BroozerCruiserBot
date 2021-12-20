@@ -2,7 +2,6 @@ package com.nelisriebezos.broozercruiserbot.domain.service;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
@@ -10,6 +9,8 @@ import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonService {
     private final Connection connection;
@@ -69,8 +70,8 @@ public class PersonService {
             Person person = new Person();
 
             if (rs.next()) {
-                person.setId(rs.getLong(1));
-                person.setName(rs.getString(2));
+                person.setId(rs.getLong("id"));
+                person.setName(rs.getString("name"));
             } else {
                 throw new DatabaseException("FindById error: nothing was found, " + id);
             }
@@ -91,8 +92,11 @@ public class PersonService {
             Person person = new Person();
 
             if (rs.next()) {
-                person.setId(rs.getLong(1));
-                person.setName(rs.getString(2));
+                person.setId(rs.getLong("id"));
+                person.setName(rs.getString("name"));
+
+//                find person's trip via a new query
+
             } else {
                 throw new DatabaseException("FindByName error: nothing was found, " + name);
             }
@@ -102,6 +106,30 @@ public class PersonService {
             return person;
         } catch (SQLException e) {
             throw new DatabaseException("FindById error", e);
+        }
+    }
+
+    public List<Person> findPersonByTripId(Long tripId) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_findpersonby_trip"))) {
+            stmt.set("tripid", tripId);
+            ResultSet rs = stmt.executeQuery();
+
+            List<Person> personList = new ArrayList<>();
+
+            while(rs.next()) {
+                personList.add(
+                        new Person(
+                                rs.getLong("id"),
+                                rs.getString("name")
+                        )
+                );
+            }
+
+//            find person's trip
+
+            return personList;
+        } catch (SQLException e) {
+            throw new DatabaseException("FindPersonByTripId error", e);
         }
     }
 }

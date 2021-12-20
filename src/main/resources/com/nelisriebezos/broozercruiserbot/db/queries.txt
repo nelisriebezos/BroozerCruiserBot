@@ -116,16 +116,16 @@ person_findbyname =
     from person
     where name = :name
 ;
-trip_person_findby_tripid =
-    select tripid, personid
-    from trip_person
-    where tripid = :tripid
+trip_person_findtripsby_person =
+    select id, distance, timestamp, tanksessionid
+    from trip t, trip_person tp
+    where t.id = tp.tripid and tp.personid = :personid
 ;
 
-trip_person_findby_personid =
-    select tripid, personid
-    from trip_person
-    where personid = :personid
+trip_person_findpersonby_trip =
+    select id, name
+    from person p, trip_person tp
+    where p.id = tp.personid and tp.tripid = :tripid
 ;
 
 correction_create =
