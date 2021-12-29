@@ -1,8 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.persistence.util;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.*;
 import com.nelisriebezos.broozercruiserbot.domain.service.CarService;
 import com.nelisriebezos.broozercruiserbot.domain.service.PersonService;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
@@ -35,6 +34,9 @@ public class DatabaseTest {
     protected PersonService personService;
     protected Car car;
     protected Person person;
+    protected Correction correction;
+    protected TankSession tankSession;
+    protected Trip trip;
 
     @BeforeAll
     public static void setupDatabase() throws IOException, DatabaseException, SQLException, DDLException {
@@ -55,6 +57,9 @@ public class DatabaseTest {
         personService = new PersonService(connection);
         car = new Car();
         person = new Person();
+        correction = new Correction();
+        tankSession = new TankSession();
+        trip = new Trip();
     }
 
     @AfterEach

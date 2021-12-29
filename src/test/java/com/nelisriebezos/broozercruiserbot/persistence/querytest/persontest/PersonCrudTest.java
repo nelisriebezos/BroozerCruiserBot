@@ -58,4 +58,13 @@ public class PersonCrudTest  extends DatabaseTest {
         Assertions.assertThrows(DatabaseException.class, () ->
                 personService.findByName("wrongName"));
     }
+
+    @Test
+    public void findPersonByTripId() {
+        trip.setId(1L);
+        trip.addPerson(person);
+        person.addTrip(trip);
+        person.setName("testName");
+
+    }
 }

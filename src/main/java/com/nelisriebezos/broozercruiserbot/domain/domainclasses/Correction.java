@@ -64,6 +64,14 @@ public class Correction {
         this.person = person;
     }
 
+    public Long getTankSessionId() {
+        return tankSession.getId();
+    }
+
+    public Long getPersonId() {
+        return person.getId();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -27,6 +27,12 @@ public class Trip {
         this.personList = personList;
     }
 
+    public Trip(long id, int distance, Timestamp timestamp) {
+        this.id = id;
+        this.distance = distance;
+        this.timestamp = timestamp;
+    }
+
     public Long getId() {
         return id;
     }
@@ -77,6 +83,10 @@ public class Trip {
 
     public void removePerson(Person person) {
         personList.remove(person);
+    }
+
+    public Long getTankSessionId() {
+        return tankSession.getId();
     }
 
     @Override

@@ -132,4 +132,13 @@ public class PersonService {
             throw new DatabaseException("FindPersonByTripId error", e);
         }
     }
+
+    public void deleteTrip_Person_byId(Long id) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_delete_viaperson"))) {
+            stmt.set("id", id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseException("Delete error", e);
+        }
+    }
 }

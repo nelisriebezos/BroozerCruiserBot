@@ -88,6 +88,10 @@ public class TankSession {
         tripList.remove(trip);
     }
 
+    public Long getCarId() {
+        return car.getId();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

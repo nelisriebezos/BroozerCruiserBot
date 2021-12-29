@@ -78,7 +78,7 @@ trip_delete =
 ;
 
 trip_findbyid =
-    select *
+    select id, distance, timestamp, tanksessionid
     from trip
     where id = :id
 ;
@@ -116,6 +116,29 @@ person_findbyname =
     from person
     where name = :name
 ;
+
+trip_person_create =
+    insert into trip_person(
+        tripid, personid)
+        values (
+        :tripid, :personid)
+;
+
+trip_person_update =
+    update trip_person
+    set tripid = :tripid, personid = :personid
+;
+
+trip_person_delete_viatrip =
+    delete from trip_person
+    where tripid = :tripid
+;
+
+trip_person_delete_viaperson =
+    delete from trip_person
+    where personid = :personid
+;
+
 trip_person_findtripsby_person =
     select id, distance, timestamp, tanksessionid
     from trip t, trip_person tp
@@ -131,12 +154,12 @@ trip_person_findpersonby_trip =
 correction_create =
     insert into correction
     (id,
-    timesamp,
+    timestamp,
     distance,
     personid,
     tanksessionid
     values (:id,
-    :timesamp,
+    :timestamp,
     :distance,
     :personid,
     :tanksessionid)
