@@ -19,6 +19,11 @@ public class TankSession {
         this.id = id;
     }
 
+    public TankSession(Long id, Timestamp timestamp) {
+        this.id = id;
+        this.timestamp = timestamp;
+    }
+
     public TankSession(Timestamp timestamp, Car car) {
         this.timestamp = timestamp;
         this.car = car;

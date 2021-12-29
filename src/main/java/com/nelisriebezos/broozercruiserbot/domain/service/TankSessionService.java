@@ -93,30 +93,47 @@ public class TankSessionService {
         }
     }
 
-    public List<TankSession> findAll() {
+    public List<TankSession> findAll() throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_findall"))) {
             ResultSet rs = stmt.executeQuery();
 
-            List<Trip> tripList = new ArrayList<>();
+            List<TankSession> tankSessionList = new ArrayList<>();
 
             while (rs.next()) {
-                tripList.add(
-                        new Trip(
+                tankSessionList.add(
+                        new TankSession(
                                 rs.getLong("id"),
-                                rs.getInt("distance"),
                                 rs.getTimestamp("timestamp")
                         )
                 );
             }
 
 
-            return tripList;
+            return tankSessionList;
         } catch (SQLException e) {
             throw new DatabaseException("FindById error", e);
         }
     }
 
-    public TankSession findByCarId(Long id) {
-        return null;
+    public TankSession findByCarId(Long id) throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_findby_carid"))) {
+            stmt.set("id", id);
+            ResultSet rs = stmt.executeQuery();
+
+            TankSession tankSession = new TankSession();
+
+            if (rs.next()) {
+                tankSession.setId(rs.getLong("id"));
+                tankSession.setTimestamp(rs.getTimestamp("timestamp"));
+            } else {
+                throw new DatabaseException("FindById error: nothing was found, " + id);
+            }
+
+            rs.close();
+            stmt.close();
+            return tankSession;
+        } catch (SQLException | DatabaseException e) {
+            throw new DatabaseException("FindById error", e);
+        }
     }
 }
