@@ -4,6 +4,10 @@ import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
 import com.nelisriebezos.broozercruiserbot.persistence.util.DatabaseTest;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -60,11 +64,14 @@ public class PersonCrudTest  extends DatabaseTest {
     }
 
     @Test
-    public void findPersonByTripId() {
-        trip.setId(1L);
-        trip.addPerson(person);
-        person.addTrip(trip);
-        person.setName("testName");
+    public void findPersonByTripId() throws DatabaseException {
+        List<Person> personList = new ArrayList<>();
+        personList.add(personService.findById(1L));
+        assertEquals(personList, personService.findPersonByTripId(1L));
+    }
+
+    @Test
+    public void deleteTrip_person_byId() {
 
     }
 }

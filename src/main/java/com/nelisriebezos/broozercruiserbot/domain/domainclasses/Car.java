@@ -63,7 +63,7 @@ public class Car {
         if (this == o) return true;
         if (!(o instanceof Car)) return false;
         Car car = (Car) o;
-        return getKmCounter() == car.getKmCounter() && Objects.equals(getId(), car.getId()) && Objects.equals(tankSessionList, car.tankSessionList);
+        return Objects.equals(getId(), car.getId());
     }
 
     @Override

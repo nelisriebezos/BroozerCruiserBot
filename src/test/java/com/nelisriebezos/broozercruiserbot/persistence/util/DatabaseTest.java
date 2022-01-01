@@ -2,8 +2,7 @@ package com.nelisriebezos.broozercruiserbot.persistence.util;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.*;
-import com.nelisriebezos.broozercruiserbot.domain.service.CarService;
-import com.nelisriebezos.broozercruiserbot.domain.service.PersonService;
+import com.nelisriebezos.broozercruiserbot.domain.service.*;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.util.impl.DDLException;
@@ -20,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 
@@ -32,11 +32,16 @@ public class DatabaseTest {
     protected Connection connection;
     protected CarService carService;
     protected PersonService personService;
+    protected TripService tripService;
+    protected CorrectionService correctionService;
+    protected TankSessionService tankSessionService;
     protected Car car;
     protected Person person;
     protected Correction correction;
     protected TankSession tankSession;
     protected Trip trip;
+    protected Timestamp timestamp1;
+    protected Timestamp timestamp2;
 
     @BeforeAll
     public static void setupDatabase() throws IOException, DatabaseException, SQLException, DDLException {
@@ -55,11 +60,16 @@ public class DatabaseTest {
         connection = cruiserDB.getConnection();
         carService = new CarService(connection);
         personService = new PersonService(connection);
+        tankSessionService = new TankSessionService(connection);
+        tripService = new TripService(connection);
+        correctionService = new CorrectionService(connection);
         car = new Car();
         person = new Person();
         correction = new Correction();
         tankSession = new TankSession();
         trip = new Trip();
+        timestamp1 = new Timestamp(2000, 1, 1, 1, 1, 1,1);
+        timestamp2 = new Timestamp(2001, 1, 1, 1, 1, 1,1);
     }
 
     @AfterEach

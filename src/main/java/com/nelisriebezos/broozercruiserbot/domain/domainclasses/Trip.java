@@ -94,12 +94,12 @@ public class Trip {
         if (this == o) return true;
         if (!(o instanceof Trip)) return false;
         Trip trip = (Trip) o;
-        return getDistance() == trip.getDistance() && Objects.equals(getId(), trip.getId()) && Objects.equals(getTimestamp(), trip.getTimestamp()) && Objects.equals(getTankSession(), trip.getTankSession()) && Objects.equals(getPersonList(), trip.getPersonList());
+        return Objects.equals(getId(), trip.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDistance(), getTimestamp(), getTankSession(), getPersonList());
+        return Objects.hash(getId());
     }
 
     @Override

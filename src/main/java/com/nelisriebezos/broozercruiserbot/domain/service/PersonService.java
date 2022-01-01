@@ -125,8 +125,6 @@ public class PersonService {
                 );
             }
 
-//            find person's trip
-
             return personList;
         } catch (SQLException e) {
             throw new DatabaseException("FindPersonByTripId error", e);

@@ -1,10 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.domain.service;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
-import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
@@ -28,9 +25,6 @@ public class TankSessionService {
 
             Long id = gen.getNextValue();
             tankSession.setId(id);
-            stmt.set("id", id);
-            stmt.set("timestamp", tankSession.getTimestamp());
-            stmt.set("carid", tankSession.getCarId());
 
             if (tankSession.getId() == null || tankSession.getId() < 1)
                 throw new DatabaseException("Create error: id is wrong, " + tankSession.getId());
@@ -38,6 +32,11 @@ public class TankSessionService {
                 throw new DatabaseException("Create error: timestamp is wrong, " + tankSession.getTimestamp());
             if (tankSession.getCarId() == null || tankSession.getCarId() < 1)
                 throw new DatabaseException("Create error: carId is wrong, " + tankSession.getCarId());
+
+            stmt.set("id", id);
+            stmt.set("timestamp", tankSession.getTimestamp());
+            stmt.set("carid", tankSession.getCarId());
+
 
             stmt.executeUpdate();
             return tankSession;
@@ -48,6 +47,12 @@ public class TankSessionService {
 
     public TankSession update(TankSession tankSession) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_update"))) {
+            if (tankSession.getTimestamp() == null)
+                throw new DatabaseException("Update error: timestamp is wrong, " + tankSession.getTimestamp());
+            if (tankSession.getCarId() == null || tankSession.getCarId() < 1)
+                throw new DatabaseException("Update error: carId is wrong, " + tankSession.getCarId());
+
+
             stmt.set("id", tankSession.getId());
             stmt.set("timestamp", tankSession.getTimestamp());
             stmt.set("carid", tankSession.getCarId());
@@ -71,7 +76,7 @@ public class TankSessionService {
         }
     }
 
-    public TankSession findnById(Long id) throws DatabaseException {
+    public TankSession findById(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_findbyid"))) {
             stmt.set("id", id);
             ResultSet rs = stmt.executeQuery();
@@ -115,24 +120,24 @@ public class TankSessionService {
         }
     }
 
-    public TankSession findByCarId(Long id) throws DatabaseException {
+    public List<TankSession> findByCarId(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_findby_carid"))) {
-            stmt.set("id", id);
+            stmt.set("carid", id);
             ResultSet rs = stmt.executeQuery();
 
-            TankSession tankSession = new TankSession();
+            List<TankSession> tankSessionList = new ArrayList<>();
 
-            if (rs.next()) {
-                tankSession.setId(rs.getLong("id"));
-                tankSession.setTimestamp(rs.getTimestamp("timestamp"));
-            } else {
-                throw new DatabaseException("FindById error: nothing was found, " + id);
+            while (rs.next()) {
+                tankSessionList.add(
+                        new TankSession(
+                                rs.getLong("id"),
+                                rs.getTimestamp("timestamp")
+                        )
+                );
             }
 
-            rs.close();
-            stmt.close();
-            return tankSession;
-        } catch (SQLException | DatabaseException e) {
+            return tankSessionList;
+        } catch (SQLException e) {
             throw new DatabaseException("FindById error", e);
         }
     }

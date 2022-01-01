@@ -77,12 +77,12 @@ public class Correction {
         if (this == o) return true;
         if (!(o instanceof Correction)) return false;
         Correction that = (Correction) o;
-        return getDistance() == that.getDistance() && Objects.equals(getId(), that.getId()) && Objects.equals(getTimestamp(), that.getTimestamp()) && Objects.equals(getTankSession(), that.getTankSession()) && Objects.equals(getPerson(), that.getPerson());
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTimestamp(), getDistance(), getTankSession(), getPerson());
+        return Objects.hash(getId());
     }
 
     @Override

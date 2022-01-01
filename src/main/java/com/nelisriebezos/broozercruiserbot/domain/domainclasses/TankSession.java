@@ -94,7 +94,10 @@ public class TankSession {
     }
 
     public Long getCarId() {
-        return car.getId();
+        if (car != null) {
+            return car.getId();
+        }
+        return null;
     }
 
     @Override
@@ -102,12 +105,12 @@ public class TankSession {
         if (this == o) return true;
         if (!(o instanceof TankSession)) return false;
         TankSession that = (TankSession) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTimestamp(), that.getTimestamp()) && Objects.equals(getCar(), that.getCar()) && Objects.equals(correctionList, that.correctionList) && Objects.equals(getTripList(), that.getTripList());
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTimestamp(), getCar(), correctionList, getTripList());
+        return Objects.hash(getId());
     }
 
     @Override

@@ -62,12 +62,12 @@ public class Person {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
         Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getTripList(), person.getTripList());
+        return Objects.equals(getId(), person.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getTripList());
+        return Objects.hash(getId());
     }
 
     @Override

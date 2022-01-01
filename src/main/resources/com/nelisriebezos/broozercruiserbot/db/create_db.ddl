@@ -55,8 +55,8 @@ create table trip
 
 create table trip_person
 (
-    tripid   bigint not null unique,
-    personid bigint not null unique,
+    tripid   bigint not null,
+    personid bigint not null,
     foreign key (tripid) references trip (id),
     foreign key (personid) references person (id)
 );
