@@ -1,9 +1,9 @@
 package com.nelisriebezos.broozercruiserbot.domaintest.classtest;
 
-import com.nelisriebezos.broozercruiserbot.domain.Car;
-import com.nelisriebezos.broozercruiserbot.domain.Correctie;
-import com.nelisriebezos.broozercruiserbot.domain.TankSession;
-import com.nelisriebezos.broozercruiserbot.domain.Trip;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
@@ -37,29 +37,29 @@ public class TankSessionTest {
 
     @Test
     public void testGetSetCorrectieList() {
-        List<Correctie> correctieList = new ArrayList<>();
-        tankSession.setCorrectieList(correctieList);
-        assertEquals(correctieList, tankSession.getCorrectieList());
+        List<Correction> correctionList = new ArrayList<>();
+        tankSession.setCorrectieList(correctionList);
+        assertEquals(correctionList, tankSession.getCorrectieList());
     }
 
     @Test
     public void addCorrectie() {
-        Correctie correctie = new Correctie(1L);
-        assertTrue(tankSession.addCorrectie(correctie));
+        Correction correction = new Correction(1L);
+        assertTrue(tankSession.addCorrectie(correction));
     }
 
     @Test
     public void addExistingCorrectie() {
-        Correctie correctie = new Correctie(1L);
-        tankSession.addCorrectie(correctie);
-        assertFalse(tankSession.addCorrectie(correctie));
+        Correction correction = new Correction(1L);
+        tankSession.addCorrectie(correction);
+        assertFalse(tankSession.addCorrectie(correction));
     }
 
     @Test
     public void removeCorrectie() {
-        Correctie correctie = new Correctie(1L);
-        tankSession.addCorrectie(correctie);
-        tankSession.removeCorrectie(correctie);
+        Correction correction = new Correction(1L);
+        tankSession.addCorrectie(correction);
+        tankSession.removeCorrectie(correction);
         assertEquals(0, tankSession.getCorrectieList().size());
     }
 

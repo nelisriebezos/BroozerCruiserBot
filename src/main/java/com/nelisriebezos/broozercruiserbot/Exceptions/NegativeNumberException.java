@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.Exceptions;
 
-public class NegativeNumberException extends Exception{
+public class NegativeNumberException extends CruiserException{
     public NegativeNumberException(String message) {
         super(message);
     }
