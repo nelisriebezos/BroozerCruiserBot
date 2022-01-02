@@ -56,7 +56,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void deletePositive() throws DatabaseException {
+    public void delete() throws DatabaseException {
         car.setId(1L);
         tankSession.setCar(car);
         tankSession.setTimestamp(timestamp1);
@@ -93,16 +93,9 @@ public class TankSessionCrudTest extends DatabaseTest {
     }
 
     @Test
-    public void findByCarIdPositive() throws DatabaseException {
-        car.setId(1L);
-        tankSession.setCar(car);
-        tankSession.setTimestamp(timestamp1);
-        TankSession createdTanksession = tankSessionService.create(tankSession);
-
+    public void findByCarId() throws DatabaseException {
         List<TankSession> tankSessionList = new ArrayList<>();
         tankSessionList.add(tankSessionService.findById(1L));
-        tankSessionList.add(createdTanksession);
-
-        assertEquals(tankSessionList, tankSessionService.findByCarId(car.getId()));
+        assertEquals(tankSessionList, tankSessionService.findByCarId(1L));
     }
 }

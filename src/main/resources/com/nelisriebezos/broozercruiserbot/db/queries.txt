@@ -127,6 +127,7 @@ trip_person_create =
 trip_person_update =
     update trip_person
     set tripid = :tripid, personid = :personid
+    where
 ;
 
 trip_person_delete_viatrip =

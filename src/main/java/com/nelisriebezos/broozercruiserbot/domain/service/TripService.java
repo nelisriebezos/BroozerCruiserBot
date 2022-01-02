@@ -1,6 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.domain.service;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
@@ -34,7 +35,8 @@ public class TripService {
                 throw new DatabaseException("Create error: timestamp is wrong, " + trip.getTimestamp());
             if (trip.getTankSessionId() == null || trip.getTankSessionId() < 1)
                 throw new DatabaseException("Create error: tanksessionid is wrong, " + trip.getTankSessionId());
-
+            if (trip.getPersonList() == null || trip.getPersonList().size() < 1)
+                throw new DatabaseException("Create error: personlost is wrong, " + trip.getPersonList());
 
             stmt.set("id", id);
             stmt.set("distance", trip.getDistance());
@@ -42,6 +44,11 @@ public class TripService {
             stmt.set("tanksessionid", trip.getTankSessionId());
 
             stmt.executeUpdate();
+
+            for (Person person : trip.getPersonList()) {
+                createTrip_Person(id, person.getId());
+            }
+
             return trip;
         } catch (SQLException | DatabaseException e) {
             throw new DatabaseException("Create error", e);
@@ -50,10 +57,20 @@ public class TripService {
 
     public Trip update(Trip trip) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_update"))) {
+
+            if (trip.getPersonList() == null || trip.getPersonList().size() < 1)
+                throw new DatabaseException("Create error: personlost is wrong, " + trip.getPersonList());
+
             stmt.set("id", trip.getId());
             stmt.set("distance", trip.getDistance());
             stmt.set("timestamp", trip.getTimestamp());
             stmt.set("tanksessionid", trip.getTankSessionId());
+
+            deleteTrip_Person_byId(trip.getId());
+
+            for (Person person : trip.getPersonList()) {
+                createTrip_Person(trip.getId(), person.getId());
+            }
 
             int recordCount = stmt.executeUpdate();
             if (recordCount != 1) throw new DatabaseException("Number of trips updated: " + recordCount);
@@ -66,6 +83,9 @@ public class TripService {
 
     public void delete(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_delete"))) {
+
+            deleteTrip_Person_byId(id);
+
             stmt.set("id", id);
             stmt.executeUpdate();
 
@@ -99,6 +119,7 @@ public class TripService {
 
     public List<Trip> findByTankSessionId(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_findby_tanksessionid"))) {
+
             stmt.set("tanksessionid", id);
             ResultSet rs = stmt.executeQuery();
 
@@ -123,11 +144,12 @@ public class TripService {
 
     public void createTrip_Person(Long tripId, Long personId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_create"))) {
-            stmt.set("tripid", tripId);
-            stmt.set("personid", personId);
 
             if (tripId == null || tripId < 1) throw new DatabaseException("Create error, tripid is wrong, " + tripId);
             if (personId == null || personId < 1) throw new DatabaseException("Create error, personid is wrong, " + personId);
+
+            stmt.set("tripid", tripId);
+            stmt.set("personid", personId);
 
             stmt.executeUpdate();
         } catch (SQLException | DatabaseException e) {
@@ -135,25 +157,9 @@ public class TripService {
         }
     }
 
-    public void updateTrip_Person(Long tripId, Long personId) throws DatabaseException {
-        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_update"))) {
-            stmt.set("tripid", tripId);
-            stmt.set("personid", personId);
-
-            if (tripId == null || tripId < 1) throw new DatabaseException("Create error, tripid is wrong, " + tripId);
-            if (personId == null || personId < 1) throw new DatabaseException("Create error, personid is wrong, " + personId);
-
-
-            int recordCount = stmt.executeUpdate();
-            if (recordCount != 1) throw new DatabaseException("Number of trip_person updated: " + recordCount);
-        } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Update error", e);
-        }
-    }
-
-    public void deleteTrip_Person_byId(Long id) throws DatabaseException {
+    public void deleteTrip_Person_byId(Long tripId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_delete_viatrip"))) {
-            stmt.set("id", id);
+            stmt.set("tripid", tripId);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException("Delete error", e);

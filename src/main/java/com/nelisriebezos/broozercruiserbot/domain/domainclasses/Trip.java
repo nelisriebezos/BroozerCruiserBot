@@ -86,7 +86,10 @@ public class Trip {
     }
 
     public Long getTankSessionId() {
-        return tankSession.getId();
+        if (tankSession != null) {
+            return tankSession.getId();
+        }
+        return null;
     }
 
     @Override

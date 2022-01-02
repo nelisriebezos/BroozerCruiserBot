@@ -96,8 +96,6 @@ public class PersonService {
                 person.setId(rs.getLong("id"));
                 person.setName(rs.getString("name"));
 
-//                find person's trip via a new query
-
             } else {
                 throw new DatabaseException("FindByName error: nothing was found, " + name);
             }
