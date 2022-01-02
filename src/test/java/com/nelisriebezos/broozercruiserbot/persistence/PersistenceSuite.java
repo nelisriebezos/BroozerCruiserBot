@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot;
+package com.nelisriebezos.broozercruiserbot.persistence;
 
 import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
