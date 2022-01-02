@@ -24,11 +24,12 @@ public class CarService {
 
             Long id = gen.getNextValue();
             car.setId(id);
+            if (car.getId() == null || car.getId() < 1) throw new DatabaseException("Create error: Id is wrong, " + car.getId());
+            if (car.getKmCounter() < 1) throw new DatabaseException("Create error: Kmcounter is wrong, " + car.getKmCounter());
+
             stmt.set("id", id);
             stmt.set("kmcounter", car.getKmCounter());
 
-            if (car.getId() == null || car.getId() < 1) throw new DatabaseException("Create error: Id is wrong, " + car.getId());
-            if (car.getKmCounter() < 1) throw new DatabaseException("Create error: Kmcounter is wrong, " + car.getKmCounter());
 
             stmt.executeUpdate();
             return car;

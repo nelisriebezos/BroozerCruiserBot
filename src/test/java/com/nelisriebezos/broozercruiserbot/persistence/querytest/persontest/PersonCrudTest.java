@@ -69,9 +69,4 @@ public class PersonCrudTest  extends DatabaseTest {
         personList.add(personService.findById(1L));
         assertEquals(personList, personService.findPersonByTripId(1L));
     }
-
-    @Test
-    public void deleteTrip_person_byId() {
-
-    }
 }

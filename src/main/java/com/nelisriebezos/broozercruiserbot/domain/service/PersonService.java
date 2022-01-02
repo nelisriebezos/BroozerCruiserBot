@@ -25,11 +25,12 @@ public class PersonService {
 
             Long id = gen.getNextValue();
             person.setId(id);
-            stmt.set("id", id);
-            stmt.set("name", person.getName());
 
             if (person.getId() == null || person.getId() < 1) throw new DatabaseException("Create error: Id is wrong, " + person.getId());
             if (person.getName() == null) throw new DatabaseException("Create error: name is wrong, " + person.getName());
+
+            stmt.set("id", id);
+            stmt.set("name", person.getName());
 
             stmt.executeUpdate();
             return person;

@@ -25,10 +25,6 @@ public class TripService {
 
             Long id = gen.getNextValue();
             trip.setId(id);
-            stmt.set("id", id);
-            stmt.set("distance", trip.getDistance());
-            stmt.set("timestamp", trip.getTimestamp());
-            stmt.set("tanksessionid", trip.getTankSessionId());
 
             if (trip.getId() == null || trip.getId() < 1)
                 throw new DatabaseException("Create error: id is wrong, " + trip.getId());
@@ -38,6 +34,12 @@ public class TripService {
                 throw new DatabaseException("Create error: timestamp is wrong, " + trip.getTimestamp());
             if (trip.getTankSessionId() == null || trip.getTankSessionId() < 1)
                 throw new DatabaseException("Create error: tanksessionid is wrong, " + trip.getTankSessionId());
+
+
+            stmt.set("id", id);
+            stmt.set("distance", trip.getDistance());
+            stmt.set("timestamp", trip.getTimestamp());
+            stmt.set("tanksessionid", trip.getTankSessionId());
 
             stmt.executeUpdate();
             return trip;

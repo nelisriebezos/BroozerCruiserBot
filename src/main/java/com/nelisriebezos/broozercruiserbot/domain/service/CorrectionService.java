@@ -25,11 +25,6 @@ public class CorrectionService {
 
             Long id = gen.getNextValue();
             correction.setId(id);
-            stmt.set("id", id);
-            stmt.set("timestamp", correction.getTimestamp());
-            stmt.set("distance", correction.getDistance());
-            stmt.set("personid", correction.getPersonId());
-            stmt.set("tanksessionid", correction.getTankSessionId());
 
             if (correction.getId() == null || correction.getId() < 1)
                 throw new DatabaseException("Create error: id is wrong, " + correction.getId());
@@ -41,6 +36,12 @@ public class CorrectionService {
                 throw new DatabaseException("Create error: personid is wrong, " + correction.getPersonId());
             if (correction.getTankSessionId() == null || correction.getTankSessionId() < 1)
                 throw new DatabaseException("Create error: tanksessionid is wrong, " + correction.getTankSessionId());
+
+            stmt.set("id", id);
+            stmt.set("timestamp", correction.getTimestamp());
+            stmt.set("distance", correction.getDistance());
+            stmt.set("personid", correction.getPersonId());
+            stmt.set("tanksessionid", correction.getTankSessionId());
 
             stmt.executeUpdate();
             return correction;
