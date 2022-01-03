@@ -1,15 +1,16 @@
 package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class Trip {
     private Long id;
     private int distance;
-    private Timestamp timestamp;
+    private Date date;
     private TankSession tankSession;
     List<Person> personList = new ArrayList<>();
 
@@ -20,17 +21,17 @@ public class Trip {
         this.id = id;
     }
 
-    public Trip(int distance, Timestamp timestamp, TankSession tankSession, List<Person> personList) {
+    public Trip(int distance, Date date, TankSession tankSession, List<Person> personList) {
         this.distance = distance;
-        this.timestamp = timestamp;
+        this.date = date;
         this.tankSession = tankSession;
         this.personList = personList;
     }
 
-    public Trip(long id, int distance, Timestamp timestamp) {
+    public Trip(long id, int distance, Date date) {
         this.id = id;
         this.distance = distance;
-        this.timestamp = timestamp;
+        this.date = date;
     }
 
     public Long getId() {
@@ -49,12 +50,12 @@ public class Trip {
         this.distance = distance;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public TankSession getTankSession() {
@@ -66,11 +67,7 @@ public class Trip {
     }
 
     public List<Person> getPersonList() {
-        return personList;
-    }
-
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+        return Collections.unmodifiableList(personList);
     }
 
     public boolean addPerson(Person person) {
@@ -110,7 +107,7 @@ public class Trip {
         return "Trip{" +
                 "id=" + id +
                 ", distance=" + distance +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + date +
                 ", tankSession=" + tankSession +
                 ", personList=" + personList +
                 '}';

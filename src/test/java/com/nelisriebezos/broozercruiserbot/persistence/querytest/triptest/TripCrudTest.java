@@ -1,7 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.persistence.querytest.triptest;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.util.DatabaseTest;
 import org.junit.jupiter.api.*;
@@ -19,7 +18,7 @@ public class TripCrudTest extends DatabaseTest {
         trip.addPerson(person);
         tankSession.setId(1L);
         trip.setDistance(100);
-        trip.setTimestamp(timestamp1);
+        trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
         assertEquals(createdTrip, tripService.findById(createdTrip.getId()));
@@ -31,7 +30,7 @@ public class TripCrudTest extends DatabaseTest {
             tankSession.setId(1L);
             person.setId(1L);
             trip.addPerson(person);
-            trip.setTimestamp(timestamp1);
+            trip.setDate(date1);
             trip.setTankSession(tankSession);
             tripService.create(trip);
         });
@@ -55,7 +54,7 @@ public class TripCrudTest extends DatabaseTest {
             person.setId(1L);
             trip.addPerson(person);
             trip.setDistance(100);
-            trip.setTimestamp(timestamp1);
+            trip.setDate(date1);
             tripService.create(trip);
         });
     }
@@ -64,7 +63,7 @@ public class TripCrudTest extends DatabaseTest {
     public void createNegativePersonList() {
         Assertions.assertThrows(DatabaseException.class, () -> {
             trip.setDistance(100);
-            trip.setTimestamp(timestamp1);
+            trip.setDate(date1);
             trip.setTankSession(tankSession);
             tripService.create(trip);
         });
@@ -76,10 +75,10 @@ public class TripCrudTest extends DatabaseTest {
         person.setId(1L);
         trip.addPerson(person);
         trip.setDistance(100);
-        trip.setTimestamp(timestamp1);
+        trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
-        createdTrip.setTimestamp(timestamp2);
+        createdTrip.setDate(date2);
         Trip updatedTrip = tripService.update(createdTrip);
         assertEquals(updatedTrip, tripService.findById(createdTrip.getId()));
     }
@@ -97,7 +96,7 @@ public class TripCrudTest extends DatabaseTest {
         person.setId(1L);
         trip.addPerson(person);
         trip.setDistance(100);
-        trip.setTimestamp(timestamp1);
+        trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
         tripService.delete(createdTrip.getId());
@@ -113,7 +112,7 @@ public class TripCrudTest extends DatabaseTest {
         person.setId(1L);
         trip.addPerson(person);
         trip.setDistance(100);
-        trip.setTimestamp(timestamp1);
+        trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
         assertEquals(createdTrip, tripService.findById(createdTrip.getId()));

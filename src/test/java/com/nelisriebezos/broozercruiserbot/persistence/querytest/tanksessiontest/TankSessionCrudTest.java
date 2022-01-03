@@ -15,7 +15,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void createPositive() throws Exception {
         car.setId(1L);
         tankSession.setCar(car);
-        tankSession.setTimestamp(timestamp1);
+        tankSession.setDate(date1);
         TankSession createdTanksession = tankSessionService.create(tankSession);
         assertEquals(createdTanksession, tankSessionService.findById(createdTanksession.getId()));
     }
@@ -32,7 +32,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     @Test
     public void createNegativeCar() {
         Assertions.assertThrows(DatabaseException.class, () -> {
-            tankSession.setTimestamp(timestamp1);
+            tankSession.setDate(date1);
             tankSessionService.create(tankSession);
         });
     }
@@ -41,9 +41,9 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void updatePositive() throws DatabaseException {
         car.setId(1L);
         tankSession.setCar(car);
-        tankSession.setTimestamp(timestamp1);
+        tankSession.setDate(date1);
         TankSession createdTanksession = tankSessionService.create(tankSession);
-        createdTanksession.setTimestamp(timestamp2);
+        createdTanksession.setDate(date2);
         TankSession updatedTanksession = tankSessionService.update(createdTanksession);
         assertEquals(updatedTanksession, tankSessionService.findById(createdTanksession.getId()));
     }
@@ -59,7 +59,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void delete() throws DatabaseException {
         car.setId(1L);
         tankSession.setCar(car);
-        tankSession.setTimestamp(timestamp1);
+        tankSession.setDate(date1);
         TankSession createdTanksession = tankSessionService.create(tankSession);
         tankSessionService.delete(createdTanksession.getId());
 
@@ -72,7 +72,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void findByIdPositive() throws DatabaseException {
         car.setId(1L);
         tankSession.setCar(car);
-        tankSession.setTimestamp(timestamp1);
+        tankSession.setDate(date1);
         TankSession createdTanksession = tankSessionService.create(tankSession);
         assertEquals(createdTanksession, tankSessionService.findById(createdTanksession.getId()));
     }
@@ -87,7 +87,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void findAll() throws DatabaseException {
         car.setId(1L);
         tankSession.setCar(car);
-        tankSession.setTimestamp(timestamp1);
+        tankSession.setDate(date1);
         tankSessionService.create(tankSession);
         assertEquals(2, tankSessionService.findAll().size());
     }

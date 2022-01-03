@@ -1,13 +1,14 @@
 package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class TankSession {
     private Long id;
-    private Timestamp timestamp;
+    private Date date;
     private Car car;
     List<Correction> correctionList = new ArrayList<>();
     List<Trip> tripList = new ArrayList<>();
@@ -19,13 +20,13 @@ public class TankSession {
         this.id = id;
     }
 
-    public TankSession(Long id, Timestamp timestamp) {
+    public TankSession(Long id, Date date) {
         this.id = id;
-        this.timestamp = timestamp;
+        this.date = date;
     }
 
-    public TankSession(Timestamp timestamp, Car car) {
-        this.timestamp = timestamp;
+    public TankSession(Date date, Car car) {
+        this.date = date;
         this.car = car;
     }
 
@@ -37,12 +38,12 @@ public class TankSession {
         this.id = id;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Car getCar() {
@@ -54,11 +55,7 @@ public class TankSession {
     }
 
     public List<Correction> getCorrectieList() {
-        return correctionList;
-    }
-
-    public void setCorrectieList(List<Correction> correctionList) {
-        this.correctionList = correctionList;
+        return Collections.unmodifiableList(correctionList);
     }
 
     public boolean addCorrectie(Correction correction) {
@@ -69,16 +66,12 @@ public class TankSession {
         return false;
     }
 
-    public void removeCorrectie(Correction correction) {
+    public void removeCorrection(Correction correction) {
         correctionList.remove(correction);
     }
 
     public List<Trip> getTripList() {
-        return tripList;
-    }
-
-    public void setTripList(List<Trip> tripList) {
-        this.tripList = tripList;
+        return Collections.unmodifiableList(tripList);
     }
 
     public boolean addTrip(Trip trip) {
@@ -117,7 +110,7 @@ public class TankSession {
     public String toString() {
         return "TankSession{" +
                 "id=" + id +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + date +
                 ", car=" + car +
                 ", correctionList=" + correctionList +
                 ", tripList=" + tripList +

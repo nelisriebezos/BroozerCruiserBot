@@ -6,8 +6,7 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,10 +26,10 @@ public class TripTest {
     }
 
     @Test
-    public void testGetSetTimestamp() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        trip.setTimestamp(timestamp);
-        assertEquals(timestamp, trip.getTimestamp());
+    public void testGetSetDate() {
+        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        trip.setDate(date);
+        assertEquals(date, trip.getDate());
     }
 
     @Test
@@ -41,9 +40,8 @@ public class TripTest {
     }
 
     @Test
-    public void testGetSetPersonList() {
+    public void testGetPersonList() {
         List<Person> personList = new ArrayList<>();
-        trip.setPersonList(personList);
         assertEquals(personList, trip.getPersonList());
     }
 

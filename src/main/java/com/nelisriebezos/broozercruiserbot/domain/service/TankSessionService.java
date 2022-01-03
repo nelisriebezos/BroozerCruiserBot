@@ -28,13 +28,13 @@ public class TankSessionService {
 
             if (tankSession.getId() == null || tankSession.getId() < 1)
                 throw new DatabaseException("Create error: id is wrong, " + tankSession.getId());
-            if (tankSession.getTimestamp() == null)
-                throw new DatabaseException("Create error: timestamp is wrong, " + tankSession.getTimestamp());
+            if (tankSession.getDate() == null)
+                throw new DatabaseException("Create error: timestamp is wrong, " + tankSession.getDate());
             if (tankSession.getCarId() == null || tankSession.getCarId() < 1)
                 throw new DatabaseException("Create error: carId is wrong, " + tankSession.getCarId());
 
             stmt.set("id", id);
-            stmt.set("timestamp", tankSession.getTimestamp());
+            stmt.set("timestamp", tankSession.getDate());
             stmt.set("carid", tankSession.getCarId());
 
 
@@ -47,14 +47,14 @@ public class TankSessionService {
 
     public TankSession update(TankSession tankSession) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_update"))) {
-            if (tankSession.getTimestamp() == null)
-                throw new DatabaseException("Update error: timestamp is wrong, " + tankSession.getTimestamp());
+            if (tankSession.getDate() == null)
+                throw new DatabaseException("Update error: timestamp is wrong, " + tankSession.getDate());
             if (tankSession.getCarId() == null || tankSession.getCarId() < 1)
                 throw new DatabaseException("Update error: carId is wrong, " + tankSession.getCarId());
 
 
             stmt.set("id", tankSession.getId());
-            stmt.set("timestamp", tankSession.getTimestamp());
+            stmt.set("timestamp", tankSession.getDate());
             stmt.set("carid", tankSession.getCarId());
 
             int recordCount = stmt.executeUpdate();
@@ -85,7 +85,7 @@ public class TankSessionService {
 
             if (rs.next()) {
                 tankSession.setId(rs.getLong("id"));
-                tankSession.setTimestamp(rs.getTimestamp("timestamp"));
+                tankSession.setDate(rs.getDate("timestamp"));
             } else {
                 throw new DatabaseException("FindById error: nothing was found, " + id);
             }
@@ -108,7 +108,7 @@ public class TankSessionService {
                 tankSessionList.add(
                         new TankSession(
                                 rs.getLong("id"),
-                                rs.getTimestamp("timestamp")
+                                rs.getDate("timestamp")
                         )
                 );
             }
@@ -131,7 +131,7 @@ public class TankSessionService {
                 tankSessionList.add(
                         new TankSession(
                                 rs.getLong("id"),
-                                rs.getTimestamp("timestamp")
+                                rs.getDate("timestamp")
                         )
                 );
             }

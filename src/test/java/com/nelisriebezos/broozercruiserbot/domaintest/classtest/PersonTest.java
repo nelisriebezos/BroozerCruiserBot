@@ -25,9 +25,8 @@ public class PersonTest {
     }
 
     @Test
-    public void testGetSetTripList() {
+    public void testGetTripList() {
         List<Trip> tripList = new ArrayList<>();
-        person.setTripList(tripList);
         assertEquals(tripList, person.getTripList());
     }
 

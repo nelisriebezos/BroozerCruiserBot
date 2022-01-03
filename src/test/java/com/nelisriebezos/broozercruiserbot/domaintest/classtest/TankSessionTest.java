@@ -7,8 +7,7 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,10 +21,10 @@ public class TankSessionTest {
     }
 
     @Test
-    public void testGetSetTimestamp() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        tankSession.setTimestamp(timestamp);
-        assertEquals(timestamp, tankSession.getTimestamp());
+    public void testGetSetDate() {
+        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        tankSession.setDate(date);
+        assertEquals(date, tankSession.getDate());
     }
 
     @Test
@@ -36,9 +35,8 @@ public class TankSessionTest {
     }
 
     @Test
-    public void testGetSetCorrectieList() {
+    public void testGetCorrectieList() {
         List<Correction> correctionList = new ArrayList<>();
-        tankSession.setCorrectieList(correctionList);
         assertEquals(correctionList, tankSession.getCorrectieList());
     }
 
@@ -59,14 +57,13 @@ public class TankSessionTest {
     public void removeCorrectie() {
         Correction correction = new Correction(1L);
         tankSession.addCorrectie(correction);
-        tankSession.removeCorrectie(correction);
+        tankSession.removeCorrection(correction);
         assertEquals(0, tankSession.getCorrectieList().size());
     }
 
     @Test
-    public void testGetSetTripList() {
+    public void testGetTripList() {
         List<Trip> tripList = new ArrayList<>();
-        tankSession.setTripList(tripList);
         assertEquals(tripList, tankSession.getTripList());
     }
 

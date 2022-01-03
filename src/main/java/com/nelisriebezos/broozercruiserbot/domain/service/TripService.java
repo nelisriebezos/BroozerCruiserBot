@@ -31,8 +31,8 @@ public class TripService {
                 throw new DatabaseException("Create error: id is wrong, " + trip.getId());
             if (trip.getDistance() < 1)
                 throw new DatabaseException("Create error: distance is wrong, " + trip.getDistance());
-            if (trip.getTimestamp() == null)
-                throw new DatabaseException("Create error: timestamp is wrong, " + trip.getTimestamp());
+            if (trip.getDate() == null)
+                throw new DatabaseException("Create error: timestamp is wrong, " + trip.getDate());
             if (trip.getTankSessionId() == null || trip.getTankSessionId() < 1)
                 throw new DatabaseException("Create error: tanksessionid is wrong, " + trip.getTankSessionId());
             if (trip.getPersonList() == null || trip.getPersonList().size() < 1)
@@ -40,7 +40,7 @@ public class TripService {
 
             stmt.set("id", id);
             stmt.set("distance", trip.getDistance());
-            stmt.set("timestamp", trip.getTimestamp());
+            stmt.set("timestamp", trip.getDate());
             stmt.set("tanksessionid", trip.getTankSessionId());
 
             stmt.executeUpdate();
@@ -63,7 +63,7 @@ public class TripService {
 
             stmt.set("id", trip.getId());
             stmt.set("distance", trip.getDistance());
-            stmt.set("timestamp", trip.getTimestamp());
+            stmt.set("timestamp", trip.getDate());
             stmt.set("tanksessionid", trip.getTankSessionId());
 
             deleteTrip_Person_byId(trip.getId());
@@ -104,7 +104,7 @@ public class TripService {
             if (rs.next()) {
                 trip.setId(rs.getLong("id"));
                 trip.setDistance(rs.getInt("distance"));
-                trip.setTimestamp(rs.getTimestamp("timestamp"));
+                trip.setDate(rs.getDate("timestamp"));
             } else {
                 throw new DatabaseException("FindById error: nothing was found, " + id);
             }
@@ -130,7 +130,7 @@ public class TripService {
                         new Trip(
                                 rs.getLong("id"),
                                 rs.getInt("distance"),
-                                rs.getTimestamp("timestamp")
+                                rs.getDate("timestamp")
                         )
                 );
             }
@@ -178,7 +178,7 @@ public class TripService {
                         new Trip(
                                 rs.getLong("id"),
                                 rs.getInt("distance"),
-                                rs.getTimestamp("timestamp")
+                                rs.getDate("timestamp")
                         )
                 );
             }

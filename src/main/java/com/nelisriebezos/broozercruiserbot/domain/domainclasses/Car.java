@@ -2,6 +2,7 @@ package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,11 +40,7 @@ public class Car {
     }
 
     public List<TankSession> getTanksessionList() {
-        return tankSessionList;
-    }
-
-    public void setTanksessionList(List<TankSession> tankSessionList) {
-        this.tankSessionList = tankSessionList;
+        return Collections.unmodifiableList(tankSessionList);
     }
 
     public boolean addTanksession(TankSession tankSession) {

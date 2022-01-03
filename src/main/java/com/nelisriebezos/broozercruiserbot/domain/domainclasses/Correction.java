@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Correction {
+
+//    under construction
+
     private Long id;
     private Timestamp timestamp;
     private int distance;

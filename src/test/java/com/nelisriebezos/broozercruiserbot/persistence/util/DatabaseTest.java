@@ -18,8 +18,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.Calendar;
+import java.util.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 
@@ -40,8 +42,8 @@ public class DatabaseTest {
     protected Correction correction;
     protected TankSession tankSession;
     protected Trip trip;
-    protected Timestamp timestamp1;
-    protected Timestamp timestamp2;
+    protected Date date1;
+    protected Date date2;
 
     @BeforeAll
     public static void setupDatabase() throws IOException, DatabaseException, SQLException, DDLException {
@@ -68,8 +70,8 @@ public class DatabaseTest {
         correction = new Correction();
         tankSession = new TankSession();
         trip = new Trip();
-        timestamp1 = new Timestamp(2000, 1, 1, 1, 1, 1,1);
-        timestamp2 = new Timestamp(2001, 1, 1, 1, 1, 1,1);
+        date1 = new GregorianCalendar(2000, Calendar.JANUARY, 1).getTime();
+        date2 = new GregorianCalendar(2001, Calendar.JANUARY, 1).getTime();
     }
 
     @AfterEach

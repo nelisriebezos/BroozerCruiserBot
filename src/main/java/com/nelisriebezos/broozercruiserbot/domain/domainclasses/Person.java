@@ -1,6 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.domain.domainclasses;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,11 +39,7 @@ public class Person {
     }
 
     public List<Trip> getTripList() {
-        return tripList;
-    }
-
-    public void setTripList(List<Trip> tripList) {
-        this.tripList = tripList;
+        return Collections.unmodifiableList(tripList);
     }
 
     public boolean addTrip(Trip trip) {
