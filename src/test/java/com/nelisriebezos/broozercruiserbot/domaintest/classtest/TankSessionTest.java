@@ -6,7 +6,6 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +28,8 @@ public class TankSessionTest {
 
     @Test
     public void testGetSetCar() {
-        Car car = new Car(1L);
+        Car car = new Car();
+        car.setId(1L);
         tankSession.setCar(car);
         assertEquals(car, tankSession.getCar());
     }
@@ -42,20 +42,23 @@ public class TankSessionTest {
 
     @Test
     public void addCorrectie() {
-        Correction correction = new Correction(1L);
+        Correction correction = new Correction();
+        correction.setId(1L);
         assertTrue(tankSession.addCorrectie(correction));
     }
 
     @Test
     public void addExistingCorrectie() {
-        Correction correction = new Correction(1L);
+        Correction correction = new Correction();
+        correction.setId(1L);
         tankSession.addCorrectie(correction);
         assertFalse(tankSession.addCorrectie(correction));
     }
 
     @Test
     public void removeCorrectie() {
-        Correction correction = new Correction(1L);
+        Correction correction = new Correction();
+        correction.setId(1L);
         tankSession.addCorrectie(correction);
         tankSession.removeCorrection(correction);
         assertEquals(0, tankSession.getCorrectieList().size());
@@ -69,20 +72,23 @@ public class TankSessionTest {
 
     @Test
     public void addTrip() {
-        Trip trip = new Trip(1L);
+        Trip trip = new Trip();
+        trip.setId(1L);
         assertTrue(tankSession.addTrip(trip));
     }
 
     @Test
     public void addExistingTrip() {
-        Trip trip = new Trip(1L);
+        Trip trip = new Trip();
+        trip.setId(1L);
         tankSession.addTrip(trip);
         assertFalse(tankSession.addTrip(trip));
     }
 
     @Test
     public void removeTrip() {
-        Trip trip = new Trip(1L);
+        Trip trip = new Trip();
+        trip.setId(1L);
         tankSession.addTrip(trip);
         tankSession.removeTrip(trip);
         assertEquals(0, tankSession.getTripList().size());

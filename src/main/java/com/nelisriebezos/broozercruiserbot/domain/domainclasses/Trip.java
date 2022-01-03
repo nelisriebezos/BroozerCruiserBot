@@ -17,10 +17,6 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(Long id) {
-        this.id = id;
-    }
-
     public Trip(int distance, Date date, TankSession tankSession, List<Person> personList) {
         this.distance = distance;
         this.date = date;

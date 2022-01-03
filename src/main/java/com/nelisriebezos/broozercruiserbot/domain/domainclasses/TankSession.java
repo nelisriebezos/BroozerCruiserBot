@@ -16,10 +16,6 @@ public class TankSession {
     public TankSession() {
     }
 
-    public TankSession(Long id) {
-        this.id = id;
-    }
-
     public TankSession(Long id, Date date) {
         this.id = id;
         this.date = date;

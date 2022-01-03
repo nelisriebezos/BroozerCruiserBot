@@ -33,14 +33,16 @@ public class CorrectionTest {
 
     @Test
     public void testGetSetTankSession() {
-        TankSession tankSession = new TankSession(1L);
+        TankSession tankSession = new TankSession();
+        tankSession.setId(1L);
         correction.setTankSession(tankSession);
         assertEquals(tankSession, correction.getTankSession());
     }
 
     @Test
     public void testGetSetPerson() {
-        Person person = new Person(1L);
+        Person person = new Person();
+        person.setId(1L);
         correction.setPerson(person);
         assertEquals(person, correction.getPerson());
     }

@@ -1,12 +1,13 @@
 package com.nelisriebezos.broozercruiserbot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 
 import java.io.File;
 
 public class Safe {
     public static Secrets getSecrets() {
-        String sfile = "secrets/secrets.json";
+        String sfile = CruiserEnvironment.getEnvironment().getConfiguration().getSecretsFile();
         try {
             File secretsFile = new File(sfile);
             ObjectMapper objectMapper = new ObjectMapper();

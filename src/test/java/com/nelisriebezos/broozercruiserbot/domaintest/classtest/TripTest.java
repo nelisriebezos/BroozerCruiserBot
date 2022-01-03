@@ -5,7 +5,6 @@ import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,20 +46,23 @@ public class TripTest {
 
     @Test
     public void addPerson() {
-        Person person = new Person(1L);
+        Person person = new Person();
+        person.setId(1L);
         assertTrue(trip.addPerson(person));
     }
 
     @Test
     public void addExistingPerson() {
-        Person person = new Person(1L);
+        Person person = new Person();
+        person.setId(1L);
         trip.addPerson(person);
         assertFalse(trip.addPerson(person));
     }
 
     @Test
     public void removePerson() {
-        Person person = new Person(1L);
+        Person person = new Person();
+        person.setId(1L);
         trip.addPerson(person);
         trip.removePerson(person);
         assertEquals(0, trip.getPersonList().size());

@@ -16,10 +16,6 @@ public class Correction {
     public Correction() {
     }
 
-    public Correction(Long id) {
-        this.id = id;
-    }
-
     public Correction(Timestamp timestamp, int distance, TankSession tankSession, Person person) {
         this.timestamp = timestamp;
         this.distance = distance;

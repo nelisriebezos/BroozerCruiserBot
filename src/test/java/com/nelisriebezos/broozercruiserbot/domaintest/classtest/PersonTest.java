@@ -32,20 +32,23 @@ public class PersonTest {
 
     @Test
     public void addTrip() {
-        Trip trip = new Trip(1L);
+        Trip trip = new Trip();
+        trip.setId(1L);
         assertTrue(person.addTrip(trip));
     }
 
     @Test
     public void addExistingTrip() {
-        Trip trip = new Trip(1L);
+        Trip trip = new Trip();
+        trip.setId(1L);
         person.addTrip(trip);
         assertFalse(person.addTrip(trip));
     }
 
     @Test
     public void removeTrip() {
-        Trip trip = new Trip(1L);
+        Trip trip = new Trip();
+        trip.setId(1L);
         person.addTrip(trip);
         person.removeTrip(trip);
         assertEquals(0, person.getTripList().size());

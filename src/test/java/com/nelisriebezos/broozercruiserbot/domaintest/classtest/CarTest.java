@@ -33,20 +33,23 @@ public class CarTest {
 
     @Test
     public void addTankSession() {
-        TankSession tankSession = new TankSession(1L);
+        TankSession tankSession = new TankSession();
+        tankSession.setId(1L);
         assertTrue(car.addTanksession(tankSession));
     }
 
     @Test
     public void addExistingTankSession() {
-        TankSession tankSession = new TankSession(1L);
+        TankSession tankSession = new TankSession();
+        tankSession.setId(1L);
         car.addTanksession(tankSession);
         assertFalse(car.addTanksession(tankSession));
     }
 
     @Test
     public void removeTankSession() {
-        TankSession tankSession = new TankSession(1L);
+        TankSession tankSession = new TankSession();
+        tankSession.setId(1L);
         car.addTanksession(tankSession);
         car.removeTanksession(tankSession);
         assertEquals(0, car.getTanksessionList().size());

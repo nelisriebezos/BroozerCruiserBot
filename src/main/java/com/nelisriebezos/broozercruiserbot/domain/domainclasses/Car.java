@@ -14,10 +14,6 @@ public class Car {
     public Car() {
     }
 
-    public Car(Long id) {
-        this.id = id;
-    }
-
     public Car(Long id, int kmcounter) {
         this.id = id;
         this.kmCounter = kmcounter;

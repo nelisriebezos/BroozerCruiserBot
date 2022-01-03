@@ -104,7 +104,7 @@ public class Configuration {
   }
 
   public String getSecretsFile() {
-    return getValue("secretsfile", "secrets.json");
+    return getValue("secrets.file", "secrets.json");
   }
 
   public String getDatabaseUser() {
