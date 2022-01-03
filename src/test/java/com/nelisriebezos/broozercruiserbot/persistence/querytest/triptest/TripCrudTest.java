@@ -128,12 +128,12 @@ public class TripCrudTest extends DatabaseTest {
     public void findByTankSessionIdPositive() throws DatabaseException {
         List<Trip> tripList = new ArrayList<>();
         tripList.add(tripService.findById(1L));
-        assertEquals(tripList, tripService.findByTankSessionId(1L));
+        assertEquals(tripList, tripService.findTripsByTankSessionId(1L));
     }
 
     @Test
     public void findByTankSessionIdNegative() throws DatabaseException {
-        assertEquals(0, tripService.findByTankSessionId(null).size());
+        assertEquals(0, tripService.findTripsByTankSessionId(null).size());
     }
 
     @Test

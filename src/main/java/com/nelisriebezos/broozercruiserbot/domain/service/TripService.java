@@ -46,12 +46,12 @@ public class TripService {
             stmt.executeUpdate();
 
             for (Person person : trip.getPersonList()) {
-                createTrip_Person(id, person.getId());
+                createTripPerson(id, person.getId());
             }
 
             return trip;
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Create error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -66,31 +66,31 @@ public class TripService {
             stmt.set("timestamp", trip.getDate());
             stmt.set("tanksessionid", trip.getTankSessionId());
 
-            deleteTrip_Person_byId(trip.getId());
+            deleteTripPersonById(trip.getId());
 
             for (Person person : trip.getPersonList()) {
-                createTrip_Person(trip.getId(), person.getId());
+                createTripPerson(trip.getId(), person.getId());
             }
 
             int recordCount = stmt.executeUpdate();
             if (recordCount != 1) throw new DatabaseException("Number of trips updated: " + recordCount);
 
             return trip;
-        } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Update error", e);
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
         }
     }
 
     public void delete(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_delete"))) {
 
-            deleteTrip_Person_byId(id);
+            deleteTripPersonById(id);
 
             stmt.set("id", id);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new DatabaseException("Delete error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -113,11 +113,11 @@ public class TripService {
             stmt.close();
             return trip;
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 
-    public List<Trip> findByTankSessionId(Long id) throws DatabaseException {
+    public List<Trip> findTripsByTankSessionId(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_findby_tanksessionid"))) {
 
             stmt.set("tanksessionid", id);
@@ -138,11 +138,11 @@ public class TripService {
 
             return tripList;
         } catch (SQLException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 
-    public void createTrip_Person(Long tripId, Long personId) throws DatabaseException {
+    public void createTripPerson(Long tripId, Long personId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_create"))) {
 
             if (tripId == null || tripId < 1) throw new DatabaseException("Create error, tripid is wrong, " + tripId);
@@ -153,16 +153,16 @@ public class TripService {
 
             stmt.executeUpdate();
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Create error", e);
+            throw new DatabaseException(e);
         }
     }
 
-    public void deleteTrip_Person_byId(Long tripId) throws DatabaseException {
+    public void deleteTripPersonById(Long tripId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_delete_viatrip"))) {
             stmt.set("tripid", tripId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException("Delete error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -185,7 +185,7 @@ public class TripService {
 
             return tripList;
         } catch (SQLException e) {
-            throw new DatabaseException("findTripsByPersonId error", e);
+            throw new DatabaseException(e);
         }
     }
 }

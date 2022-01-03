@@ -35,7 +35,7 @@ public class PersonService {
             stmt.executeUpdate();
             return person;
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Create error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -49,8 +49,8 @@ public class PersonService {
             if (recordCount != 1) throw new DatabaseException("Number of persons updated: " + recordCount);
 
             return person;
-        } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Update error", e);
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
         }
     }
 
@@ -59,7 +59,7 @@ public class PersonService {
             stmt.set("id", id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException("Delete error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -81,7 +81,7 @@ public class PersonService {
             stmt.close();
             return person;
         } catch (SQLException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -104,11 +104,11 @@ public class PersonService {
             stmt.close();
             return person;
         } catch (SQLException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 
-    public List<Person> findPersonByTripId(Long tripId) throws DatabaseException {
+    public List<Person> findPersonsByTripId(Long tripId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_findpersonby_trip"))) {
             stmt.set("tripid", tripId);
             ResultSet rs = stmt.executeQuery();
@@ -116,26 +116,21 @@ public class PersonService {
             List<Person> personList = new ArrayList<>();
 
             while(rs.next()) {
-                personList.add(
-                        new Person(
-                                rs.getLong("id"),
-                                rs.getString("name")
-                        )
-                );
+                personList.add(new Person(rs.getLong("id"), rs.getString("name")));
             }
 
             return personList;
         } catch (SQLException e) {
-            throw new DatabaseException("FindPersonByTripId error", e);
+            throw new DatabaseException(e);
         }
     }
 
-    public void deleteTrip_Person_byId(Long id) throws DatabaseException {
+    public void deleteTripPersonById(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_delete_viaperson"))) {
             stmt.set("id", id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException("Delete error", e);
+            throw new DatabaseException(e);
         }
     }
 }

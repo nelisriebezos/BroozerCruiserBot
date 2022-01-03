@@ -63,7 +63,7 @@ public class CorrectionService {
             if (recordCount != 1) throw new DatabaseException("Number of corrections updated: " + recordCount);
 
             return correction;
-        } catch (SQLException | DatabaseException e) {
+        } catch (SQLException e) {
             throw new DatabaseException("Update error", e);
         }
     }

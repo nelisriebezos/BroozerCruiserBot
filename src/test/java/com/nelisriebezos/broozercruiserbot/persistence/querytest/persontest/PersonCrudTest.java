@@ -67,6 +67,6 @@ public class PersonCrudTest  extends DatabaseTest {
     public void findPersonByTripId() throws DatabaseException {
         List<Person> personList = new ArrayList<>();
         personList.add(personService.findById(1L));
-        assertEquals(personList, personService.findPersonByTripId(1L));
+        assertEquals(personList, personService.findPersonsByTripId(1L));
     }
 }

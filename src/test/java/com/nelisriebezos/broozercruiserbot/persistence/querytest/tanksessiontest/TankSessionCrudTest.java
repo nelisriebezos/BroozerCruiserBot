@@ -96,6 +96,6 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void findByCarId() throws DatabaseException {
         List<TankSession> tankSessionList = new ArrayList<>();
         tankSessionList.add(tankSessionService.findById(1L));
-        assertEquals(tankSessionList, tankSessionService.findByCarId(1L));
+        assertEquals(tankSessionList, tankSessionService.findTankSessionsByCarId(1L));
     }
 }

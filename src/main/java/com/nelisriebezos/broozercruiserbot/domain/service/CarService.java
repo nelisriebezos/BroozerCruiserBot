@@ -34,7 +34,7 @@ public class CarService {
             stmt.executeUpdate();
             return car;
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Create error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -48,7 +48,7 @@ public class CarService {
 
             return car;
         } catch (SQLException e) {
-            throw new DatabaseException("Update error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -58,7 +58,7 @@ public class CarService {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new DatabaseException("Delete error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -80,7 +80,7 @@ public class CarService {
             stmt.close();
             return car;
         } catch (SQLException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 }

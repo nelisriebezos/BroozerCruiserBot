@@ -41,7 +41,7 @@ public class TankSessionService {
             stmt.executeUpdate();
             return tankSession;
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Create error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -61,8 +61,8 @@ public class TankSessionService {
             if (recordCount != 1) throw new DatabaseException("Number of tanksessions updated: " + recordCount);
 
             return tankSession;
-        } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("Update error", e);
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
         }
     }
 
@@ -72,7 +72,7 @@ public class TankSessionService {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new DatabaseException("Delete error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -94,7 +94,7 @@ public class TankSessionService {
             stmt.close();
             return tankSession;
         } catch (SQLException | DatabaseException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 
@@ -116,11 +116,11 @@ public class TankSessionService {
 
             return tankSessionList;
         } catch (SQLException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 
-    public List<TankSession> findByCarId(Long id) throws DatabaseException {
+    public List<TankSession> findTankSessionsByCarId(Long id) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("tanksession_findby_carid"))) {
             stmt.set("carid", id);
             ResultSet rs = stmt.executeQuery();
@@ -138,7 +138,7 @@ public class TankSessionService {
 
             return tankSessionList;
         } catch (SQLException e) {
-            throw new DatabaseException("FindById error", e);
+            throw new DatabaseException(e);
         }
     }
 }
