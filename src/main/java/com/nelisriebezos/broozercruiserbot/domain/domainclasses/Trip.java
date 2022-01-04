@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Trip {
     private Long id;
-    private int distance;
+    private int mileageInKm;
     private Date date;
     private TankSession tankSession;
     List<Person> personList = new ArrayList<>();
@@ -17,16 +17,16 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(int distance, Date date, TankSession tankSession, List<Person> personList) {
-        this.distance = distance;
+    public Trip(int mileageInKm, Date date, TankSession tankSession, List<Person> personList) {
+        this.mileageInKm = mileageInKm;
         this.date = date;
         this.tankSession = tankSession;
         this.personList = personList;
     }
 
-    public Trip(long id, int distance, Date date) {
+    public Trip(long id, int mileageInKm, Date date) {
         this.id = id;
-        this.distance = distance;
+        this.mileageInKm = mileageInKm;
         this.date = date;
     }
 
@@ -38,12 +38,12 @@ public class Trip {
         this.id = id;
     }
 
-    public int getDistance() {
-        return distance;
+    public int getMileageInKm() {
+        return mileageInKm;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public void setMileageInKm(int mileageInKm) {
+        this.mileageInKm = mileageInKm;
     }
 
     public Date getDate() {
@@ -78,6 +78,10 @@ public class Trip {
         personList.remove(person);
     }
 
+    public void clearPersonsList() {
+        personList.clear();
+    }
+
     public Long getTankSessionId() {
         if (tankSession != null) {
             return tankSession.getId();
@@ -102,7 +106,7 @@ public class Trip {
     public String toString() {
         return "Trip{" +
                 "id=" + id +
-                ", distance=" + distance +
+                ", distance=" + mileageInKm +
                 ", timestamp=" + date +
                 ", tankSession=" + tankSession +
                 ", personList=" + personList +

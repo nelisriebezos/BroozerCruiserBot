@@ -67,14 +67,14 @@ tanksession_findby_carid =
 
 trip_create =
     insert into trip
-    (id, distance, timestamp, tanksessionid)
+    (id, mileageInKm, timestamp, tanksessionid)
     values
-    (:id, :distance, :timestamp, :tanksessionid)
+    (:id, :mileageInKm, :timestamp, :tanksessionid)
 ;
 
 trip_update =
     update trip
-    set distance = :distance, timestamp = :timestamp, tanksessionid = :tanksessionid
+    set mileageInKm = :mileageInKm, timestamp = :timestamp, tanksessionid = :tanksessionid
     where id = :id
 ;
 
@@ -84,13 +84,13 @@ trip_delete =
 ;
 
 trip_findbyid =
-    select id, distance, timestamp, tanksessionid
+    select id, mileageInKm, timestamp, tanksessionid
     from trip
     where id = :id
 ;
 
 trip_findby_tanksessionid =
-    select id, distance, timestamp, tanksessionid
+    select id, mileageInKm, timestamp, tanksessionid
     from trip
     where tanksessionid = :tanksessionid
 ;
@@ -143,7 +143,7 @@ trip_person_delete_viaperson =
 ;
 
 trip_person_findtripsby_person =
-    select id, distance, timestamp, tanksessionid
+    select id, mileageInKm, timestamp, tanksessionid
     from trip t, trip_person tp
     where t.id = tp.tripid and tp.personid = :personid
 ;
@@ -156,15 +156,15 @@ trip_person_findpersonby_trip =
 
 correction_create =
     insert into correction
-    (id, timestamp, distance, personid, tanksessionid
+    (id, timestamp, mileageInKm, personid, tanksessionid
     values
-    (:id, :timestamp, :distance, :personid, :tanksessionid)
+    (:id, :timestamp, :mileageInKm, :personid, :tanksessionid)
 ;
 
 correction_update =
     update correction
     set timestamp = :timestamp,
-        distance = :distance,
+        mileageInKm = :mileageInKm,
         personid = :personid,
         tanksessionid = :tanksessionid
     where id = :id
@@ -176,19 +176,19 @@ correction_delete =
 ;
 
 correction_findbyid =
-    select id, timestamp, distance, personid, tanksessionid
+    select id, timestamp, mileageInKm, personid, tanksessionid
     from correction
     where id = :id
 ;
 
 correction_findby_tanksessionid =
-    select id, timestamp, distance, personid, tanksessionid
+    select id, timestamp, mileageInKm, personid, tanksessionid
     from correction
     where tanksessionid = :tanksessionid
 ;
 
 correction_findby_personid =
-    select id, timestamp, distance, personid, tanksessionid
+    select id, timestamp, mileageInKm, personid, tanksessionid
     from correction
     where personid = :personid
 ;

@@ -18,17 +18,6 @@ create table car
     primary key (id)
 );
 
-create table correction
-(
-    id            bigint    not null,
-    timestamp     timestamp not null,
-    distance      int       not null,
-    personid      bigint    not null,
-    tanksessionid bigint    not null,
-    primary key (id)
-
-);
-
 create table person
 (
     id   bigint       not null,
@@ -47,7 +36,7 @@ create table tanksession
 create table trip
 (
     id            bigint    not null,
-    distance      int       not null,
+    mileageInKm      int       not null,
     timestamp     timestamp not null,
     tanksessionid bigint    not null,
     primary key (id)
@@ -60,12 +49,6 @@ create table trip_person
     foreign key (tripid) references trip (id),
     foreign key (personid) references person (id)
 );
-
-alter table correction
-    add foreign key (tanksessionid) references tanksession (id);
-
-alter table correction
-    add foreign key (personid) references person (id);
 
 alter table tanksession
     add foreign key (carid) references car (id);

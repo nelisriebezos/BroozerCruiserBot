@@ -2,7 +2,7 @@ package com.nelisriebezos.broozercruiserbot.persistence.util;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.*;
-import com.nelisriebezos.broozercruiserbot.domain.service.*;
+import com.nelisriebezos.broozercruiserbot.domain.service.dao.*;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.util.impl.DDLException;
@@ -35,11 +35,9 @@ public class DatabaseTest {
     protected CarService carService;
     protected PersonService personService;
     protected TripService tripService;
-    protected CorrectionService correctionService;
     protected TankSessionService tankSessionService;
     protected Car car;
     protected Person person;
-    protected Correction correction;
     protected TankSession tankSession;
     protected Trip trip;
     protected Date date1;
@@ -64,10 +62,13 @@ public class DatabaseTest {
         personService = new PersonService(connection);
         tankSessionService = new TankSessionService(connection);
         tripService = new TripService(connection);
-        correctionService = new CorrectionService(connection);
+        carService.setTankSessionService(tankSessionService);
+        tankSessionService.setTripService(tripService);
+        tripService.setPersonService(personService);
+        tripService.setTankSessionService(tankSessionService);
+        personService.setTripService(tripService);
         car = new Car();
         person = new Person();
-        correction = new Correction();
         tankSession = new TankSession();
         trip = new Trip();
         date1 = new GregorianCalendar(2000, Calendar.JANUARY, 1).getTime();

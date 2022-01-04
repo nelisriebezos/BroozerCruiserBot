@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot.domain.service;
+package com.nelisriebezos.broozercruiserbot.domain.service.dao;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
@@ -15,9 +15,27 @@ import java.util.List;
 
 public class TripService {
     private final Connection connection;
+    private TankSessionService tankSessionService;
+    private PersonService personService;
 
     public TripService(Connection connection) {
         this.connection = connection;
+    }
+
+    public TankSessionService getTankSessionService() {
+        return tankSessionService;
+    }
+
+    public void setTankSessionService(TankSessionService tankSessionService) {
+        this.tankSessionService = tankSessionService;
+    }
+
+    public PersonService getPersonService() {
+        return personService;
+    }
+
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
     }
 
     public Trip create(Trip trip) throws DatabaseException {
@@ -29,8 +47,8 @@ public class TripService {
 
             if (trip.getId() == null || trip.getId() < 1)
                 throw new DatabaseException("Create error: id is wrong, " + trip.getId());
-            if (trip.getDistance() < 1)
-                throw new DatabaseException("Create error: distance is wrong, " + trip.getDistance());
+            if (trip.getMileageInKm() < 1)
+                throw new DatabaseException("Create error: mileageInKm is wrong, " + trip.getMileageInKm());
             if (trip.getDate() == null)
                 throw new DatabaseException("Create error: timestamp is wrong, " + trip.getDate());
             if (trip.getTankSessionId() == null || trip.getTankSessionId() < 1)
@@ -39,7 +57,7 @@ public class TripService {
                 throw new DatabaseException("Create error: personlost is wrong, " + trip.getPersonList());
 
             stmt.set("id", id);
-            stmt.set("distance", trip.getDistance());
+            stmt.set("mileageInKm", trip.getMileageInKm());
             stmt.set("timestamp", trip.getDate());
             stmt.set("tanksessionid", trip.getTankSessionId());
 
@@ -62,7 +80,7 @@ public class TripService {
                 throw new DatabaseException("Create error: personlost is wrong, " + trip.getPersonList());
 
             stmt.set("id", trip.getId());
-            stmt.set("distance", trip.getDistance());
+            stmt.set("mileageInKm", trip.getMileageInKm());
             stmt.set("timestamp", trip.getDate());
             stmt.set("tanksessionid", trip.getTankSessionId());
 
@@ -100,17 +118,26 @@ public class TripService {
             ResultSet rs = stmt.executeQuery();
 
             Trip trip = new Trip();
+            long tanksessionId;
 
             if (rs.next()) {
                 trip.setId(rs.getLong("id"));
-                trip.setDistance(rs.getInt("distance"));
+                trip.setMileageInKm(rs.getInt("mileageInKm"));
                 trip.setDate(rs.getDate("timestamp"));
+                tanksessionId = rs.getLong("tanksessionId");
             } else {
                 throw new DatabaseException("FindById error: nothing was found, " + id);
             }
 
             rs.close();
             stmt.close();
+
+            trip.setTankSession(tankSessionService.findById(tanksessionId));
+
+            for (Person person : personService.findPersonsByTripId(id)) {
+                trip.addPerson(person);
+            }
+
             return trip;
         } catch (SQLException | DatabaseException e) {
             throw new DatabaseException(e);
@@ -129,13 +156,11 @@ public class TripService {
                 tripList.add(
                         new Trip(
                                 rs.getLong("id"),
-                                rs.getInt("distance"),
+                                rs.getInt("mileageInKm"),
                                 rs.getDate("timestamp")
                         )
                 );
             }
-
-
             return tripList;
         } catch (SQLException e) {
             throw new DatabaseException(e);
@@ -177,7 +202,7 @@ public class TripService {
                 tripList.add(
                         new Trip(
                                 rs.getLong("id"),
-                                rs.getInt("distance"),
+                                rs.getInt("mileageInKm"),
                                 rs.getDate("timestamp")
                         )
                 );

@@ -19,9 +19,9 @@ public class TripTest {
     }
 
     @Test
-    public void testGetSetDistance() {
-        trip.setDistance(100);
-        assertEquals(100, trip.getDistance());
+    public void testGetSetMileageInKm() {
+        trip.setMileageInKm(100);
+        assertEquals(100, trip.getMileageInKm());
     }
 
     @Test

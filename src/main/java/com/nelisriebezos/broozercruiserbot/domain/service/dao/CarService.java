@@ -1,7 +1,8 @@
-package com.nelisriebezos.broozercruiserbot.domain.service;
+package com.nelisriebezos.broozercruiserbot.domain.service.dao;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
@@ -13,9 +14,18 @@ import java.sql.SQLException;
 
 public class CarService {
     private final Connection connection;
+    private TankSessionService tankSessionService;
 
     public CarService(Connection connection) {
         this.connection = connection;
+    }
+
+    public TankSessionService getTankSessionService() {
+        return tankSessionService;
+    }
+
+    public void setTankSessionService(TankSessionService tankSessionService) {
+        this.tankSessionService = tankSessionService;
     }
 
     public Car create(Car car) throws DatabaseException {
@@ -78,6 +88,11 @@ public class CarService {
 
             rs.close();
             stmt.close();
+
+            for (TankSession tankSession : tankSessionService.findTankSessionsByCarId(id)) {
+                car.addTanksession(tankSession);
+            }
+
             return car;
         } catch (SQLException e) {
             throw new DatabaseException(e);

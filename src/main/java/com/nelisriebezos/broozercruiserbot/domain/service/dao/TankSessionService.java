@@ -1,7 +1,8 @@
-package com.nelisriebezos.broozercruiserbot.domain.service;
+package com.nelisriebezos.broozercruiserbot.domain.service.dao;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
@@ -14,9 +15,18 @@ import java.util.List;
 
 public class TankSessionService {
     private final Connection connection;
+    private TripService tripService;
 
     public TankSessionService(Connection connection) {
         this.connection = connection;
+    }
+
+    public TripService getTripService() {
+        return tripService;
+    }
+
+    public void setTripService(TripService tripService) {
+        this.tripService = tripService;
     }
 
     public TankSession create(TankSession tankSession) throws DatabaseException {
@@ -92,6 +102,11 @@ public class TankSessionService {
 
             rs.close();
             stmt.close();
+
+            for (Trip trip : tripService.findTripsByTankSessionId(id)) {
+                tankSession.addTrip(trip);
+            }
+
             return tankSession;
         } catch (SQLException | DatabaseException e) {
             throw new DatabaseException(e);
@@ -105,14 +120,12 @@ public class TankSessionService {
             List<TankSession> tankSessionList = new ArrayList<>();
 
             while (rs.next()) {
-                tankSessionList.add(
-                        new TankSession(
-                                rs.getLong("id"),
-                                rs.getDate("timestamp")
-                        )
-                );
+                TankSession tankSession = new TankSession(rs.getLong("id"), rs.getDate("timestamp"));
+                for (Trip trip : tripService.findTripsByTankSessionId(rs.getLong("id"))) {
+                    tankSession.addTrip(trip);
+                }
+                tankSessionList.add(tankSession);
             }
-
 
             return tankSessionList;
         } catch (SQLException e) {
@@ -128,12 +141,11 @@ public class TankSessionService {
             List<TankSession> tankSessionList = new ArrayList<>();
 
             while (rs.next()) {
-                tankSessionList.add(
-                        new TankSession(
-                                rs.getLong("id"),
-                                rs.getDate("timestamp")
-                        )
-                );
+                TankSession tankSession = new TankSession(rs.getLong("id"), rs.getDate("timestamp"));
+                for (Trip trip : tripService.findTripsByTankSessionId(rs.getLong("id"))) {
+                    tankSession.addTrip(trip);
+                }
+                tankSessionList.add(tankSession);
             }
 
             return tankSessionList;

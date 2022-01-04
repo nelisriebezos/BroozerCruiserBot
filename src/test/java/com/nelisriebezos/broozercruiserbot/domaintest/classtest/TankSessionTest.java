@@ -1,7 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.domaintest.classtest;
 
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Correction;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import org.junit.jupiter.api.Test;
@@ -32,36 +31,6 @@ public class TankSessionTest {
         car.setId(1L);
         tankSession.setCar(car);
         assertEquals(car, tankSession.getCar());
-    }
-
-    @Test
-    public void testGetCorrectieList() {
-        List<Correction> correctionList = new ArrayList<>();
-        assertEquals(correctionList, tankSession.getCorrectieList());
-    }
-
-    @Test
-    public void addCorrectie() {
-        Correction correction = new Correction();
-        correction.setId(1L);
-        assertTrue(tankSession.addCorrectie(correction));
-    }
-
-    @Test
-    public void addExistingCorrectie() {
-        Correction correction = new Correction();
-        correction.setId(1L);
-        tankSession.addCorrectie(correction);
-        assertFalse(tankSession.addCorrectie(correction));
-    }
-
-    @Test
-    public void removeCorrectie() {
-        Correction correction = new Correction();
-        correction.setId(1L);
-        tankSession.addCorrectie(correction);
-        tankSession.removeCorrection(correction);
-        assertEquals(0, tankSession.getCorrectieList().size());
     }
 
     @Test

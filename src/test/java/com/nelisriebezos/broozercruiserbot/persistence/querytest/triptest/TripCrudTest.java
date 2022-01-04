@@ -17,7 +17,7 @@ public class TripCrudTest extends DatabaseTest {
         person.setId(1L);
         trip.addPerson(person);
         tankSession.setId(1L);
-        trip.setDistance(100);
+        trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
@@ -42,7 +42,7 @@ public class TripCrudTest extends DatabaseTest {
             tankSession.setId(1L);
             person.setId(1L);
             trip.addPerson(person);
-            trip.setDistance(100);
+            trip.setMileageInKm(100);
             trip.setTankSession(tankSession);
             tripService.create(trip);
         });
@@ -53,7 +53,7 @@ public class TripCrudTest extends DatabaseTest {
         Assertions.assertThrows(DatabaseException.class, () -> {
             person.setId(1L);
             trip.addPerson(person);
-            trip.setDistance(100);
+            trip.setMileageInKm(100);
             trip.setDate(date1);
             tripService.create(trip);
         });
@@ -62,7 +62,7 @@ public class TripCrudTest extends DatabaseTest {
     @Test
     public void createNegativePersonList() {
         Assertions.assertThrows(DatabaseException.class, () -> {
-            trip.setDistance(100);
+            trip.setMileageInKm(100);
             trip.setDate(date1);
             trip.setTankSession(tankSession);
             tripService.create(trip);
@@ -74,7 +74,7 @@ public class TripCrudTest extends DatabaseTest {
         tankSession.setId(1L);
         person.setId(1L);
         trip.addPerson(person);
-        trip.setDistance(100);
+        trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
@@ -95,7 +95,7 @@ public class TripCrudTest extends DatabaseTest {
         tankSession.setId(1L);
         person.setId(1L);
         trip.addPerson(person);
-        trip.setDistance(100);
+        trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);
@@ -111,7 +111,7 @@ public class TripCrudTest extends DatabaseTest {
         tankSession.setId(1L);
         person.setId(1L);
         trip.addPerson(person);
-        trip.setDistance(100);
+        trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
         Trip createdTrip = tripService.create(trip);

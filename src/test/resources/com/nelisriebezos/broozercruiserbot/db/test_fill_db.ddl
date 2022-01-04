@@ -11,7 +11,7 @@ values (1,
         timestamp('2020-12-02 13:12:12'),
         1);
 
-insert into trip(id, distance, timestamp, tanksessionid)
+insert into trip(id, mileageInKm, timestamp, tanksessionid)
 values (1,
         100,
         timestamp('2020-12-02 13:12:12'),
@@ -21,19 +21,8 @@ insert into trip_person(tripid, personid)
 values (1,
         1);
 
-insert into correction(id, timestamp, distance, personid, tanksessionid)
-values (1,
-        timestamp('2020-12-02 13:12:12'),
-        50,
-        1,
-        1);
-
 insert into cruiser_sequences(sequence_name, next_val)
 values ('car_seq',
-        2);
-
-insert into cruiser_sequences(sequence_name, next_val)
-values ('correction_seq',
         2);
 
 insert into cruiser_sequences(sequence_name, next_val)

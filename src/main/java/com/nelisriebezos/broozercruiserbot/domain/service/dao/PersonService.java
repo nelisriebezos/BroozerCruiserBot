@@ -1,7 +1,8 @@
-package com.nelisriebezos.broozercruiserbot.domain.service;
+package com.nelisriebezos.broozercruiserbot.domain.service.dao;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Person;
+import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
 import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
@@ -14,9 +15,18 @@ import java.util.List;
 
 public class PersonService {
     private final Connection connection;
+    private TripService tripService;
 
     public PersonService(Connection connection) {
         this.connection = connection;
+    }
+
+    public TripService getTripService() {
+        return tripService;
+    }
+
+    public void setTripService(TripService tripService) {
+        this.tripService = tripService;
     }
 
     public Person create(Person person) throws DatabaseException {
@@ -79,6 +89,11 @@ public class PersonService {
 
             rs.close();
             stmt.close();
+
+            for (Trip trip : tripService.findTripsByPersonId(id)) {
+                person.addTrip(trip);
+            }
+
             return person;
         } catch (SQLException e) {
             throw new DatabaseException(e);
@@ -102,6 +117,11 @@ public class PersonService {
 
             rs.close();
             stmt.close();
+
+            for (Trip trip : tripService.findTripsByPersonId(person.getId())) {
+                person.addTrip(trip);
+            }
+
             return person;
         } catch (SQLException e) {
             throw new DatabaseException(e);
@@ -125,9 +145,9 @@ public class PersonService {
         }
     }
 
-    public void deleteTripPersonById(Long id) throws DatabaseException {
+    public void deleteTripPersonById(Long pesronId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_delete_viaperson"))) {
-            stmt.set("id", id);
+            stmt.set("id", pesronId);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException(e);
