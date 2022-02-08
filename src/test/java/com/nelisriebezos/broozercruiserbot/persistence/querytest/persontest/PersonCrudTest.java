@@ -15,58 +15,58 @@ public class PersonCrudTest  extends DatabaseTest {
     @Test
     public void createPositive() throws DatabaseException {
         person.setName("testName");
-        Person createdPerson = personService.create(person);
-        assertEquals(createdPerson, personService.findById(createdPerson.getId()));
+        Person createdPerson = personDAO.create(person);
+        assertEquals(createdPerson, personDAO.findById(createdPerson.getId()));
     }
 
     @Test
     public void createNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                personService.create(person));
+                personDAO.create(person));
     }
 
     @Test
     public void updatePositive() throws DatabaseException {
         person.setName("testName");
-        Person createdPerson = personService.create(person);
+        Person createdPerson = personDAO.create(person);
         createdPerson.setName("testName2");
-        Person updatedPerson = personService.update(createdPerson);
-        assertEquals(updatedPerson, personService.findById(createdPerson.getId()));
+        Person updatedPerson = personDAO.update(createdPerson);
+        assertEquals(updatedPerson, personDAO.findById(createdPerson.getId()));
     }
 
     @Test
     public void updateNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-            personService.update(person));
+            personDAO.update(person));
     }
 
     @Test
     public void deletePositive() throws DatabaseException {
         person.setName("testName");
-        Person createdPerson = personService.create(person);
-        personService.delete(createdPerson.getId());
+        Person createdPerson = personDAO.create(person);
+        personDAO.delete(createdPerson.getId());
 
         Assertions.assertThrows(DatabaseException.class, () ->
-                personService.findById(createdPerson.getId()));
+                personDAO.findById(createdPerson.getId()));
     }
 
     @Test
     public void findByNamePositive() throws DatabaseException {
         person.setName("testName");
-        Person createdPerson = personService.create(person);
-        assertEquals(createdPerson, personService.findByName(createdPerson.getName()));
+        Person createdPerson = personDAO.create(person);
+        assertEquals(createdPerson, personDAO.findByName(createdPerson.getName()));
     }
 
     @Test
     public void findByNameNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                personService.findByName("wrongName"));
+                personDAO.findByName("wrongName"));
     }
 
     @Test
     public void findPersonByTripId() throws DatabaseException {
         List<Person> personList = new ArrayList<>();
-        personList.add(personService.findById(1L));
-        assertEquals(personList, personService.findPersonsByTripId(1L));
+        personList.add(personDAO.findById(1L));
+        assertEquals(personList, personDAO.findPersonsByTripId(1L));
     }
 }

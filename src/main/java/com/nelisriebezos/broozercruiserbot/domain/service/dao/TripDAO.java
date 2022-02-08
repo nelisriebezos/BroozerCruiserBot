@@ -13,29 +13,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripService {
+public class TripDAO {
     private final Connection connection;
-    private TankSessionService tankSessionService;
-    private PersonService personService;
+    private TankSessionDAO tankSessionDAO;
+    private PersonDAO personDAO;
 
-    public TripService(Connection connection) {
+    public TripDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public TankSessionService getTankSessionService() {
-        return tankSessionService;
+    public TankSessionDAO getTankSessionService() {
+        return tankSessionDAO;
     }
 
-    public void setTankSessionService(TankSessionService tankSessionService) {
-        this.tankSessionService = tankSessionService;
+    public void setTankSessionService(TankSessionDAO tankSessionDAO) {
+        this.tankSessionDAO = tankSessionDAO;
     }
 
-    public PersonService getPersonService() {
-        return personService;
+    public PersonDAO getPersonService() {
+        return personDAO;
     }
 
-    public void setPersonService(PersonService personService) {
-        this.personService = personService;
+    public void setPersonService(PersonDAO personDAO) {
+        this.personDAO = personDAO;
     }
 
     public Trip create(Trip trip) throws DatabaseException {
@@ -132,9 +132,9 @@ public class TripService {
             rs.close();
             stmt.close();
 
-            trip.setTankSession(tankSessionService.findById(tanksessionId));
+            trip.setTankSession(tankSessionDAO.findById(tanksessionId));
 
-            for (Person person : personService.findPersonsByTripId(id)) {
+            for (Person person : personDAO.findPersonsByTripId(id)) {
                 trip.addPerson(person);
             }
 

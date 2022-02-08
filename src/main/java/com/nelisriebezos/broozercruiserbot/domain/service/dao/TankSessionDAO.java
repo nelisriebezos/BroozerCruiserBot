@@ -13,20 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TankSessionService {
+public class TankSessionDAO {
     private final Connection connection;
-    private TripService tripService;
+    private TripDAO tripDAO;
 
-    public TankSessionService(Connection connection) {
+    public TankSessionDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public TripService getTripService() {
-        return tripService;
+    public TripDAO getTripService() {
+        return tripDAO;
     }
 
-    public void setTripService(TripService tripService) {
-        this.tripService = tripService;
+    public void setTripService(TripDAO tripDAO) {
+        this.tripDAO = tripDAO;
     }
 
     public TankSession create(TankSession tankSession) throws DatabaseException {
@@ -103,7 +103,7 @@ public class TankSessionService {
             rs.close();
             stmt.close();
 
-            for (Trip trip : tripService.findTripsByTankSessionId(id)) {
+            for (Trip trip : tripDAO.findTripsByTankSessionId(id)) {
                 tankSession.addTrip(trip);
             }
 
@@ -121,7 +121,7 @@ public class TankSessionService {
 
             while (rs.next()) {
                 TankSession tankSession = new TankSession(rs.getLong("id"), rs.getDate("timestamp"));
-                for (Trip trip : tripService.findTripsByTankSessionId(rs.getLong("id"))) {
+                for (Trip trip : tripDAO.findTripsByTankSessionId(rs.getLong("id"))) {
                     tankSession.addTrip(trip);
                 }
                 tankSessionList.add(tankSession);
@@ -142,7 +142,7 @@ public class TankSessionService {
 
             while (rs.next()) {
                 TankSession tankSession = new TankSession(rs.getLong("id"), rs.getDate("timestamp"));
-                for (Trip trip : tripService.findTripsByTankSessionId(rs.getLong("id"))) {
+                for (Trip trip : tripDAO.findTripsByTankSessionId(rs.getLong("id"))) {
                     tankSession.addTrip(trip);
                 }
                 tankSessionList.add(tankSession);

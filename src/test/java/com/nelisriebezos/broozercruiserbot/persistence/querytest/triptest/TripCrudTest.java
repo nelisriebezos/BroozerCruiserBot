@@ -20,8 +20,8 @@ public class TripCrudTest extends DatabaseTest {
         trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
-        Trip createdTrip = tripService.create(trip);
-        assertEquals(createdTrip, tripService.findById(createdTrip.getId()));
+        Trip createdTrip = tripDAO.create(trip);
+        assertEquals(createdTrip, tripDAO.findById(createdTrip.getId()));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TripCrudTest extends DatabaseTest {
             trip.addPerson(person);
             trip.setDate(date1);
             trip.setTankSession(tankSession);
-            tripService.create(trip);
+            tripDAO.create(trip);
         });
     }
 
@@ -44,7 +44,7 @@ public class TripCrudTest extends DatabaseTest {
             trip.addPerson(person);
             trip.setMileageInKm(100);
             trip.setTankSession(tankSession);
-            tripService.create(trip);
+            tripDAO.create(trip);
         });
     }
 
@@ -55,7 +55,7 @@ public class TripCrudTest extends DatabaseTest {
             trip.addPerson(person);
             trip.setMileageInKm(100);
             trip.setDate(date1);
-            tripService.create(trip);
+            tripDAO.create(trip);
         });
     }
 
@@ -65,7 +65,7 @@ public class TripCrudTest extends DatabaseTest {
             trip.setMileageInKm(100);
             trip.setDate(date1);
             trip.setTankSession(tankSession);
-            tripService.create(trip);
+            tripDAO.create(trip);
         });
     }
 
@@ -77,16 +77,16 @@ public class TripCrudTest extends DatabaseTest {
         trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
-        Trip createdTrip = tripService.create(trip);
+        Trip createdTrip = tripDAO.create(trip);
         createdTrip.setDate(date2);
-        Trip updatedTrip = tripService.update(createdTrip);
-        assertEquals(updatedTrip, tripService.findById(createdTrip.getId()));
+        Trip updatedTrip = tripDAO.update(createdTrip);
+        assertEquals(updatedTrip, tripDAO.findById(createdTrip.getId()));
     }
 
     @Test
     public void updateNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                tripService.update(trip)
+                tripDAO.update(trip)
         );
     }
 
@@ -98,11 +98,11 @@ public class TripCrudTest extends DatabaseTest {
         trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
-        Trip createdTrip = tripService.create(trip);
-        tripService.delete(createdTrip.getId());
+        Trip createdTrip = tripDAO.create(trip);
+        tripDAO.delete(createdTrip.getId());
 
         Assertions.assertThrows(DatabaseException.class, () ->
-                    tripService.findById(createdTrip.getId())
+                    tripDAO.findById(createdTrip.getId())
                 );
     }
 
@@ -114,33 +114,33 @@ public class TripCrudTest extends DatabaseTest {
         trip.setMileageInKm(100);
         trip.setDate(date1);
         trip.setTankSession(tankSession);
-        Trip createdTrip = tripService.create(trip);
-        assertEquals(createdTrip, tripService.findById(createdTrip.getId()));
+        Trip createdTrip = tripDAO.create(trip);
+        assertEquals(createdTrip, tripDAO.findById(createdTrip.getId()));
     }
 
     @Test
     public void findByIdNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                tripService.findById(null));
+                tripDAO.findById(null));
     }
 
     @Test
     public void findByTankSessionIdPositive() throws DatabaseException {
         List<Trip> tripList = new ArrayList<>();
-        tripList.add(tripService.findById(1L));
-        assertEquals(tripList, tripService.findTripsByTankSessionId(1L));
+        tripList.add(tripDAO.findById(1L));
+        assertEquals(tripList, tripDAO.findTripsByTankSessionId(1L));
     }
 
     @Test
     public void findByTankSessionIdNegative() throws DatabaseException {
-        assertEquals(0, tripService.findTripsByTankSessionId(null).size());
+        assertEquals(0, tripDAO.findTripsByTankSessionId(null).size());
     }
 
     @Test
     public void findTripsByPersonId() throws DatabaseException {
         List<Trip> tripList = new ArrayList<>();
-        Trip testTrip = tripService.findById(1l);
+        Trip testTrip = tripDAO.findById(1l);
         tripList.add(testTrip);
-        assertEquals(tripList, tripService.findTripsByPersonId(1L));
+        assertEquals(tripList, tripDAO.findTripsByPersonId(1L));
     }
 }

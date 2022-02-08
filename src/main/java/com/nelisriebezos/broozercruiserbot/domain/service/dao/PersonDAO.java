@@ -13,20 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonService {
+public class PersonDAO {
     private final Connection connection;
-    private TripService tripService;
+    private TripDAO tripDAO;
 
-    public PersonService(Connection connection) {
+    public PersonDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public TripService getTripService() {
-        return tripService;
+    public TripDAO getTripService() {
+        return tripDAO;
     }
 
-    public void setTripService(TripService tripService) {
-        this.tripService = tripService;
+    public void setTripService(TripDAO tripDAO) {
+        this.tripDAO = tripDAO;
     }
 
     public Person create(Person person) throws DatabaseException {
@@ -90,7 +90,7 @@ public class PersonService {
             rs.close();
             stmt.close();
 
-            for (Trip trip : tripService.findTripsByPersonId(id)) {
+            for (Trip trip : tripDAO.findTripsByPersonId(id)) {
                 person.addTrip(trip);
             }
 
@@ -118,7 +118,7 @@ public class PersonService {
             rs.close();
             stmt.close();
 
-            for (Trip trip : tripService.findTripsByPersonId(person.getId())) {
+            for (Trip trip : tripDAO.findTripsByPersonId(person.getId())) {
                 person.addTrip(trip);
             }
 
@@ -145,9 +145,9 @@ public class PersonService {
         }
     }
 
-    public void deleteTripPersonById(Long pesronId) throws DatabaseException {
+    public void deleteTripPersonById(Long personId) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("trip_person_delete_viaperson"))) {
-            stmt.set("id", pesronId);
+            stmt.set("id", personId);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException(e);

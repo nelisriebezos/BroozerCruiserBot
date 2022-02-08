@@ -16,8 +16,8 @@ public class TankSessionCrudTest extends DatabaseTest {
         car.setId(1L);
         tankSession.setCar(car);
         tankSession.setDate(date1);
-        TankSession createdTanksession = tankSessionService.create(tankSession);
-        assertEquals(createdTanksession, tankSessionService.findById(createdTanksession.getId()));
+        TankSession createdTanksession = tankSessionDAO.create(tankSession);
+        assertEquals(createdTanksession, tankSessionDAO.findById(createdTanksession.getId()));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class TankSessionCrudTest extends DatabaseTest {
         Assertions.assertThrows(DatabaseException.class, () -> {
             car.setId(1L);
             tankSession.setCar(car);
-            tankSessionService.create(tankSession);
+            tankSessionDAO.create(tankSession);
         });
     }
 
@@ -33,7 +33,7 @@ public class TankSessionCrudTest extends DatabaseTest {
     public void createNegativeCar() {
         Assertions.assertThrows(DatabaseException.class, () -> {
             tankSession.setDate(date1);
-            tankSessionService.create(tankSession);
+            tankSessionDAO.create(tankSession);
         });
     }
 
@@ -42,16 +42,16 @@ public class TankSessionCrudTest extends DatabaseTest {
         car.setId(1L);
         tankSession.setCar(car);
         tankSession.setDate(date1);
-        TankSession createdTanksession = tankSessionService.create(tankSession);
+        TankSession createdTanksession = tankSessionDAO.create(tankSession);
         createdTanksession.setDate(date2);
-        TankSession updatedTanksession = tankSessionService.update(createdTanksession);
-        assertEquals(updatedTanksession, tankSessionService.findById(createdTanksession.getId()));
+        TankSession updatedTanksession = tankSessionDAO.update(createdTanksession);
+        assertEquals(updatedTanksession, tankSessionDAO.findById(createdTanksession.getId()));
     }
 
     @Test
     public void updateNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                tankSessionService.update(tankSession)
+                tankSessionDAO.update(tankSession)
                 );
     }
 
@@ -60,11 +60,11 @@ public class TankSessionCrudTest extends DatabaseTest {
         car.setId(1L);
         tankSession.setCar(car);
         tankSession.setDate(date1);
-        TankSession createdTanksession = tankSessionService.create(tankSession);
-        tankSessionService.delete(createdTanksession.getId());
+        TankSession createdTanksession = tankSessionDAO.create(tankSession);
+        tankSessionDAO.delete(createdTanksession.getId());
 
         Assertions.assertThrows(DatabaseException.class, () ->
-                tankSessionService.findById(createdTanksession.getId())
+                tankSessionDAO.findById(createdTanksession.getId())
         );
     }
 
@@ -73,14 +73,14 @@ public class TankSessionCrudTest extends DatabaseTest {
         car.setId(1L);
         tankSession.setCar(car);
         tankSession.setDate(date1);
-        TankSession createdTanksession = tankSessionService.create(tankSession);
-        assertEquals(createdTanksession, tankSessionService.findById(createdTanksession.getId()));
+        TankSession createdTanksession = tankSessionDAO.create(tankSession);
+        assertEquals(createdTanksession, tankSessionDAO.findById(createdTanksession.getId()));
     }
 
     @Test
     public void findByIdNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                tankSessionService.findById(null));
+                tankSessionDAO.findById(null));
     }
 
     @Test
@@ -88,14 +88,14 @@ public class TankSessionCrudTest extends DatabaseTest {
         car.setId(1L);
         tankSession.setCar(car);
         tankSession.setDate(date1);
-        tankSessionService.create(tankSession);
-        assertEquals(2, tankSessionService.findAll().size());
+        tankSessionDAO.create(tankSession);
+        assertEquals(2, tankSessionDAO.findAll().size());
     }
 
     @Test
     public void findByCarId() throws DatabaseException {
         List<TankSession> tankSessionList = new ArrayList<>();
-        tankSessionList.add(tankSessionService.findById(1L));
-        assertEquals(tankSessionList, tankSessionService.findTankSessionsByCarId(1L));
+        tankSessionList.add(tankSessionDAO.findById(1L));
+        assertEquals(tankSessionList, tankSessionDAO.findTankSessionsByCarId(1L));
     }
 }

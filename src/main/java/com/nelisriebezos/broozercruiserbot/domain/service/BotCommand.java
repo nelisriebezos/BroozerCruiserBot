@@ -1,9 +1,9 @@
 package com.nelisriebezos.broozercruiserbot.domain.service;
 
-public class BotService {
+public interface BotCommand {
+    String execute();
+    Boolean match();
 
-
-//    Hier komt de functionaliteit van de bot. daar valt onder:
 
 //    admin functies:
 //    toevoegen van een nieuwe auto

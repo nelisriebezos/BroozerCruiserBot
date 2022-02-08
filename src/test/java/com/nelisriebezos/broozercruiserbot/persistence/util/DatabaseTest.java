@@ -32,10 +32,10 @@ public class DatabaseTest {
 
     private static CruiserDB cruiserDB;
     protected Connection connection;
-    protected CarService carService;
-    protected PersonService personService;
-    protected TripService tripService;
-    protected TankSessionService tankSessionService;
+    protected CarDAO carDAO;
+    protected PersonDAO personDAO;
+    protected TripDAO tripDAO;
+    protected TankSessionDAO tankSessionDAO;
     protected Car car;
     protected Person person;
     protected TankSession tankSession;
@@ -58,15 +58,15 @@ public class DatabaseTest {
     @BeforeEach
     public void init() throws SQLException {
         connection = cruiserDB.getConnection();
-        carService = new CarService(connection);
-        personService = new PersonService(connection);
-        tankSessionService = new TankSessionService(connection);
-        tripService = new TripService(connection);
-        carService.setTankSessionService(tankSessionService);
-        tankSessionService.setTripService(tripService);
-        tripService.setPersonService(personService);
-        tripService.setTankSessionService(tankSessionService);
-        personService.setTripService(tripService);
+        carDAO = new CarDAO(connection);
+        personDAO = new PersonDAO(connection);
+        tankSessionDAO = new TankSessionDAO(connection);
+        tripDAO = new TripDAO(connection);
+        carDAO.setTankSessionService(tankSessionDAO);
+        tankSessionDAO.setTripService(tripDAO);
+        tripDAO.setPersonService(personDAO);
+        tripDAO.setTankSessionService(tankSessionDAO);
+        personDAO.setTripService(tripDAO);
         car = new Car();
         person = new Person();
         tankSession = new TankSession();

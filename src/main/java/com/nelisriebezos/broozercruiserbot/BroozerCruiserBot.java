@@ -63,27 +63,6 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         CruiserDB cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
         Connection connection = cruiserDB.getConnection();
 
-//        try (Connection conn = db.getConnection();
-//             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("create_car"))) {
-//            SequenceGenerator gen = new SequenceGenerator(conn, "seq_car");
-//            stmt.set("id", gen.getNextValue());
-//            stmt.set("kmcounter", 100000);
-//            stmt.executeUpdate();
-//            conn.commit();
-//        } catch (Exception e) {
-//        }
-////
-//        try (Connection conn = db.getConnection();
-//             SqlStatement stmt = new SqlStatement(conn, db.getQueryString("all_cars"))) {
-//            ResultSet rs = stmt.executeQuery();
-//            while(rs.next()) {
-//                System.out.println("id="+rs.getLong(1));
-//                System.out.println("km="+rs.getLong(2));
-//                System.out.println();
-//            }
-//        } catch (Exception e) {
-//        }
-
         BroozerCruiserBot bot = new BroozerCruiserBot();
         bot.startBot();
     }

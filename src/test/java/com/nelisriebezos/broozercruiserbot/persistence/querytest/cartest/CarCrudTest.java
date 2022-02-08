@@ -10,53 +10,53 @@ public class CarCrudTest extends DatabaseTest {
     @Test
     public void createPositive() throws Exception {
         car.setKmCounter(100);
-        Car createdCar = carService.create(car);
-        assertEquals(createdCar, carService.findById(createdCar.getId()));
+        Car createdCar = carDAO.create(car);
+        assertEquals(createdCar, carDAO.findById(createdCar.getId()));
     }
 
     @Test
     public void createNegativeKmCounter() {
         Assertions.assertThrows(DatabaseException.class, () -> {
             car.setKmCounter(-3);
-            carService.create(car);
+            carDAO.create(car);
         });
     }
 
     @Test
     public void updatePositive() throws DatabaseException {
         car.setKmCounter(100);
-        Car createdcar = carService.create(car);
+        Car createdcar = carDAO.create(car);
         createdcar.setKmCounter(150);
-        Car updatedCar = carService.update(createdcar);
-        assertEquals(updatedCar, carService.findById(createdcar.getId()));
+        Car updatedCar = carDAO.update(createdcar);
+        assertEquals(updatedCar, carDAO.findById(createdcar.getId()));
     }
 
     @Test
     public void updateNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                carService.update(car));
+                carDAO.update(car));
     }
 
     @Test
     public void deletePositive() throws DatabaseException {
         car.setKmCounter(100);
-        Car createdcar = carService.create(car);
-        carService.delete(createdcar.getId());
+        Car createdcar = carDAO.create(car);
+        carDAO.delete(createdcar.getId());
 
         Assertions.assertThrows(DatabaseException.class, () ->
-                carService.findById(createdcar.getId()));
+                carDAO.findById(createdcar.getId()));
     }
 
     @Test
     public void findByIdPositive() throws DatabaseException {
         car.setKmCounter(100);
-        Car createdcar = carService.create(car);
-        assertEquals(createdcar, carService.findById(createdcar.getId()));
+        Car createdcar = carDAO.create(car);
+        assertEquals(createdcar, carDAO.findById(createdcar.getId()));
     }
 
     @Test
     public void findByIdNegative() {
         Assertions.assertThrows(DatabaseException.class, () ->
-                carService.findById(29L));
+                carDAO.findById(29L));
     }
 }

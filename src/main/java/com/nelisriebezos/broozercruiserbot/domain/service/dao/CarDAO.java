@@ -12,20 +12,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class CarService {
+public class CarDAO {
     private final Connection connection;
-    private TankSessionService tankSessionService;
+    private TankSessionDAO tankSessionDAO;
 
-    public CarService(Connection connection) {
+    public CarDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public TankSessionService getTankSessionService() {
-        return tankSessionService;
+    public TankSessionDAO getTankSessionService() {
+        return tankSessionDAO;
     }
 
-    public void setTankSessionService(TankSessionService tankSessionService) {
-        this.tankSessionService = tankSessionService;
+    public void setTankSessionService(TankSessionDAO tankSessionDAO) {
+        this.tankSessionDAO = tankSessionDAO;
     }
 
     public Car create(Car car) throws DatabaseException {
@@ -89,7 +89,7 @@ public class CarService {
             rs.close();
             stmt.close();
 
-            for (TankSession tankSession : tankSessionService.findTankSessionsByCarId(id)) {
+            for (TankSession tankSession : tankSessionDAO.findTankSessionsByCarId(id)) {
                 car.addTanksession(tankSession);
             }
 
