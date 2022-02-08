@@ -1,9 +1,10 @@
 package com.nelisriebezos.broozercruiserbot;
 
+import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.domain.service.BotCommand;
+import com.nelisriebezos.broozercruiserbot.domain.service.commands.AddCar;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
-import com.nelisriebezos.broozercruiserbot.persistence.util.SequenceGenerator;
-import com.nelisriebezos.broozercruiserbot.persistence.util.SqlStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,10 +15,21 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BroozerCruiserBot extends TelegramLongPollingBot {
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
+    private List<BotCommand> botCommandList = new ArrayList<>();
+    private CruiserDB cruiserDB;
+    private BotCommand activeCommand = null;
+
+    public BroozerCruiserBot() throws DatabaseException {
+        this.cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
+        botCommandList.add(new AddCar());
+    }
 
     @Override
     public String getBotUsername() {
@@ -37,11 +49,34 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 
             message = message.toLowerCase();
 
-            sendTextMessage(chatId, message);
+            try (Connection connection = cruiserDB.getConnection()) {
 
-        } catch (TelegramApiException e) {
+                if (activeCommand == null) {
+                    activeCommand = startConversation(chatId, message);
+                }
+
+                if(activeCommand != null)
+                    activeCommand = activeCommand.execute(chatId, message, connection, this);
+            }
+
+//            sendTextMessage(chatId, message);
+
+        } catch (TelegramApiException | SQLException e) {
             LOG.error(e.getMessage(), e);
         }
+    }
+
+    public BotCommand startConversation(String chatId, String message) throws SQLException, TelegramApiException {
+        for (BotCommand cmd : botCommandList) {
+            if (cmd.match(message)) {
+                cmd.reset();
+                return cmd;
+            }
+
+        }
+        sendTextMessage(chatId, "Ik begrijp het ff niet");
+
+        return null;
     }
 
     public void sendTextMessage(String chatId, String message) throws TelegramApiException {
@@ -60,8 +95,6 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 
 
     public static void main(String[] args) throws Exception {
-        CruiserDB cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
-        Connection connection = cruiserDB.getConnection();
 
         BroozerCruiserBot bot = new BroozerCruiserBot();
         bot.startBot();

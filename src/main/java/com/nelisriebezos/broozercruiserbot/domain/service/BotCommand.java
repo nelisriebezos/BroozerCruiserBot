@@ -1,8 +1,15 @@
 package com.nelisriebezos.broozercruiserbot.domain.service;
 
+import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
+
+import java.sql.Connection;
+
 public interface BotCommand {
-    String execute();
-    Boolean match();
+
+    public void reset();
+
+    public BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot);
+    public boolean match(String message);
 
 
 //    admin functies:
