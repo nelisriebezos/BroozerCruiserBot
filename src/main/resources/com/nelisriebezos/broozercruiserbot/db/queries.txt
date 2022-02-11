@@ -30,6 +30,11 @@ car_findbyid =
     where id = :id
 ;
 
+car_findbykmcounter =
+    select id, kmcounter
+    from car
+    where kmcounter = :kmcounter
+
 tanksession_create =
     insert into tanksession
     (id, timestamp, carid)

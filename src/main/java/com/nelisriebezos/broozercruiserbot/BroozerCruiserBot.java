@@ -3,6 +3,7 @@ package com.nelisriebezos.broozercruiserbot;
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.service.BotCommand;
 import com.nelisriebezos.broozercruiserbot.domain.service.commands.AddCar;
+import com.nelisriebezos.broozercruiserbot.domain.service.commands.RemoveCar;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
     public BroozerCruiserBot() throws DatabaseException {
         this.cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
         botCommandList.add(new AddCar());
+        botCommandList.add(new RemoveCar());
     }
 
     @Override
@@ -46,20 +48,17 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         try {
             String message = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
-
             message = message.toLowerCase();
 
-            try (Connection connection = cruiserDB.getConnection()) {
+                try (Connection connection = cruiserDB.getConnection()) {
 
-                if (activeCommand == null) {
-                    activeCommand = startConversation(chatId, message);
+                    if (activeCommand == null) {
+                        activeCommand = startConversation(chatId, message);
+                    }
+                    if(activeCommand != null)
+                        activeCommand = activeCommand.execute(chatId, message, connection, this);
                 }
 
-                if(activeCommand != null)
-                    activeCommand = activeCommand.execute(chatId, message, connection, this);
-            }
-
-//            sendTextMessage(chatId, message);
 
         } catch (TelegramApiException | SQLException e) {
             LOG.error(e.getMessage(), e);

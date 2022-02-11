@@ -14,6 +14,10 @@ public class Car {
     public Car() {
     }
 
+    public Car(int kmCounter) {
+        this.kmCounter = kmCounter;
+    }
+
     public Car(Long id, int kmcounter) {
         this.id = id;
         this.kmCounter = kmcounter;

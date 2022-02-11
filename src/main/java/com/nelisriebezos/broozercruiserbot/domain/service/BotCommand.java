@@ -1,19 +1,19 @@
 package com.nelisriebezos.broozercruiserbot.domain.service;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.sql.Connection;
 
 public interface BotCommand {
 
     public void reset();
-
-    public BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot);
+    public BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot) throws TelegramApiException;
     public boolean match(String message);
 
 
 //    admin functies:
-//    toevoegen van een nieuwe auto
+//    toevoegen van een nieuwe auto <>
 //    verwijderen van een auto
 //    verwijderen van een rit
 //    toevoegen van een persoon

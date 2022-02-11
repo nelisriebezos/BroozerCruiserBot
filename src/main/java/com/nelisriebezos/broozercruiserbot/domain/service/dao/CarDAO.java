@@ -98,4 +98,24 @@ public class CarDAO {
             throw new DatabaseException(e);
         }
     }
+
+    public Car findByKmCounter() throws DatabaseException {
+        try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_findbykmcounter"))) {
+            ResultSet rs = stmt.executeQuery();
+            Car car = new Car();
+            if (rs.next()) {
+                car.setId(rs.getLong("id"));
+                car.setKmCounter(rs.getInt("kmcounter"));
+            } else {
+                throw new DatabaseException("FindByKmCounter error: nothing was found, ");
+            }
+            rs.close();
+            for (TankSession tankSession : tankSessionDAO.findTankSessionsByCarId(car.getId())) {
+                car.addTanksession(tankSession);
+            }
+            return car;
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
+        }
+    }
 }
