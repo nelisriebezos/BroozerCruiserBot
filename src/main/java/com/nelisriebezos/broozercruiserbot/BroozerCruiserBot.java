@@ -71,10 +71,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
                 cmd.reset();
                 return cmd;
             }
-
         }
-        sendTextMessage(chatId, "Ik begrijp het ff niet");
-
         return null;
     }
 

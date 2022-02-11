@@ -20,12 +20,12 @@ public class CarDAO {
         this.connection = connection;
     }
 
-    public TankSessionDAO getTankSessionService() {
-        return tankSessionDAO;
-    }
-
     public void setTankSessionService(TankSessionDAO tankSessionDAO) {
         this.tankSessionDAO = tankSessionDAO;
+    }
+
+    public void buildRelatedDao() {
+        this.tankSessionDAO = new TankSessionDAO(connection);
     }
 
     public Car create(Car car) throws DatabaseException {
@@ -40,8 +40,8 @@ public class CarDAO {
             stmt.set("id", id);
             stmt.set("kmcounter", car.getKmCounter());
 
-
             stmt.executeUpdate();
+            System.out.println(car + " create test");
             return car;
         } catch (SQLException | DatabaseException e) {
             throw new DatabaseException(e);
@@ -99,8 +99,9 @@ public class CarDAO {
         }
     }
 
-    public Car findByKmCounter() throws DatabaseException {
+    public Car findByKmCounter(int kmCounter) throws DatabaseException {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_findbykmcounter"))) {
+            stmt.set("kmcounter", kmCounter);
             ResultSet rs = stmt.executeQuery();
             Car car = new Car();
             if (rs.next()) {
@@ -110,6 +111,7 @@ public class CarDAO {
                 throw new DatabaseException("FindByKmCounter error: nothing was found, ");
             }
             rs.close();
+
             for (TankSession tankSession : tankSessionDAO.findTankSessionsByCarId(car.getId())) {
                 car.addTanksession(tankSession);
             }

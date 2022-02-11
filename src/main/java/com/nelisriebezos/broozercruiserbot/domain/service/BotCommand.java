@@ -7,9 +7,9 @@ import java.sql.Connection;
 
 public interface BotCommand {
 
-    public void reset();
-    public BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot) throws TelegramApiException;
-    public boolean match(String message);
+    void reset();
+    BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot) throws TelegramApiException;
+    boolean match(String message);
 
 
 //    admin functies:
