@@ -20,18 +20,16 @@ public class TripDAO {
 
     public TripDAO(Connection connection) {
         this.connection = connection;
+        buildRelatedDao(connection);
     }
 
-    public TankSessionDAO getTankSessionService() {
-        return tankSessionDAO;
+    public void buildRelatedDao(Connection connection) {
+        this.tankSessionDAO = new TankSessionDAO(connection);
+        this.personDAO = new PersonDAO(connection);
     }
 
     public void setTankSessionService(TankSessionDAO tankSessionDAO) {
         this.tankSessionDAO = tankSessionDAO;
-    }
-
-    public PersonDAO getPersonService() {
-        return personDAO;
     }
 
     public void setPersonService(PersonDAO personDAO) {

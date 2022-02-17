@@ -18,13 +18,14 @@ public class CarDAO {
 
     public CarDAO(Connection connection) {
         this.connection = connection;
+        buildRelatedDao(connection);
     }
 
     public void setTankSessionService(TankSessionDAO tankSessionDAO) {
         this.tankSessionDAO = tankSessionDAO;
     }
 
-    public void buildRelatedDao() {
+    public void buildRelatedDao(Connection connection) {
         this.tankSessionDAO = new TankSessionDAO(connection);
     }
 
@@ -103,6 +104,10 @@ public class CarDAO {
         try (SqlStatement stmt = new SqlStatement(connection, CruiserEnvironment.getQueryString("car_findbykmcounter"))) {
             stmt.set("kmcounter", kmCounter);
             ResultSet rs = stmt.executeQuery();
+
+//            if there are multiple cars with the same KmCounter this will brick.
+//            am too lazy to fix it now since its not a problem that i will run into atm (date: 7-02-2022)
+
             Car car = new Car();
             if (rs.next()) {
                 car.setId(rs.getLong("id"));

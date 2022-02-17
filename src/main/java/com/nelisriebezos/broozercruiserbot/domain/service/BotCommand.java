@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.sql.Connection;
 
 public interface BotCommand {
-
     void reset();
     BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot) throws TelegramApiException;
     boolean match(String message);

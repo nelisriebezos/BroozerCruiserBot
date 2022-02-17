@@ -2,8 +2,7 @@ package com.nelisriebezos.broozercruiserbot;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.domain.service.BotCommand;
-import com.nelisriebezos.broozercruiserbot.domain.service.commands.AddCar;
-import com.nelisriebezos.broozercruiserbot.domain.service.commands.RemoveCar;
+import com.nelisriebezos.broozercruiserbot.domain.service.commands.*;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
 import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
 import org.slf4j.Logger;
@@ -31,6 +30,16 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         this.cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
         botCommandList.add(new AddCar());
         botCommandList.add(new RemoveCar());
+        botCommandList.add(new AddPerson());
+        botCommandList.add(new AddTankSession());
+        botCommandList.add(new AddTrip());
+        botCommandList.add(new CalculateCosts());
+        botCommandList.add(new CallCommandMenu());
+        botCommandList.add(new CallHelpMenu());
+        botCommandList.add(new RemovePerson());
+        botCommandList.add(new RemoveTankSession());
+        botCommandList.add(new RemoveTrip());
+        botCommandList.add(new UpdateTrip());
     }
 
     @Override

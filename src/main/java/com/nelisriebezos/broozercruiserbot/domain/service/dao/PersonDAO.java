@@ -19,10 +19,11 @@ public class PersonDAO {
 
     public PersonDAO(Connection connection) {
         this.connection = connection;
+        buildRelatedDao(connection);
     }
 
-    public TripDAO getTripService() {
-        return tripDAO;
+    public void buildRelatedDao(Connection connection) {
+        this.tripDAO = new TripDAO(connection);
     }
 
     public void setTripService(TripDAO tripDAO) {

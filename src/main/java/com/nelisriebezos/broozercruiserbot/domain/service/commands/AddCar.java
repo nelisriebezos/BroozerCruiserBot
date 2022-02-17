@@ -14,6 +14,7 @@ import java.sql.Connection;
 
 public class AddCar implements BotCommand {
     private static final Logger LOG = LoggerFactory.getLogger(AddCar.class);
+
     enum State {
         QUESTION1, EXCECUTE
     }
@@ -30,7 +31,6 @@ public class AddCar implements BotCommand {
 
     @Override
     public BotCommand execute(String chatId, String message, Connection connection, BroozerCruiserBot bot) throws TelegramApiException {
-
         BotCommand result = this;
         try {
             switch (state) {
@@ -43,20 +43,18 @@ public class AddCar implements BotCommand {
                         int answerInInteger = Integer.parseInt(message);
                         Car createdCar = new Car(answerInInteger);
                         CarDAO carDAO = new CarDAO(connection);
-                        carDAO.buildRelatedDao();
-                        Car car = carDAO.create(createdCar);
-                        System.out.println(carDAO.findByKmCounter(car.getKmCounter()) + " test");
+                        carDAO.create(createdCar);
+                        connection.commit();
                     } catch (NumberFormatException ex) {
                         LOG.error(ex.getMessage(), ex);
                         bot.sendTextMessage(chatId, "Het antwoord moet alleen nummers bevatten, vul kmstand in");
                         break;
-                }
+                    }
                     bot.sendTextMessage(chatId, "De auto is aangemaakt");
                     this.reset();
                     result = null;
                     break;
             }
-
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             bot.sendTextMessage(chatId, "Er ging iets fout");
@@ -66,6 +64,6 @@ public class AddCar implements BotCommand {
 
     @Override
     public boolean match(String message) {
-        return (message != null && message.toLowerCase().startsWith("-car"));
+        return (message != null && message.toLowerCase().startsWith("-addcar"));
     }
 }
