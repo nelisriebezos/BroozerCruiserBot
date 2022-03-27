@@ -13,33 +13,6 @@ public class TankSessionTest {
     TankSession tankSession = new TankSession();
 
     @Test
-    public void testGetSetId() {
-        tankSession.setId(1L);
-        assertEquals(1L, tankSession.getId());
-    }
-
-    @Test
-    public void testGetSetDate() {
-        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
-        tankSession.setDate(date);
-        assertEquals(date, tankSession.getDate());
-    }
-
-    @Test
-    public void testGetSetCar() {
-        Car car = new Car();
-        car.setId(1L);
-        tankSession.setCar(car);
-        assertEquals(car, tankSession.getCar());
-    }
-
-    @Test
-    public void testGetTripList() {
-        List<Trip> tripList = new ArrayList<>();
-        assertEquals(tripList, tankSession.getTripList());
-    }
-
-    @Test
     public void addTrip() {
         Trip trip = new Trip();
         trip.setId(1L);

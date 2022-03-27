@@ -1,18 +1,19 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
+import com.nelisriebezos.broozercruiserbot.utils.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
-@Getter @Setter @ToString @NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class TankSession {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +31,41 @@ public class TankSession {
     )
     List<Trip> tripList = new ArrayList<>();
 
+    public TankSession(Date date, Car car) {
+        this.date = date;
+        this.car = car;
+    }
+
+    public int calculateTotalAmountOfDrivenKm() {
+        int totalAmountOfDrivenKm = 0;
+        for (Trip trip : tripList) {
+            totalAmountOfDrivenKm += trip.getAmountOfKm();
+        }
+        return totalAmountOfDrivenKm;
+    }
+
+    public HashMap<String, Double> calculateTotalAmountOfDrivenKmPerPerson() {
+        HashMap<String, Double> personKmTotalAmount = new HashMap<>();
+        for (Trip trip : tripList) {
+            HashMap<String, Double> tripMap = trip.calculateAmountOfDrivenKmPerPerson();
+            tripMap.forEach((k, v) -> personKmTotalAmount.merge(k, v, Double::sum));
+        }
+        return personKmTotalAmount;
+    }
+
+    public HashMap<String, Double> calculatePricePerPerson(int gasCosts) {
+        HashMap<String, Double> pricePerPerson = new HashMap<>();
+        HashMap<String, Double> personKmTotalAmount = calculateTotalAmountOfDrivenKmPerPerson();
+        int scale = (int) Math.pow(10, 1);
+        personKmTotalAmount.forEach(
+                (k, v) -> {
+                    double value = (v / gasCosts) * 100;
+                    pricePerPerson.put(k, (double) Math.round(value * scale) / scale);
+                }
+        );
+        return pricePerPerson;
+    }
+
     public boolean addTrip(Trip trip) {
         if (!tripList.contains(trip)) {
             tripList.add(trip);
@@ -43,6 +79,7 @@ public class TankSession {
     }
 
     @Override
+    @Generated
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TankSession)) return false;
@@ -51,6 +88,7 @@ public class TankSession {
     }
 
     @Override
+    @Generated
     public int hashCode() {
         return Objects.hash(getId());
     }

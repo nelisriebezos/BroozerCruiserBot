@@ -10,7 +10,7 @@ public interface BotCommand {
 
 
 //    admin functies:
-//    toevoegen van een nieuwe auto <>
+//    toevoegen van een nieuwe auto
 //    verwijderen van een auto
 //    verwijderen van een rit
 //    toevoegen van een persoon

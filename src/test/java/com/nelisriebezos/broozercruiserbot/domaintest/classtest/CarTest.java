@@ -14,24 +14,6 @@ public class CarTest {
     Car car = new Car();
 
     @Test
-    public void testGetSetId() {
-        car.setId(1L);
-        assertEquals(1L, (long) car.getId());
-    }
-
-    @Test
-    public void testGetSetKmCounter() {
-        car.setKmCounter(100);
-        assertEquals(100, car.getKmCounter());
-    }
-
-    @Test
-    public void testGetTankSessionList() {
-        List<TankSession> tanksessionList = new ArrayList<>();
-        assertEquals(tanksessionList, car.getTankSessionList());
-    }
-
-    @Test
     public void addTankSession() {
         TankSession tankSession = new TankSession();
         tankSession.setId(1L);

@@ -13,24 +13,6 @@ public class PersonTest {
     Person person = new Person();
 
     @Test
-    public void testGetSetId() {
-        person.setId(1L);
-        assertEquals(1L, person.getId());
-    }
-
-    @Test
-    public void testGetSetName() {
-        person.setName("test");
-        assertEquals("test", person.getName());
-    }
-
-    @Test
-    public void testGetTripList() {
-        List<Trip> tripList = new ArrayList<>();
-        assertEquals(tripList, person.getTripList());
-    }
-
-    @Test
     public void addTrip() {
         Trip trip = new Trip();
         trip.setId(1L);

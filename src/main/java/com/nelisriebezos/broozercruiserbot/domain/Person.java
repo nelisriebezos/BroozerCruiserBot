@@ -1,5 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
+import com.nelisriebezos.broozercruiserbot.utils.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class Person {
     }
 
     @Override
+    @Generated
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
@@ -45,6 +47,7 @@ public class Person {
     }
 
     @Override
+    @Generated
     public int hashCode() {
         return Objects.hash(getId());
     }
