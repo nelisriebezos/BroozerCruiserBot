@@ -1,8 +1,8 @@
 package com.nelisriebezos.broozercruiserbot.domaintest.classtest;
 
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Car;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.TankSession;
-import com.nelisriebezos.broozercruiserbot.domain.domainclasses.Trip;
+import com.nelisriebezos.broozercruiserbot.domain.domain.Car;
+import com.nelisriebezos.broozercruiserbot.domain.domain.TankSession;
+import com.nelisriebezos.broozercruiserbot.domain.domain.Trip;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;

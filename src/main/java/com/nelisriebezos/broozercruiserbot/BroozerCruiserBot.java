@@ -1,10 +1,8 @@
 package com.nelisriebezos.broozercruiserbot;
 
 import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
-import com.nelisriebezos.broozercruiserbot.domain.service.BotCommand;
-import com.nelisriebezos.broozercruiserbot.domain.service.commands.*;
-import com.nelisriebezos.broozercruiserbot.persistence.CruiserDB;
-import com.nelisriebezos.broozercruiserbot.persistence.CruiserEnvironment;
+import com.nelisriebezos.broozercruiserbot.domain.application.BotCommand;
+import com.nelisriebezos.broozercruiserbot.domain.application.commands.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,7 +12,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +20,9 @@ import java.util.List;
 public class BroozerCruiserBot extends TelegramLongPollingBot {
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
     private List<BotCommand> botCommandList = new ArrayList<>();
-    private CruiserDB cruiserDB;
     private BotCommand activeCommand = null;
 
     public BroozerCruiserBot() throws DatabaseException {
-        this.cruiserDB = CruiserEnvironment.getEnvironment().getCruiserDB();
         botCommandList.add(new AddCar());
         botCommandList.add(new RemoveCar());
         botCommandList.add(new AddPerson());
@@ -59,14 +54,11 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
             String chatId = update.getMessage().getChatId().toString();
             message = message.toLowerCase();
 
-                try (Connection connection = cruiserDB.getConnection()) {
-
-                    if (activeCommand == null) {
-                        activeCommand = startConversation(chatId, message);
-                    }
-                    if(activeCommand != null)
-                        activeCommand = activeCommand.execute(chatId, message, connection, this);
-                }
+            if (activeCommand == null) {
+                activeCommand = startConversation(chatId, message);
+            }
+            if (activeCommand != null)
+                activeCommand = activeCommand.execute(chatId, message, this);
 
 
         } catch (TelegramApiException | SQLException e) {
