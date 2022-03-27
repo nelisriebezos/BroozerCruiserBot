@@ -28,7 +28,7 @@ public class CarTest {
     @Test
     public void testGetTankSessionList() {
         List<TankSession> tanksessionList = new ArrayList<>();
-        assertEquals(tanksessionList, car.getTanksessionList());
+        assertEquals(tanksessionList, car.getTankSessionList());
     }
 
     @Test
@@ -52,6 +52,6 @@ public class CarTest {
         tankSession.setId(1L);
         car.addTanksession(tankSession);
         car.removeTanksession(tankSession);
-        assertEquals(0, car.getTanksessionList().size());
+        assertEquals(0, car.getTankSessionList().size());
     }
 }
