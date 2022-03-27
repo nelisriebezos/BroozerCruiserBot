@@ -92,3 +92,4 @@ nb-configuration.xml
 
 #This
 secrets/*
+src/main/resources/application.properties

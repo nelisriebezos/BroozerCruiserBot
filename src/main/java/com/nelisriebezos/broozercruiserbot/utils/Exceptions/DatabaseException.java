@@ -12,20 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nelisriebezos.broozercruiserbot.Exceptions;
+package com.nelisriebezos.broozercruiserbot.utils.Exceptions;
 
-public class CruiserException extends Exception {
+public class DatabaseException extends CruiserException {
   private static final long serialVersionUID = 1L;
 
-  public CruiserException(Exception e) {
+  public DatabaseException(Exception e) {
     super(e);
   }
 
-  public CruiserException(String message) {
+  public DatabaseException(String message) {
     super(message);
   }
 
-  public CruiserException(String message, Throwable e) {
+  public DatabaseException(String message, Throwable e) {
     super(message, e);
   }
 

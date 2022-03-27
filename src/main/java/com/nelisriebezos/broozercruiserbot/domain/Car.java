@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot.domain.domain;
+package com.nelisriebezos.broozercruiserbot.domain;
 
 
 import lombok.Getter;
@@ -6,14 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @Getter @Setter @ToString @NoArgsConstructor
 public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private int kmCounter;
+
+    @OneToMany(mappedBy = "car",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     List<TankSession> tankSessionList = new ArrayList<>();
 
     public Car(int kmCounter) {

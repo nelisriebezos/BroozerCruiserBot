@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot;
+package com.nelisriebezos.broozercruiserbot.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

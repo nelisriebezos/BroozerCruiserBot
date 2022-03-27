@@ -1,10 +1,12 @@
 package com.nelisriebezos.broozercruiserbot;
 
-import com.nelisriebezos.broozercruiserbot.Exceptions.DatabaseException;
-import com.nelisriebezos.broozercruiserbot.domain.application.BotCommand;
-import com.nelisriebezos.broozercruiserbot.domain.application.commands.*;
+import com.nelisriebezos.broozercruiserbot.utils.Exceptions.DatabaseException;
+import com.nelisriebezos.broozercruiserbot.application.BotCommand;
+import com.nelisriebezos.broozercruiserbot.application.commands.*;
+import com.nelisriebezos.broozercruiserbot.utils.Safe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -93,7 +95,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
 
 
     public static void main(String[] args) throws Exception {
-
+        SpringApplication.run(BroozerCruiserBot.class, args);
         BroozerCruiserBot bot = new BroozerCruiserBot();
         bot.startBot();
     }

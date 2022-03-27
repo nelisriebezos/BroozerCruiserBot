@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot.domain.domain;
+package com.nelisriebezos.broozercruiserbot.domain;
 
 
 import lombok.Getter;
@@ -6,17 +6,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @Getter @Setter @ToString @NoArgsConstructor
 public class Trip {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private int mileageInKm;
     private Date date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private TankSession tankSession;
+
+    @ManyToMany(mappedBy = "tripList")
     List<Person> personList = new ArrayList<>();
 
     public boolean addPerson(Person person) {

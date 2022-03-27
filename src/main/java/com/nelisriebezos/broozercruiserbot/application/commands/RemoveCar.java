@@ -1,22 +1,21 @@
-package com.nelisriebezos.broozercruiserbot.domain.application.commands;
+package com.nelisriebezos.broozercruiserbot.application.commands;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.domain.domain.Car;
-import com.nelisriebezos.broozercruiserbot.domain.application.BotCommand;
+import com.nelisriebezos.broozercruiserbot.application.BotCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class AddCar implements BotCommand {
-    private static final Logger LOG = LoggerFactory.getLogger(AddCar.class);
+public class RemoveCar implements BotCommand {
+    private static final Logger LOG = LoggerFactory.getLogger(RemoveCar.class);
 
     enum State {
-        QUESTION1, EXCECUTE
+        QUESTION1, EXECUTE
     }
 
     State state;
 
-    public AddCar() {
+    public RemoveCar() {
     }
 
     @Override
@@ -30,22 +29,21 @@ public class AddCar implements BotCommand {
         try {
             switch (state) {
                 case QUESTION1:
-                    bot.sendTextMessage(chatId, "Wat is de kilometerstand van de auto?");
-                    state = State.EXCECUTE;
+                    bot.sendTextMessage(chatId, "Geef de kilometerstand van de auto");
+                    state = State.EXECUTE;
                     break;
-                case EXCECUTE:
+                case EXECUTE:
                     try {
-                        int answerInInteger = Integer.parseInt(message);
-                        Car createdCar = new Car(answerInInteger);
+                        int anserInInteger = Integer.parseInt(message);
 //                        CarDAO carDAO = new CarDAO(connection);
-//                        carDAO.create(createdCar);
+//                        carDAO.delete(carDAO.findByKmCounter(anserInInteger).getId());
 //                        connection.commit();
-                    } catch (NumberFormatException ex) {
-                        LOG.error(ex.getMessage(), ex);
-                        bot.sendTextMessage(chatId, "Het antwoord moet alleen nummers bevatten, vul kmstand in");
+                    } catch (NumberFormatException e) {
+                        LOG.error(e.getMessage(), e);
+                        bot.sendTextMessage(chatId, "De auto is niet verwijderd");
                         break;
                     }
-                    bot.sendTextMessage(chatId, "De auto is aangemaakt");
+                    bot.sendTextMessage(chatId, "De auto is verwijderd");
                     this.reset();
                     result = null;
                     break;
@@ -59,6 +57,6 @@ public class AddCar implements BotCommand {
 
     @Override
     public boolean match(String message) {
-        return (message != null && message.toLowerCase().startsWith("-addcar"));
+        return (message != null && message.toLowerCase().startsWith("-removecar"));
     }
 }

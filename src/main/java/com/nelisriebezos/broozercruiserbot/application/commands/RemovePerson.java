@@ -1,16 +1,15 @@
-package com.nelisriebezos.broozercruiserbot.domain.application.commands;
+package com.nelisriebezos.broozercruiserbot.application.commands;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.domain.application.BotCommand;
+import com.nelisriebezos.broozercruiserbot.application.BotCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class UpdateTrip implements BotCommand {
-    private static final Logger LOG = LoggerFactory.getLogger(UpdateTrip.class);
+public class RemovePerson implements BotCommand {
+    private static final Logger LOG = LoggerFactory.getLogger(RemovePerson.class);
 
-
-    public UpdateTrip() {
+    public RemovePerson() {
     }
 
     @Override
