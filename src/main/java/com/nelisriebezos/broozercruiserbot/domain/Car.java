@@ -1,7 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
 
-import com.nelisriebezos.broozercruiserbot.utils.Generated;
+import com.nelisriebezos.broozercruiserbot.utils.Exceptions.CruiserException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +9,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,26 +22,23 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int kmCounter;
+    private int kmCounter = 0;
 
     @OneToMany(mappedBy = "car",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    List<TankSession> tankSessionList = new ArrayList<>();
+    private List<TankSession> tankSessionList = new ArrayList<>();
+
+    public static Car to(int kmCounter) {
+        return new Car(kmCounter);
+    }
 
     public Car(int kmCounter) {
         this.kmCounter = kmCounter;
     }
 
     public TankSession createTankSession() {
-        return new TankSession(new Date(), this);
-    }
-
-    public Trip createTrip(List<Person> personList, int amountOfDrivenKm, TankSession tankSession) {
-        Trip trip = new Trip(new Date(), tankSession);
-        for (Person person : personList) trip.addPerson(person);
-        trip.setAmountOfKm(amountOfDrivenKm);
-        return trip;
+        return new TankSession();
     }
 
     public int calculateTripAmountOfDrivenKm(int kmCounter) {
@@ -62,11 +58,11 @@ public class Car {
     }
 
     public TankSession getCurrentTanksession() {
+        if (tankSessionList.size() == 0) throw new CruiserException("There are no tanksessions");
         return tankSessionList.get(tankSessionList.size() - 1);
     }
 
     @Override
-    @Generated
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Car)) return false;
@@ -75,7 +71,6 @@ public class Car {
     }
 
     @Override
-    @Generated
     public int hashCode() {
         return Objects.hash(getId(), getKmCounter(), tankSessionList);
     }

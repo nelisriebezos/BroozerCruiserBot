@@ -1,6 +1,5 @@
 package com.nelisriebezos.broozercruiserbot;
 
-import com.nelisriebezos.broozercruiserbot.utils.Exceptions.DatabaseException;
 import com.nelisriebezos.broozercruiserbot.application.BotCommand;
 import com.nelisriebezos.broozercruiserbot.application.commands.*;
 import com.nelisriebezos.broozercruiserbot.utils.Safe;
@@ -25,7 +24,7 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
     private List<BotCommand> botCommandList = new ArrayList<>();
     private BotCommand activeCommand = null;
 
-    public BroozerCruiserBot() throws DatabaseException {
+    public BroozerCruiserBot() {
         botCommandList.add(new AddCar());
         botCommandList.add(new RemoveCar());
         botCommandList.add(new AddPerson());

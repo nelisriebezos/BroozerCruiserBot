@@ -1,7 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
 
-import com.nelisriebezos.broozercruiserbot.utils.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,21 +19,21 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int amountOfKm;
-    private Date date;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TankSession tankSession;
+    private int amountOfKm = 0;
+    private Date date = new Date();
 
     @ManyToMany(mappedBy = "tripList")
-    List<Person> personList = new ArrayList<>();
+    private List<Person> personList = new ArrayList<>();
 
-    public Trip(Date date, TankSession tankSession) {
-        this.date = date;
-        this.tankSession = tankSession;
+    public Trip(int amountOfKm) {
+        this.amountOfKm = amountOfKm;
     }
 
-    public HashMap<String, Double> calculateAmountOfDrivenKmPerPerson() {
+    public static Trip to(int amountOfKm) {
+        return new Trip(amountOfKm);
+    }
+
+    public HashMap<String, Double> calculateKmPerPerson() {
         HashMap<String, Double> personKmAmount = new HashMap<>();
         int scale = (int) Math.pow(10, 1);
         double toScale = (float) amountOfKm / (float) personList.size();
@@ -57,7 +56,6 @@ public class Trip {
     }
 
     @Override
-    @Generated
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Trip)) return false;
@@ -66,7 +64,6 @@ public class Trip {
     }
 
     @Override
-    @Generated
     public int hashCode() {
         return Objects.hash(getId());
     }

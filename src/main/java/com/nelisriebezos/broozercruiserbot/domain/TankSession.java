@@ -1,6 +1,5 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
-import com.nelisriebezos.broozercruiserbot.utils.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,24 +18,20 @@ public class TankSession {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date date;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Car car;
+    private Date date = new Date();
 
     @OneToMany(
             mappedBy = "tankSession",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    List<Trip> tripList = new ArrayList<>();
+    private List<Trip> tripList = new ArrayList<>();
 
-    public TankSession(Date date, Car car) {
-        this.date = date;
-        this.car = car;
+    public static TankSession to() {
+        return new TankSession();
     }
 
-    public int calculateTotalAmountOfDrivenKm() {
+    public int calculateDrivenKm() {
         int totalAmountOfDrivenKm = 0;
         for (Trip trip : tripList) {
             totalAmountOfDrivenKm += trip.getAmountOfKm();
@@ -44,18 +39,17 @@ public class TankSession {
         return totalAmountOfDrivenKm;
     }
 
-    public HashMap<String, Double> calculateTotalAmountOfDrivenKmPerPerson() {
+    public HashMap<String, Double> calculateKmPerPerson() {
         HashMap<String, Double> personKmTotalAmount = new HashMap<>();
         for (Trip trip : tripList) {
-            HashMap<String, Double> tripMap = trip.calculateAmountOfDrivenKmPerPerson();
-            tripMap.forEach((k, v) -> personKmTotalAmount.merge(k, v, Double::sum));
+            trip.calculateKmPerPerson().forEach((k, v) -> personKmTotalAmount.merge(k, v, Double::sum));
         }
         return personKmTotalAmount;
     }
 
     public HashMap<String, Double> calculatePricePerPerson(int gasCosts) {
         HashMap<String, Double> pricePerPerson = new HashMap<>();
-        HashMap<String, Double> personKmTotalAmount = calculateTotalAmountOfDrivenKmPerPerson();
+        HashMap<String, Double> personKmTotalAmount = calculateKmPerPerson();
         int scale = (int) Math.pow(10, 1);
         personKmTotalAmount.forEach(
                 (k, v) -> {
@@ -64,6 +58,12 @@ public class TankSession {
                 }
         );
         return pricePerPerson;
+    }
+
+    public Trip createTrip(List<Person> personList, int amountOfDrivenKm) {
+        Trip trip = new Trip(amountOfDrivenKm);
+        for (Person person : personList) trip.addPerson(person);
+        return trip;
     }
 
     public boolean addTrip(Trip trip) {
@@ -79,7 +79,6 @@ public class TankSession {
     }
 
     @Override
-    @Generated
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TankSession)) return false;
@@ -88,7 +87,6 @@ public class TankSession {
     }
 
     @Override
-    @Generated
     public int hashCode() {
         return Objects.hash(getId());
     }

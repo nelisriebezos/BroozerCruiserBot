@@ -1,6 +1,5 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
-import com.nelisriebezos.broozercruiserbot.utils.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +22,15 @@ public class Person {
     private String name;
 
     @ManyToMany
-    List<Trip> tripList = new ArrayList<>();
+    private List<Trip> tripList = new ArrayList<>();
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public static Person to(String name) {
+        return new Person(name);
+    }
 
     public boolean addTrip(Trip trip) {
         if (!tripList.contains(trip)) {
@@ -38,7 +45,6 @@ public class Person {
     }
 
     @Override
-    @Generated
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
@@ -47,7 +53,6 @@ public class Person {
     }
 
     @Override
-    @Generated
     public int hashCode() {
         return Objects.hash(getId());
     }

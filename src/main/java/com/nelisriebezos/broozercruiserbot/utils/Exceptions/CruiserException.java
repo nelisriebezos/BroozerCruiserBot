@@ -14,19 +14,10 @@
  */
 package com.nelisriebezos.broozercruiserbot.utils.Exceptions;
 
-public class CruiserException extends Exception {
+public class CruiserException extends RuntimeException {
   private static final long serialVersionUID = 1L;
-
-  public CruiserException(Exception e) {
-    super(e);
-  }
 
   public CruiserException(String message) {
     super(message);
   }
-
-  public CruiserException(String message, Throwable e) {
-    super(message, e);
-  }
-
 }
