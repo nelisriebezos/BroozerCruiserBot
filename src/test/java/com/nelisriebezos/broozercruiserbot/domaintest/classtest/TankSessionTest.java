@@ -32,6 +32,68 @@ public class TankSessionTest {
     }
 
     @Test
+    @DisplayName("calculatePricePerPerson one person")
+    public void calculatePricePerPersonOne() {
+        HashMap<String, Double> testMap = new HashMap<>();
+        testMap.put("person1", 100.0);
+        HashMap<String, Double> result = tankSession.calculatePricePerPerson(400, 100, testMap);
+        assertEquals(1, result.size());
+        assertTrue(result.containsKey("person1"));
+        assertEquals(400.0, result.get("person1"));
+    }
+
+    @Test
+    @DisplayName("calculatePricePerPerson two persons")
+    public void calculatePricePerPersonTwo() {
+        HashMap<String, Double> testMap = new HashMap<>();
+        testMap.put("person1", 50.0);
+        testMap.put("person2", 50.0);
+        HashMap<String, Double> result = tankSession.calculatePricePerPerson(400, 100, testMap);
+        assertEquals(2, result.size());
+        assertTrue(result.containsKey("person1"));
+        assertTrue(result.containsKey("person2"));
+        assertEquals(200.0, result.get("person1"));
+        assertEquals(200.0, result.get("person2"));
+    }
+
+    @Test
+    @DisplayName("calculatePricePerPerson three persons")
+    public void calculatePricePerPersonThree() {
+        HashMap<String, Double> testMap = new HashMap<>();
+        testMap.put("person1", 33.3);
+        testMap.put("person2", 33.3);
+        testMap.put("person3", 33.4);
+        HashMap<String, Double> result = tankSession.calculatePricePerPerson(400, 100, testMap);
+        assertEquals(3, result.size());
+        assertTrue(result.containsKey("person1"));
+        assertTrue(result.containsKey("person2"));
+        assertTrue(result.containsKey("person3"));
+        assertEquals(133.2, result.get("person1"));
+        assertEquals(133.2, result.get("person2"));
+        assertEquals(133.6, result.get("person3"));
+    }
+
+    @Test
+    @DisplayName("calculatePricePerPerson four persons")
+    public void calculatePricePerPersonFour() {
+        HashMap<String, Double> testMap = new HashMap<>();
+        testMap.put("person1", 25.0);
+        testMap.put("person2", 25.0);
+        testMap.put("person3", 25.0);
+        testMap.put("person4", 25.0);
+        HashMap<String, Double> result = tankSession.calculatePricePerPerson(400, 100, testMap);
+        assertEquals(4, result.size());
+        assertTrue(result.containsKey("person1"));
+        assertTrue(result.containsKey("person2"));
+        assertTrue(result.containsKey("person3"));
+        assertTrue(result.containsKey("person4"));
+        assertEquals(100.0, result.get("person1"));
+        assertEquals(100.0, result.get("person2"));
+        assertEquals(100.0, result.get("person3"));
+        assertEquals(100.0, result.get("person4"));
+    }
+
+    @Test
     @DisplayName("Test calculateDrivenKmPerPerson for no trip")
     public void calculateDrivenKmPerPersonOne() {
         TankSession noTrips = TankSession.to();
@@ -53,13 +115,38 @@ public class TankSessionTest {
     @Test
     @DisplayName("Test calculateDrivenKmPerPerson for two trips with same persons")
     public void calculateDrivenKmPerPersonThree() {
-
+        TankSession twoTripsOnePerson = TankSession.to();
+        List<Person> persons = List.of(person1);
+        Trip trip1 = twoTripsOnePerson.createTrip(persons, 50);
+        trip1.setId(1L);
+        Trip trip2 = twoTripsOnePerson.createTrip(persons, 50);
+        trip2.setId(2L);
+        twoTripsOnePerson.addTrip(trip1);
+        twoTripsOnePerson.addTrip(trip2);
+        HashMap<String, Double> result = twoTripsOnePerson.calculateKmPerPerson();
+        assertEquals(1, result.size());
+        assertTrue(result.containsKey("person1"));
+        assertEquals(100.0, result.get("person1"));
     }
 
     @Test
     @DisplayName("Test calculateDrivenKmPerPerson for two trips with different persons")
     public void calculateDrivenKmPerPersonFour() {
-
+        TankSession twoTripsTwoPerson = TankSession.to();
+        List<Person> persons1 = List.of(person1);
+        List<Person> persons2 = List.of(person2);
+        Trip trip1 = twoTripsTwoPerson.createTrip(persons1, 50);
+        trip1.setId(1L);
+        Trip trip2 = twoTripsTwoPerson.createTrip(persons2, 50);
+        trip2.setId(2L);
+        twoTripsTwoPerson.addTrip(trip1);
+        twoTripsTwoPerson.addTrip(trip2);
+        HashMap<String, Double> result = twoTripsTwoPerson.calculateKmPerPerson();
+        assertEquals(2, result.size());
+        assertTrue(result.containsKey("person1"));
+        assertTrue(result.containsKey("person2"));
+        assertEquals(50.0, result.get("person1"));
+        assertEquals(50.0, result.get("person2"));
     }
 
     @Test

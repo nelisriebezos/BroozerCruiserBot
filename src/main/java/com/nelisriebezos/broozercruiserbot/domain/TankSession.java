@@ -47,13 +47,12 @@ public class TankSession {
         return personKmTotalAmount;
     }
 
-    public HashMap<String, Double> calculatePricePerPerson(int gasCosts) {
+    public HashMap<String, Double> calculatePricePerPerson(int gasCosts, int amountOfKm, HashMap<String, Double> kmPerPersonMap) {
         HashMap<String, Double> pricePerPerson = new HashMap<>();
-        HashMap<String, Double> personKmTotalAmount = calculateKmPerPerson();
         int scale = (int) Math.pow(10, 1);
-        personKmTotalAmount.forEach(
+        kmPerPersonMap.forEach(
                 (k, v) -> {
-                    double value = (v / gasCosts) * 100;
+                    double value = v / amountOfKm * gasCosts;
                     pricePerPerson.put(k, (double) Math.round(value * scale) / scale);
                 }
         );
