@@ -24,8 +24,7 @@ public class Car {
 
     private int kmCounter = 0;
 
-    @OneToMany(mappedBy = "car",
-            cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<TankSession> tankSessionList = new ArrayList<>();
 

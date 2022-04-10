@@ -21,7 +21,6 @@ public class TankSession {
     private Date date = new Date();
 
     @OneToMany(
-            mappedBy = "tankSession",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
