@@ -62,7 +62,7 @@ public class TankSessionTest {
         HashMap<String, Double> testMap = new HashMap<>();
         testMap.put("person1", 33.3);
         testMap.put("person2", 33.3);
-        testMap.put("person3", 33.4);
+        testMap.put("person3", 33.3);
         HashMap<String, Double> result = tankSession.calculatePricePerPerson(400, 100, testMap);
         assertEquals(3, result.size());
         assertTrue(result.containsKey("person1"));
@@ -70,7 +70,7 @@ public class TankSessionTest {
         assertTrue(result.containsKey("person3"));
         assertEquals(133.2, result.get("person1"));
         assertEquals(133.2, result.get("person2"));
-        assertEquals(133.6, result.get("person3"));
+        assertEquals(133.2, result.get("person3"));
     }
 
     @Test
