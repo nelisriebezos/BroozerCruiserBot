@@ -1,6 +1,6 @@
 package com.nelisriebezos.broozercruiserbot;
 
-import com.nelisriebezos.broozercruiserbot.application.BotCommand;
+import com.nelisriebezos.broozercruiserbot.application.commands.BotCommand;
 import com.nelisriebezos.broozercruiserbot.application.commands.*;
 import com.nelisriebezos.broozercruiserbot.utils.Safe;
 import org.slf4j.Logger;

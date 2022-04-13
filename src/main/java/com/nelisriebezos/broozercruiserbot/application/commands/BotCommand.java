@@ -1,4 +1,4 @@
-package com.nelisriebezos.broozercruiserbot.application;
+package com.nelisriebezos.broozercruiserbot.application.commands;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;

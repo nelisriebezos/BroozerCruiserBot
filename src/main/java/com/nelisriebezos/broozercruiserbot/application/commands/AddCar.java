@@ -1,7 +1,6 @@
 package com.nelisriebezos.broozercruiserbot.application.commands;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.application.BotCommand;
 import com.nelisriebezos.broozercruiserbot.domain.Car;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
