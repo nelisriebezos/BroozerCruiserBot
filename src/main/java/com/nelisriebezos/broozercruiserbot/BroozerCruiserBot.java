@@ -1,12 +1,19 @@
 package com.nelisriebezos.broozercruiserbot;
 
+import com.nelisriebezos.broozercruiserbot.application.CarService;
 import com.nelisriebezos.broozercruiserbot.application.commands.BotCommand;
 import com.nelisriebezos.broozercruiserbot.application.commands.*;
+import com.nelisriebezos.broozercruiserbot.domain.Car;
 import com.nelisriebezos.broozercruiserbot.utils.Safe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -18,26 +25,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+@Component
 public class BroozerCruiserBot extends TelegramLongPollingBot {
     private static final Logger LOG = LoggerFactory.getLogger(BroozerCruiserBot.class);
     private List<BotCommand> botCommandList = new ArrayList<>();
     private BotCommand activeCommand = null;
 
-    public BroozerCruiserBot() {
-        botCommandList.add(new AddCar());
-        botCommandList.add(new RemoveCar());
-        botCommandList.add(new AddPerson());
-        botCommandList.add(new AddTankSession());
-        botCommandList.add(new AddTrip());
-        botCommandList.add(new CalculateCosts());
-        botCommandList.add(new CallCommandMenu());
-        botCommandList.add(new CallHelpMenu());
-        botCommandList.add(new RemovePerson());
-        botCommandList.add(new RemoveTankSession());
-        botCommandList.add(new RemoveTrip());
-        botCommandList.add(new UpdateTrip());
-    }
+    public BroozerCruiserBot(CarService carService) {
+        botCommandList.add(new AddCarCommand(carService));
+//        botCommandList.add(new RemoveCar());
+//        botCommandList.add(new AddPerson());
+//        botCommandList.add(new AddTankSession());
+//        botCommandList.add(new AddTrip());
+//        botCommandList.add(new CalculateCosts());
+//        botCommandList.add(new CallCommandMenu());
+//        botCommandList.add(new CallHelpMenu());
+//        botCommandList.add(new RemovePerson());
+//        botCommandList.add(new RemoveTankSession());
+//        botCommandList.add(new RemoveTrip());
+//        botCommandList.add(new UpdateTrip());
+        }
 
     @Override
     public String getBotUsername() {
@@ -90,12 +97,5 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(this);
         LOG.info("Bot started");
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(BroozerCruiserBot.class, args);
-        BroozerCruiserBot bot = new BroozerCruiserBot();
-        bot.startBot();
     }
 }

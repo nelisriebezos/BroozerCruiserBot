@@ -1,13 +1,17 @@
 package com.nelisriebezos.broozercruiserbot.application.commands;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
+import com.nelisriebezos.broozercruiserbot.application.CarService;
 import com.nelisriebezos.broozercruiserbot.domain.Car;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class AddCar implements BotCommand {
-    private static final Logger LOG = LoggerFactory.getLogger(AddCar.class);
+public class AddCarCommand implements BotCommand {
+    private static final Logger LOG = LoggerFactory.getLogger(AddCarCommand.class);
+    private CarService carService;
 
     enum State {
         QUESTION1, EXCECUTE
@@ -15,7 +19,8 @@ public class AddCar implements BotCommand {
 
     State state;
 
-    public AddCar() {
+    public AddCarCommand(CarService carService) {
+        this.carService = carService;
     }
 
     @Override
@@ -35,10 +40,8 @@ public class AddCar implements BotCommand {
                 case EXCECUTE:
                     try {
                         int answerInInteger = Integer.parseInt(message);
-                        Car createdCar = new Car(answerInInteger);
-//                        CarDAO carDAO = new CarDAO(connection);
-//                        carDAO.create(createdCar);
-//                        connection.commit();
+                        Car createdCar = Car.builder().kmCounter(answerInInteger).build();
+                        carService.persistCar(createdCar);
                     } catch (NumberFormatException ex) {
                         LOG.error(ex.getMessage(), ex);
                         bot.sendTextMessage(chatId, "Het antwoord moet alleen nummers bevatten, vul kmstand in");
