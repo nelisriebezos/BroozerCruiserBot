@@ -1,29 +1,20 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.*;
 import java.util.*;
 
-@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TankSession {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Date date = new Date();
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ToString.Exclude
+    @Builder.Default
     private List<Trip> tripList = new ArrayList<>();
 
     public static TankSession to() {
@@ -58,9 +49,9 @@ public class TankSession {
         return pricePerPerson;
     }
 
-    public Trip createTrip(List<Person> personList, int amountOfDrivenKm) {
+    public Trip createTrip(List<String> personList, int amountOfDrivenKm) {
         Trip trip = new Trip(amountOfDrivenKm);
-        for (Person person : personList) trip.addPerson(person);
+        for (String personName : personList) trip.addPersonName(personName);
         return trip;
     }
 

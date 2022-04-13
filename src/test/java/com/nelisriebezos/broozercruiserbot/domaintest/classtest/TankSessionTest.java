@@ -1,6 +1,5 @@
 package com.nelisriebezos.broozercruiserbot.domaintest.classtest;
 
-import com.nelisriebezos.broozercruiserbot.domain.Person;
 import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import com.nelisriebezos.broozercruiserbot.domain.Trip;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,17 +14,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TankSessionTest {
-    Person person1;
-    Person person2;
+    String person1;
+    String person2;
     TankSession tankSession;
     Trip trip;
 
     @BeforeEach
     public void init() {
-        person1 = Person.to("person1");
-        person1.setId(1L);
-        person2 = Person.to("person2");
-        person2.setId(2L);
+        person1 = "person1";
+        person2 = "person2";
         tankSession = TankSession.to();
         trip = Trip.to(100);
         tankSession.addTrip(trip);
@@ -104,7 +101,7 @@ public class TankSessionTest {
     @DisplayName("Test calculateDrivenKmPerPerson for one trip with two persons")
     public void calculateDrivenKmPerPersonTwo() {
         TankSession oneTripOnePerson = TankSession.to();
-        List<Person> persons = List.of(person1);
+        List<String> persons = List.of(person1);
         oneTripOnePerson.addTrip(oneTripOnePerson.createTrip(persons, 50));
         HashMap<String, Double> result = oneTripOnePerson.calculateKmPerPerson();
         assertEquals(1, result.size());
@@ -116,7 +113,7 @@ public class TankSessionTest {
     @DisplayName("Test calculateDrivenKmPerPerson for two trips with same persons")
     public void calculateDrivenKmPerPersonThree() {
         TankSession twoTripsOnePerson = TankSession.to();
-        List<Person> persons = List.of(person1);
+        List<String> persons = List.of(person1);
         Trip trip1 = twoTripsOnePerson.createTrip(persons, 50);
         trip1.setId(1L);
         Trip trip2 = twoTripsOnePerson.createTrip(persons, 50);
@@ -133,8 +130,8 @@ public class TankSessionTest {
     @DisplayName("Test calculateDrivenKmPerPerson for two trips with different persons")
     public void calculateDrivenKmPerPersonFour() {
         TankSession twoTripsTwoPerson = TankSession.to();
-        List<Person> persons1 = List.of(person1);
-        List<Person> persons2 = List.of(person2);
+        List<String> persons1 = List.of(person1);
+        List<String> persons2 = List.of(person2);
         Trip trip1 = twoTripsTwoPerson.createTrip(persons1, 50);
         trip1.setId(1L);
         Trip trip2 = twoTripsTwoPerson.createTrip(persons2, 50);
@@ -157,7 +154,7 @@ public class TankSessionTest {
 
     @Test
     public void createTrip() {
-        List<Person> persons = new ArrayList<>();
+        List<String> persons = new ArrayList<>();
         persons.add(person1);
         persons.add(person2);
         Trip trip = tankSession.createTrip(persons, 50);

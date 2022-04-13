@@ -1,31 +1,23 @@
 package com.nelisriebezos.broozercruiserbot.domain;
 
-
 import com.nelisriebezos.broozercruiserbot.utils.Exceptions.CruiserException;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private int kmCounter = 0;
-
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @Builder.Default
+    @ToString.Exclude
     private List<TankSession> tankSessionList = new ArrayList<>();
 
     public static Car to(int kmCounter) {
