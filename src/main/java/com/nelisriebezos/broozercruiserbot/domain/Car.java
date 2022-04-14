@@ -33,6 +33,10 @@ public class Car {
         return new TankSession();
     }
 
+    public boolean checkDifferenceAboveHundred(int kmCounter) {
+        return (kmCounter - this.kmCounter > 100);
+    }
+
     public int calculateTripAmountOfDrivenKm(int kmCounter) {
         return kmCounter - this.kmCounter;
     }
