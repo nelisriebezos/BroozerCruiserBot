@@ -40,7 +40,8 @@ public class CalculateCostsCommand implements BotCommand {
                         Car car = carService.getCar(bot.getActiveCarId());
                         TankSession tankSession = car.getCurrentTanksession();
                         HashMap<String, Double> pricePerPerson = tankSession.calculatePricePerPerson(answer, tankSession.calculateDrivenKm(), tankSession.calculateKmPerPerson());
-                        StringBuilder response = new StringBuilder("Prijsoverzicht: " + "\n");
+                        StringBuffer response = new StringBuffer(500);
+                        response.append("Prijsoverzicht: " + "\n");
                         for (int i = 0; i < pricePerPerson.size(); i++) {
                             String personName = (String) pricePerPerson.keySet().toArray()[i];
                             response.append(personName).append(": ").append(pricePerPerson.get(personName));
