@@ -16,6 +16,7 @@ public class PersistCarDTOMapper implements DTOMapper<PersistCarDTO, Car> {
         return PersistCarDTO.builder()
                 .id(o.getId())
                 .kmCounter(o.getKmCounter())
+                .name(o.getName())
                 .tankSessionList(tankSessionDTOMapper.toMultipleDTO(o.getTankSessionList()))
                 .build();
     }
@@ -25,6 +26,7 @@ public class PersistCarDTOMapper implements DTOMapper<PersistCarDTO, Car> {
         return Car.builder()
                 .id(o.getId())
                 .kmCounter(o.getKmCounter())
+                .name(o.getName())
                 .tankSessionList(tankSessionDTOMapper.fromMultipleDTO(o.getTankSessionList()))
                 .build();
     }

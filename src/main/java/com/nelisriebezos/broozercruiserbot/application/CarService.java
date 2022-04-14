@@ -20,6 +20,12 @@ public class CarService implements ICarService {
     }
 
     @Override
+    public Long getCarIdByName(String name) {
+        return this.carRepository.findCarIdByName(name);
+    }
+
+
+    @Override
     public Car persistCar(Car car) {
         return this.carDTOMapper.fromDTO(this.carRepository.save(this.carDTOMapper.toDTO(car)));
     }

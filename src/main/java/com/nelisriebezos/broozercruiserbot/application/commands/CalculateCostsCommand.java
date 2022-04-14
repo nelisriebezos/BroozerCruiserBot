@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class RemoveTrip implements BotCommand {
-    private static final Logger LOG = LoggerFactory.getLogger(RemoveTrip.class);
+public class CalculateCostsCommand implements BotCommand {
+    private static final Logger LOG = LoggerFactory.getLogger(CalculateCostsCommand.class);
 
-    public RemoveTrip() {
+    public CalculateCostsCommand() {
     }
 
     @Override

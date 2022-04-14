@@ -16,6 +16,7 @@ import java.util.Objects;
 public class Car {
     private Long id;
     private int kmCounter = 0;
+    private String name;
     @Builder.Default
     @ToString.Exclude
     private List<TankSession> tankSessionList = new ArrayList<>();

@@ -21,6 +21,7 @@ public class PersistCarDTO extends DTO {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int kmCounter = 0;
+    private String name;
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
     @ToString.Exclude
