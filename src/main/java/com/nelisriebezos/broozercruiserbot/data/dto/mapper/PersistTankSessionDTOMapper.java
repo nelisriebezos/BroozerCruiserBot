@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class PersistTankSessionDTOMapper implements DTOMapper<PersistTankSessionDTO, TankSession> {
     private final PersistTripDTOMapper tripDTOMapper;
+    private final PersistCarDTOMapper carDTOMapper;
 
     @Override
     public PersistTankSessionDTO toDTO(TankSession o) {
@@ -17,6 +18,7 @@ public class PersistTankSessionDTOMapper implements DTOMapper<PersistTankSession
                 .id(o.getId())
                 .date(o.getDate())
                 .tripList(tripDTOMapper.toMultipleDTO(o.getTripList()))
+                .car(carDTOMapper.toDTO(o.getCar()))
                 .build();
     }
 
@@ -26,6 +28,7 @@ public class PersistTankSessionDTOMapper implements DTOMapper<PersistTankSession
                 .id(o.getId())
                 .date(o.getDate())
                 .tripList(tripDTOMapper.fromMultipleDTO(o.getTripList()))
+                .car(carDTOMapper.fromDTO(o.getCar()))
                 .build();
     }
 }

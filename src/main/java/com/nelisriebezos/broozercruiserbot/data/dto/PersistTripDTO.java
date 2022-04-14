@@ -29,6 +29,8 @@ public class PersistTripDTO extends DTO {
     @Column(name = "person")
     @Builder.Default
     private List<String> personList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PersistTankSessionDTO tankSession;
 
     @Override
     public boolean equals(Object o) {

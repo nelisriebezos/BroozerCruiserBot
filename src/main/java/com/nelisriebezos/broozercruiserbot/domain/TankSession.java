@@ -16,6 +16,7 @@ public class TankSession {
     @ToString.Exclude
     @Builder.Default
     private List<Trip> tripList = new ArrayList<>();
+    private Car car;
 
     public static TankSession to() {
         return new TankSession();

@@ -23,12 +23,15 @@ public class PersistTankSessionDTO extends DTO {
     private Long id;
     private Date date = new Date();
     @OneToMany(
+            mappedBy = "tankSession",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @ToString.Exclude
     @Builder.Default
     private List<PersistTripDTO> tripList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PersistCarDTO car;
 
     @Override
     public boolean equals(Object o) {

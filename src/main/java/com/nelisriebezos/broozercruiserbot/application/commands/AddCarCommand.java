@@ -34,7 +34,9 @@ public class AddCarCommand implements BotCommand {
                 case EXCECUTE:
                     try {
                         int answerInInteger = Integer.parseInt(message);
-                        Car createdCar = Car.builder().kmCounter(answerInInteger).build();
+                        Car createdCar = Car.builder()
+                                .kmCounter(answerInInteger)
+                                .build();
                         carService.persistCar(createdCar);
                     } catch (NumberFormatException ex) {
                         LOG.error(ex.getMessage(), ex);

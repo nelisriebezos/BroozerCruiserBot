@@ -17,6 +17,7 @@ public class Trip {
     private Date date = new Date();
     @Builder.Default
     private List<String> personList = new ArrayList<>();
+    private TankSession tankSession;
 
     public Trip(int amountOfKm) {
         this.amountOfKm = amountOfKm;

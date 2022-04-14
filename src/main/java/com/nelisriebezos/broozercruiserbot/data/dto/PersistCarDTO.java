@@ -22,7 +22,9 @@ public class PersistCarDTO extends DTO {
     private Long id;
     private int kmCounter = 0;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(
+            mappedBy = "car",
+            cascade = CascadeType.ALL,
             orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default
