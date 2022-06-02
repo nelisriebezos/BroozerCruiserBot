@@ -1,9 +1,7 @@
 package com.nelisriebezos.broozercruiserbot.application.commands;
 
 import com.nelisriebezos.broozercruiserbot.BroozerCruiserBot;
-import com.nelisriebezos.broozercruiserbot.application.CarService;
 import com.nelisriebezos.broozercruiserbot.application.TankSessionService;
-import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -12,14 +10,14 @@ public class RemoveTankSessionCommand implements BotCommand {
     private static final Logger LOG = LoggerFactory.getLogger(RemoveTankSessionCommand.class);
     private final TankSessionService tankSessionService;
     enum State {QUESTION1, EXECUTE}
-    RemoveCarCommand.State state;
-    public RemoveTankSessionCommand(AddTankSessionCommand service) {
+    State state;
+    public RemoveTankSessionCommand(TankSessionService service) {
         this.tankSessionService = service;
     }
 
     @Override
     public void reset() {
-        state = RemoveCarCommand.State.QUESTION1;
+        state = State.QUESTION1;
     }
 
     @Override
@@ -29,7 +27,7 @@ public class RemoveTankSessionCommand implements BotCommand {
             switch (state) {
                 case QUESTION1:
                     bot.sendTextMessage(chatId, "Geef het id van de tanksession");
-                    state = RemoveCarCommand.State.EXECUTE;
+                    state = State.EXECUTE;
                     break;
                 case EXECUTE:
                     try {
