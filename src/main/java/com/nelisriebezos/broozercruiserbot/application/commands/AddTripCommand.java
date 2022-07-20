@@ -61,7 +61,7 @@ public class AddTripCommand implements BotCommand {
                         state = State.QUESTION1;
                         break;
                     } else {
-                        bot.sendTextMessage(chatId, "antwoord met ja of nee");
+                        bot.sendTextMessage(chatId, "antwoord met ja of nee zijn");
                         break;
                     }
                 case QUESTION3:
@@ -90,6 +90,6 @@ public class AddTripCommand implements BotCommand {
 
     @Override
     public boolean match(String message) {
-        return (message != null && message.toLowerCase().startsWith("-trip"));
+        return (message != null && message.toLowerCase().startsWith("-newtrip"));
     }
 }

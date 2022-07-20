@@ -32,8 +32,8 @@ public class RemoveCarCommand implements BotCommand {
                     break;
                 case EXECUTE:
                     try {
-                        Long anserInLong = Long.parseLong(message);
-                        carService.deleteCar(carService.getCar(anserInLong));
+                        Long answerInLong = Long.parseLong(message);
+                        carService.deleteCar(carService.getCar(answerInLong));
                     } catch (NumberFormatException e) {
                         LOG.error(e.getMessage(), e);
                         bot.sendTextMessage(chatId, "De auto is niet verwijderd");

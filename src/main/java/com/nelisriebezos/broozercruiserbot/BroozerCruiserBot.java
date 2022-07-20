@@ -34,11 +34,10 @@ public class BroozerCruiserBot extends TelegramLongPollingBot {
         botCommandList.add(new AddTankSessionCommand(tankSessionService, carService));
         botCommandList.add(new AddTripCommand(tripService, carService));
         botCommandList.add(new CalculateCostsCommand(carService, tankSessionService));
-//        botCommandList.add(new CallCommandMenuCommand());
+        botCommandList.add(new CallCommandMenuCommand());
 //        botCommandList.add(new CallHelpMenuCommand());
         botCommandList.add(new RemoveTankSessionCommand(tankSessionService));
         botCommandList.add(new RemoveTripCommand(tripService));
-        botCommandList.add(new UpdateTripCommand(tripService));
     }
 
     public void setActiveCarId(Long activeCarId) {

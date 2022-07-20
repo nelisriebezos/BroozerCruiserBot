@@ -18,7 +18,6 @@ public class PersistTripDTOMapper implements DTOMapper<PersistTripDTO, Trip> {
                 .amountOfKm(o.getAmountOfKm())
                 .date(o.getDate())
                 .personList(o.getPersonList())
-                .tankSession(tankSessionDTOMapper.toDTO(o.getTankSession()))
                 .build();
     }
 
