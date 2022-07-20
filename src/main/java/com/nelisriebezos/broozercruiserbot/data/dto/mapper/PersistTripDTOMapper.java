@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class PersistTripDTOMapper implements DTOMapper<PersistTripDTO, Trip> {
-    private final PersistTankSessionDTOMapper tankSessionDTOMapper;
+    private final TankSessionTripConnector connector;
 
     @Override
     public PersistTripDTO toDTO(Trip o) {
@@ -18,6 +18,7 @@ public class PersistTripDTOMapper implements DTOMapper<PersistTripDTO, Trip> {
                 .amountOfKm(o.getAmountOfKm())
                 .date(o.getDate())
                 .personList(o.getPersonList())
+                .tankSession(connector.)
                 .build();
     }
 
