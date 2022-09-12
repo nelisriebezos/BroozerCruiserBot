@@ -33,6 +33,10 @@ public class PersistTankSessionDTO extends DTO {
     @ManyToOne(fetch = FetchType.LAZY)
     private PersistCarDTO car;
 
+    public void addTripDTO(PersistTripDTO dto) {
+        if (!tripList.contains(dto)) tripList.add(dto);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

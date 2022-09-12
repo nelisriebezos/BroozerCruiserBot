@@ -14,13 +14,13 @@ public class PersistTankSessionDTOMapper implements DTOMapper<PersistTankSession
 
     @Override
     public PersistTankSessionDTO toDTO(TankSession o) {
-/*        return PersistTankSessionDTO.builder()
+        PersistTankSessionDTO dto = PersistTankSessionDTO.builder()
                 .id(o.getId())
                 .date(o.getDate())
-                .tripList(connector.toMasterList(o.getTripList()))
                 .car(carDTOMapper.toDTO(o.getCar()))
-                .build();*/
-        return connector.toMasterDTO(o.getTripList());
+                .build();
+
+        return connector.addTripDTOList(dto, o.getTripList());
     }
 
     @Override

@@ -2,11 +2,11 @@ package com.nelisriebezos.broozercruiserbot.data.dto.mapper;
 
 import com.nelisriebezos.broozercruiserbot.data.dto.PersistTankSessionDTO;
 import com.nelisriebezos.broozercruiserbot.data.dto.PersistTripDTO;
+import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import com.nelisriebezos.broozercruiserbot.domain.Trip;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,32 +16,33 @@ public class TankSessionTripConnector {
     private final PersistTripDTOMapper tripDTOMapper;
     private final PersistCarDTOMapper carDTOMapper;
 
-    public PersistTankSessionDTO toMasterDTO(List<Trip> tripList) {
-        List<PersistTripDTO> persistTripDTOS = new ArrayList<>();
-        PersistTankSessionDTO tankSessionDTO = null;
+    public PersistTankSessionDTO addTripDTOList(PersistTankSessionDTO tankSessionDTO, List<Trip> tripList) {
         for (Trip trip : tripList) {
             PersistTripDTO dto = PersistTripDTO.builder()
                     .id(trip.getId())
                     .amountOfKm(trip.getAmountOfKm())
                     .date(trip.getDate())
                     .personList(trip.getPersonList())
-                    .tankSession(null)
                     .build();
-            persistTripDTOS.add(dto);
-        }
-
-        for (PersistTripDTO dto : persistTripDTOS) {
-            tankSessionDTO = PersistTankSessionDTO.builder()
-                    .id(dto.getTankSession().getId())
-                    .date(dto.getTankSession().getDate())
-                    .tripList(persistTripDTOS)
-                    .car(dto.getTankSession().getCar())
-                    .build();
+            tankSessionDTO.addTripDTO(dto);
             dto.setTankSession(tankSessionDTO);
         }
-
         return tankSessionDTO;
-    };
+    }
+
+    public TankSession addTripList(TankSession tankSession, List<PersistTripDTO> tripList) {
+        for (PersistTripDTO tripDTO : tripList) {
+            Trip trip = Trip.builder()
+                    .id(tripDTO.getId())
+                    .amountOfKm(tripDTO.getAmountOfKm())
+                    .date(tripDTO.getDate())
+                    .personList(tripDTO.getPersonList())
+                    .build();
+            tankSession.addTrip(trip);
+            trip.setTankSession(tankSessionDTO);
+        }
+        return tankSessionDTO;
+    }
 
 /*    public List<PersistTankSessionDTO> toSubjectList(TankSession master, PersistTripDTO subject) {
 
