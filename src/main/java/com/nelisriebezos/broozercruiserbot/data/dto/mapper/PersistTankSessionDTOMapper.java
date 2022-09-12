@@ -1,6 +1,8 @@
 package com.nelisriebezos.broozercruiserbot.data.dto.mapper;
 
 import com.nelisriebezos.broozercruiserbot.data.dto.PersistTankSessionDTO;
+import com.nelisriebezos.broozercruiserbot.data.dto.connector.CarTankSessionConnector;
+import com.nelisriebezos.broozercruiserbot.data.dto.connector.TankSessionTripConnector;
 import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import com.nelisriebezos.broozercruiserbot.utils.DTOMapper;
 import lombok.AllArgsConstructor;
@@ -9,27 +11,29 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class PersistTankSessionDTOMapper implements DTOMapper<PersistTankSessionDTO, TankSession> {
-    private final TankSessionTripConnector connector;
+    private final TankSessionTripConnector tankSessionTripConnector;
+    private final CarTankSessionConnector carTankSessionConnector;
     private final PersistCarDTOMapper carDTOMapper;
 
     @Override
     public PersistTankSessionDTO toDTO(TankSession o) {
-        PersistTankSessionDTO dto = PersistTankSessionDTO.builder()
+        PersistTankSessionDTO tankSessionDTO = PersistTankSessionDTO.builder()
                 .id(o.getId())
                 .date(o.getDate())
-                .car(carDTOMapper.toDTO(o.getCar()))
                 .build();
 
-        return connector.addTripDTOList(dto, o.getTripList());
+        tankSessionDTO = carTankSessionConnector.addCarDTO(tankSessionDTO, o.getCar());
+        return tankSessionTripConnector.addTripDTOList(tankSessionDTO, o.getTripList());
     }
 
     @Override
     public TankSession fromDTO(PersistTankSessionDTO o) {
-        return TankSession.builder()
+        TankSession tankSession = TankSession.builder()
                 .id(o.getId())
                 .date(o.getDate())
-                .tripList(tripDTOMapper.fromMultipleDTO(o.getTripList()))
                 .car(carDTOMapper.fromDTO(o.getCar()))
                 .build();
+        tankSession = carTankSessionConnector.addCar(tankSession, o.getCar());
+        return tankSessionTripConnector.addTripList(tankSession, o.getTripList());
     }
 }

@@ -1,7 +1,8 @@
-package com.nelisriebezos.broozercruiserbot.data.dto.mapper;
+package com.nelisriebezos.broozercruiserbot.data.dto.connector;
 
 import com.nelisriebezos.broozercruiserbot.data.dto.PersistTankSessionDTO;
 import com.nelisriebezos.broozercruiserbot.data.dto.PersistTripDTO;
+import com.nelisriebezos.broozercruiserbot.data.dto.mapper.PersistCarDTOMapper;
 import com.nelisriebezos.broozercruiserbot.domain.TankSession;
 import com.nelisriebezos.broozercruiserbot.domain.Trip;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,6 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class TankSessionTripConnector {
-    private final PersistTankSessionDTOMapper tankSessionDTOMapper;
-    private final PersistTripDTOMapper tripDTOMapper;
     private final PersistCarDTOMapper carDTOMapper;
 
     public PersistTankSessionDTO addTripDTOList(PersistTankSessionDTO tankSessionDTO, List<Trip> tripList) {
@@ -39,12 +38,28 @@ public class TankSessionTripConnector {
                     .personList(tripDTO.getPersonList())
                     .build();
             tankSession.addTrip(trip);
-            trip.setTankSession(tankSessionDTO);
+            trip.setTankSession(tankSession);
         }
-        return tankSessionDTO;
+        return tankSession;
     }
 
-/*    public List<PersistTankSessionDTO> toSubjectList(TankSession master, PersistTripDTO subject) {
+    public PersistTripDTO addTankSessionDTO(PersistTripDTO tripDTO, TankSession tankSession) {
+        PersistTankSessionDTO tankSessionDTO = PersistTankSessionDTO.builder()
+                .id(tankSession.getId())
+                .date(tankSession.getDate())
+                .car(carDTOMapper.toDTO(tankSession.getCar()))
+                .build();
+        tripDTO.setTankSession(tankSessionDTO);
+        return tripDTO;
+    }
 
-    }*/
+    public Trip addTankSession(Trip trip, PersistTankSessionDTO tankSessionDTO) {
+        TankSession tankSession = TankSession.builder()
+                .id(tankSessionDTO.getId())
+                .date(tankSessionDTO.getDate())
+                .car(carDTOMapper.fromDTO(tankSessionDTO.getCar()))
+                .build();
+        trip.setTankSession(tankSession);
+        return trip;
+    }
 }
