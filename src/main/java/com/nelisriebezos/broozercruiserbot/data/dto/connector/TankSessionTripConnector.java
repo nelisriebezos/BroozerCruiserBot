@@ -22,9 +22,9 @@ public class TankSessionTripConnector {
                     .amountOfKm(trip.getAmountOfKm())
                     .date(trip.getDate())
                     .personList(trip.getPersonList())
+                    .tankSession(tankSessionDTO)
                     .build();
             tankSessionDTO.addTripDTO(dto);
-            dto.setTankSession(tankSessionDTO);
         }
         return tankSessionDTO;
     }
@@ -36,9 +36,9 @@ public class TankSessionTripConnector {
                     .amountOfKm(tripDTO.getAmountOfKm())
                     .date(tripDTO.getDate())
                     .personList(tripDTO.getPersonList())
+                    .tankSession(tankSession)
                     .build();
             tankSession.addTrip(trip);
-            trip.setTankSession(tankSession);
         }
         return tankSession;
     }
@@ -49,6 +49,7 @@ public class TankSessionTripConnector {
                 .date(tankSession.getDate())
                 .car(carDTOMapper.toDTO(tankSession.getCar()))
                 .build();
+        tankSessionDTO = this.addTripDTOList(tankSessionDTO, tankSession.getTripList());
         tripDTO.setTankSession(tankSessionDTO);
         return tripDTO;
     }
@@ -59,6 +60,7 @@ public class TankSessionTripConnector {
                 .date(tankSessionDTO.getDate())
                 .car(carDTOMapper.fromDTO(tankSessionDTO.getCar()))
                 .build();
+        tankSession = this.addTripList(tankSession, tankSessionDTO.getTripList());
         trip.setTankSession(tankSession);
         return trip;
     }

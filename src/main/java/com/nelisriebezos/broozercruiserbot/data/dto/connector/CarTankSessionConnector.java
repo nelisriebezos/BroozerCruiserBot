@@ -10,11 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class CarTankSessionConnector {
-    public PersistCarDTO addTankSessionDTO() {
-        return
+    public PersistCarDTO addTankSessionDTO(PersistCarDTO carDTO, TankSession tankSession) {
+        PersistTankSessionDTO tankSessionDTO = PersistTankSessionDTO.builder()
+                .id(tankSession.getId())
+                .date(tankSession.getDate())
+                //trips
+                .car(carDTO)
+                .build();
+
     }
 
-    public Car addTankSession() {
+    public Car addTankSession(Car car, PersistTankSessionDTO tankSessionDTO) {
 
     }
 
@@ -24,6 +30,9 @@ public class CarTankSessionConnector {
                 .kmCounter(car.getKmCounter())
                 .name(car.getName())
                 .build();
+        //add tanksessiondto with method above
+        carDTO.addTankSessionDTO(tankSessionDTO);
+
         tankSessionDTO.setCar(carDTO);
         return tankSessionDTO;
     }
@@ -32,6 +41,12 @@ public class CarTankSessionConnector {
         Car car = Car.builder()
                 .id(carDTO.getId())
                 .kmCounter(carDTO.getKmCounter())
-                .na
+                .name(carDTO.getName())
+                .build();
+        //addtanksession to car, see method above
+        car.addTanksession(tankSession);
+
+        tankSession.setCar(car);
+        return tankSession;
     }
 }

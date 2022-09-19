@@ -30,6 +30,9 @@ public class PersistCarDTO extends DTO {
     @Builder.Default
     private List<PersistTankSessionDTO> tankSessionList = new ArrayList<>();
 
+    public void addTankSessionDTO(PersistTankSessionDTO dto) {
+        if (!tankSessionList.contains(dto)) tankSessionList.add(dto);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
