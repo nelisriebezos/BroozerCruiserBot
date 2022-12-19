@@ -1,5 +1,8 @@
 # PanzerBot
 
+Telegram bot voor het berekenen van kosten voor chauffeuren en inzittenden.
+Dit project is nog niet af.
+
 ### functionaliteiten
 - [ ] Opslaan hoeveel je hebt gereden  
 - [ ] Berekenen hoeveel iedereen moet betalen  
